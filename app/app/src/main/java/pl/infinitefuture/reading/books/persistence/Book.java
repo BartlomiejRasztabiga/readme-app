@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
+import java.util.Date;
+
 @Entity(tableName = "books")
 public final class Book {
 
@@ -22,8 +24,20 @@ public final class Book {
     private String title;
 
     @Nullable
-    @ColumnInfo(name = "pages")
-    private Long pages;
+    @ColumnInfo(name = "totalPages")
+    private Long totalPages;
+
+    @Nullable
+    @ColumnInfo(name = "readPages")
+    private Long readPages;
+
+    @Nullable
+    @ColumnInfo(name = "startDate")
+    private Date startDate;
+
+    @Nullable
+    @ColumnInfo(name = "endDate")
+    private Date deadlineDate;
 
     @ColumnInfo(name = "completed")
     private boolean completed;
@@ -31,28 +45,39 @@ public final class Book {
     @Ignore
     public Book() {
         title = "";
-        pages = 0L;
+        totalPages = 0L;
+        readPages = 0L;
     }
 
     @Ignore
-    public Book(@Nullable String title, @Nullable Long pages) {
+    public Book(@Nullable String title, @Nullable Long totalPages) {
         this.title = title;
-        this.pages = pages;
+        this.totalPages = totalPages;
     }
 
     @Ignore
-    public Book(@NonNull Long id, @Nullable String title, @Nullable Long pages) {
+    public Book(@NonNull Long id, @Nullable String title, @Nullable Long totalPages) {
         this.id = id;
         this.title = title;
-        this.pages = pages;
+        this.totalPages = totalPages;
         completed = false;
     }
 
-    public Book(@NonNull Long id, @Nullable String title, @Nullable Long pages,
+    @Ignore
+    public Book(@NonNull Long id, @Nullable String title, @Nullable Long totalPages,
                 boolean completed) {
         this.id = id;
         this.title = title;
-        this.pages = pages;
+        this.totalPages = totalPages;
+        this.completed = completed;
+    }
+
+    public Book(Long id, @Nullable String title, @Nullable Long totalPages,
+                @Nullable Long readPages, boolean completed) {
+        this.id = id;
+        this.title = title;
+        this.totalPages = totalPages;
+        this.readPages = readPages;
         this.completed = completed;
     }
 
@@ -67,8 +92,23 @@ public final class Book {
     }
 
     @Nullable
-    public Long getPages() {
-        return pages;
+    public Long getTotalPages() {
+        return totalPages;
+    }
+
+    @Nullable
+    public Long getReadPages() {
+        return readPages;
+    }
+
+    @Nullable
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    @Nullable
+    public Date getDeadlineDate() {
+        return deadlineDate;
     }
 
     public boolean isCompleted() {
@@ -85,24 +125,33 @@ public final class Book {
         this.completed = completed;
     }
 
+    public void setStartDate(@Nullable Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setDeadlineDate(@Nullable Date deadlineDate) {
+        this.deadlineDate = deadlineDate;
+    }
+
     public boolean isEmpty() {
         return Strings.isNullOrEmpty(title) &&
-                (pages == null || pages == 0L);
+                (totalPages == null || totalPages == 0L);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Book task = (Book) o;
-        return Objects.equal(id, task.id) &&
-                Objects.equal(title, task.title) &&
-                Objects.equal(pages, task.pages);
+        Book book = (Book) o;
+        return Objects.equal(id, book.id) &&
+                Objects.equal(title, book.title) &&
+                Objects.equal(totalPages, book.totalPages) &&
+                Objects.equal(readPages, book.readPages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, title, pages);
+        return Objects.hashCode(id, title, totalPages);
     }
 
     @Override
@@ -110,7 +159,8 @@ public final class Book {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", pages=" + pages +
+                ", totalPages=" + totalPages +
+                ", readPages=" + readPages +
                 ", completed=" + completed +
                 '}';
     }

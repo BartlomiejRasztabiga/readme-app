@@ -18,7 +18,7 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
 
     public final ObservableField<String> title = new ObservableField<>();
 
-    public final ObservableField<Long> pages = new ObservableField<>();
+    public final ObservableField<Long> totalPages = new ObservableField<>();
 
     public final ObservableBoolean dataLoading = new ObservableBoolean(false);
 
@@ -71,7 +71,7 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
     @Override
     public void onBookLoaded(Book book) {
         title.set(book.getTitle());
-        pages.set(book.getPages());
+        totalPages.set(book.getTotalPages());
         mBookCompleted = book.isCompleted();
         dataLoading.set(false);
         mIsDataLoaded = true;
@@ -87,13 +87,13 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
 
     // Called when clicking on fab.
     void saveBook() {
-        Book book = new Book(title.get(), pages.get());
+        Book book = new Book(title.get(), totalPages.get());
         if (book.isEmpty()) {
             mSnackbarText.setValue(R.string.empty_book_message);
             return;
         }
         if (!mIsNewBook && mBookId != null) {
-            book = new Book(mBookId, title.get(), pages.get(), mBookCompleted);
+            book = new Book(mBookId, title.get(), totalPages.get(), mBookCompleted);
             updateBook(book);
         } else {
             saveBook(book);

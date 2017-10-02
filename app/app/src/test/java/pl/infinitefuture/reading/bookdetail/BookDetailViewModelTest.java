@@ -77,7 +77,7 @@ public class BookDetailViewModelTest {
         setupViewModelRepositoryCallback();
 
         assertThat(mViewModel.book.get().getTitle()).isEqualTo(BOOK.getTitle());
-        assertThat(mViewModel.book.get().getPages()).isEqualTo(BOOK.getPages());
+        assertThat(mViewModel.book.get().getTotalPages()).isEqualTo(BOOK.getTotalPages());
     }
 
     @Test

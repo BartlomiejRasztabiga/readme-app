@@ -32,19 +32,19 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/pages"
+            android:layout_toStartOf="@+id/totalPages"
             android:text="@{book.title}"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <TextView
-            android:id="@+id/pages"
+            android:id="@+id/totalPages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="20dp"
             android:layout_alignParentEnd="true"
-            android:text="@{book.pages + ` pages`}"
+            android:text="@{book.totalPages + ` pages`}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </RelativeLayout>
 </layout>

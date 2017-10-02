@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/pages_hint"
-                    android:text="@={viewmodel.pages}"
+                    android:text="@={viewmodel.totalPages}"
                     android:inputType="number" />
 
             </LinearLayout>

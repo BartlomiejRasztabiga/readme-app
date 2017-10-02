@@ -3,9 +3,13 @@ package pl.infinitefuture.reading.books.persistence;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
-@Database(entities = {Book.class}, version = 1)
+import pl.infinitefuture.reading.DatabaseConverters;
+
+@Database(entities = {Book.class}, version = 2)
+@TypeConverters({DatabaseConverters.class})
 public abstract class BooksDatabase extends RoomDatabase {
 
     private static BooksDatabase instance;
@@ -19,6 +23,7 @@ public abstract class BooksDatabase extends RoomDatabase {
             if (instance == null) {
                 instance = Room.databaseBuilder(context.getApplicationContext(),
                         BooksDatabase.class, "Books.db")
+                        .fallbackToDestructiveMigration() //TODO Remove
                         .build();
             }
             return instance;
