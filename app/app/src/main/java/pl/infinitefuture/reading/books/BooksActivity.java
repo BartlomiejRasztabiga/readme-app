@@ -3,7 +3,9 @@ package pl.infinitefuture.reading.books;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
@@ -31,6 +33,8 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
         setContentView(R.layout.books_act);
 
         setupToolbar();
+
+        setupNavigation();
 
         setupViewFragment();
 
@@ -73,12 +77,18 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                menuItem -> {
-                    // Close the navigation drawer when an item is selected.
-                    menuItem.setChecked(true);
-                    mDrawerLayout.closeDrawers();
+    private void setupNavigation() {
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+
+        bottomNav.setOnNavigationItemSelectedListener(
+                item -> {
+                    switch (item.getItemId()) {
+                        case R.id.bottom_navigation_books_item:
+                            break;
+                        case R.id.bottom_navigation_about_item:
+                            // navigate to about acativity
+                            break;
+                    }
                     return true;
                 });
     }

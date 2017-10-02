@@ -6,6 +6,8 @@
     <color name="colorBackground">#FFFFFF</color>
     <color name="greyDark">#FFBDBDBD</color>
 
+    <color name="white">#FFFFFF</color>
+
     <drawable name="completedTaskBackground">#CCCCCC</drawable>
 
     <drawable name="touchFeedback">#CFD8DC</drawable>

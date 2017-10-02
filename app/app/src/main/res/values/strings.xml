@@ -20,5 +20,6 @@
     <string name="no_internet">No internet connection</string>
     <string name="save_book_error">Error while saving book</string>
     <string name="error_save_book">Error: cannot save book</string>
-    <string name="bottom_drawer_books">Your books</string>
+    <string name="bottom_drawer_books">Books</string>
+    <string name="bottom_drawer_about">About</string>
 </resources>
