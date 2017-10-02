@@ -32,8 +32,6 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
 
         setupToolbar();
 
-        setupNavigationDrawer();
-
         setupViewFragment();
 
         mViewModel = obtainViewModel(this);
@@ -73,15 +71,6 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-
-    private void setupNavigationDrawer() {
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
-        }
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
