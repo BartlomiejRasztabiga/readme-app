@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Reading app</string>
+    <string name="navigation_view_header_title">Books</string>
+    <string name="list_title">Books List</string>
+    <string name="no_books_add">Add a book +</string>
+
+    <string name="successfully_saved_book_message">Book saved</string>
+    <string name="successfully_deleted_book_message">Book was deleted</string>
+    <string name="successfully_added_book_message">Book added</string>
+    <string name="logo">Logo</string>
+    <string name="empty_book_message">Book cannot be empty</string>
+    <string name="edit_book">Edit book</string>
+    <string name="add_book">New book</string>
+    <string name="title_hint">Title</string>
+    <string name="pages_hint">Number of pages</string>
+    <string name="book_updated">Book updated</string>
+    <string name="menu_delete_book">Delete book</string>
+    <string name="no_data">No data</string>
+
+    <string name="no_internet">No internet connection</string>
+    <string name="save_book_error">Error while saving book</string>
+    <string name="error_save_book">Error: cannot save book</string>
+</resources>
