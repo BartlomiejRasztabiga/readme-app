@@ -10,8 +10,8 @@
     <string name="logo">Logo</string>
     <string name="empty_book_message">Book cannot be empty</string>
     <string name="edit_book">Edit book</string>
-    <string name="add_book">New book</string>
-    <string name="title_hint">Title</string>
+    <string name="add_book">Add book</string>
+    <string name="title_hint">Book title</string>
     <string name="pages_hint">Number of pages</string>
     <string name="book_updated">Book updated</string>
     <string name="menu_delete_book">Delete book</string>
@@ -22,4 +22,6 @@
     <string name="error_save_book">Error: cannot save book</string>
     <string name="bottom_drawer_books">Books</string>
     <string name="bottom_drawer_about">About</string>
+    <string name="start_date_hint">Start date</string>
+    <string name="deadline_date_hint">Deadline date</string>
 </resources>
