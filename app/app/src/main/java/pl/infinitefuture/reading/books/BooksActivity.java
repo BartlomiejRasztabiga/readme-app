@@ -72,9 +72,6 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void setupNavigation() {
@@ -86,7 +83,7 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
                         case R.id.bottom_navigation_books_item:
                             break;
                         case R.id.bottom_navigation_about_item:
-                            // navigate to about acativity
+                            // navigate to about activity
                             break;
                     }
                     return true;
