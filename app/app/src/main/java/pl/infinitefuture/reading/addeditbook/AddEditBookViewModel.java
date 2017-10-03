@@ -6,7 +6,9 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.util.Log;
 
+import pl.infinitefuture.reading.EditTextBindingAdapters;
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.SingleLiveEvent;
 import pl.infinitefuture.reading.SnackbarMessage;
@@ -19,6 +21,10 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
     public final ObservableField<String> title = new ObservableField<>();
 
     public final ObservableField<Long> totalPages = new ObservableField<>();
+
+    public final ObservableField<String> startDate = new ObservableField<>();
+
+    public final ObservableField<String> deadlineDate = new ObservableField<>();
 
     public final ObservableBoolean dataLoading = new ObservableBoolean(false);
 
@@ -72,6 +78,8 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
     public void onBookLoaded(Book book) {
         title.set(book.getTitle());
         totalPages.set(book.getTotalPages());
+        startDate.set(EditTextBindingAdapters.dateToStr(book.getStartDate()));
+        deadlineDate.set(EditTextBindingAdapters.dateToStr(book.getDeadlineDate()));
         mBookCompleted = book.isCompleted();
         dataLoading.set(false);
         mIsDataLoaded = true;
@@ -87,13 +95,17 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
 
     // Called when clicking on fab.
     void saveBook() {
-        Book book = new Book(title.get(), totalPages.get());
+        Book book = new Book(title.get(), totalPages.get(),
+                EditTextBindingAdapters.strToDate(startDate.get()),
+                EditTextBindingAdapters.strToDate(deadlineDate.get()));
         if (book.isEmpty()) {
             mSnackbarText.setValue(R.string.empty_book_message);
             return;
         }
         if (!mIsNewBook && mBookId != null) {
-            book = new Book(mBookId, title.get(), totalPages.get(), mBookCompleted);
+            book = new Book(mBookId, title.get(), totalPages.get(),
+                    EditTextBindingAdapters.strToDate(startDate.get()),
+                    EditTextBindingAdapters.strToDate(deadlineDate.get()), mBookCompleted);
             updateBook(book);
         } else {
             saveBook(book);
@@ -118,6 +130,7 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
     }
 
     private void saveBook(Book book) {
+        Log.d("AddEditBookViewModel", "Saving book: " + book.toString());
         mBooksRepository.saveBook(book, new BooksDataSource.SaveBookCallback() {
             @Override
             public void onBookSaved(Long bookId) {

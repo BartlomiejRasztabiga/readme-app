@@ -85,7 +85,8 @@
                         android:drawableStart="@drawable/ic_event_black_24dp"
                         android:ems="10"
                         android:hint="@string/start_date_hint"
-                        android:inputType="date" />
+                        android:inputType="date"
+                        android:text="@={viewmodel.startDate}"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -103,7 +104,8 @@
                         android:drawablePadding="16dp"
                         android:ems="10"
                         android:hint="@string/deadline_date_hint"
-                        android:inputType="date" />
+                        android:inputType="date"
+                        android:text="@={viewmodel.deadlineDate}"/>
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>

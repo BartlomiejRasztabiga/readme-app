@@ -72,6 +72,26 @@ public final class Book {
         this.completed = completed;
     }
 
+    @Ignore
+    public Book(@Nullable String title, @Nullable Long totalPages,
+                @Nullable Date startDate, @Nullable Date deadlineDate) {
+        this.title = title;
+        this.totalPages = totalPages;
+        this.startDate = startDate;
+        this.deadlineDate = deadlineDate;
+    }
+
+    @Ignore
+    public Book(Long id, @Nullable String title, @Nullable Long totalPages,
+                @Nullable Date startDate, @Nullable Date deadlineDate, boolean completed) {
+        this.id = id;
+        this.title = title;
+        this.totalPages = totalPages;
+        this.startDate = startDate;
+        this.deadlineDate = deadlineDate;
+        this.completed = completed;
+    }
+
     public Book(Long id, @Nullable String title, @Nullable Long totalPages,
                 @Nullable Long readPages, boolean completed) {
         this.id = id;
@@ -146,7 +166,9 @@ public final class Book {
         return Objects.equal(id, book.id) &&
                 Objects.equal(title, book.title) &&
                 Objects.equal(totalPages, book.totalPages) &&
-                Objects.equal(readPages, book.readPages);
+                Objects.equal(readPages, book.readPages) &&
+                Objects.equal(startDate, book.startDate) &&
+                Objects.equal(deadlineDate, book.deadlineDate);
     }
 
     @Override
@@ -161,6 +183,8 @@ public final class Book {
                 ", title='" + title + '\'' +
                 ", totalPages=" + totalPages +
                 ", readPages=" + readPages +
+                ", startDate=" + startDate +
+                ", deadlineDate=" + deadlineDate +
                 ", completed=" + completed +
                 '}';
     }
