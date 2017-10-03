@@ -1,12 +1,19 @@
 package pl.infinitefuture.reading.addeditbook;
 
 import android.app.Application;
+import android.app.DatePickerDialog;
 import android.arch.lifecycle.AndroidViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
+import android.view.WindowManager;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import pl.infinitefuture.reading.EditTextBindingAdapters;
 import pl.infinitefuture.reading.R;
@@ -111,6 +118,28 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
             saveBook(book);
         }
 
+    }
+
+    public void setStartDate() {
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getApplication().getApplicationContext(), (datePicker, year, month, day) -> { //TODO Get Context in other way or call it in Fragment
+            DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            Calendar newDate = Calendar.getInstance();
+            newDate.set(Calendar.YEAR, year);
+            newDate.set(Calendar.MONTH, month);
+            newDate.set(Calendar.DAY_OF_MONTH, day);
+
+            startDate.set(sdf.format(newDate.getTime()));
+            Log.d("AddEditBookViewModel", startDate.get());
+        },
+                currentYear, currentMonth, currentDay);
+        
+        datePickerDialog.show();
     }
 
     SnackbarMessage getSnackbarMessage() {
