@@ -23,8 +23,6 @@ import pl.infinitefuture.reading.util.ActivityUtils;
 
 public class BooksActivity extends AppCompatActivity implements BooksNavigator, BookItemNavigator {
 
-    private DrawerLayout mDrawerLayout;
-
     private BooksViewModel mViewModel;
 
     @Override
@@ -88,17 +86,6 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
                     }
                     return true;
                 });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            // Open the navigation drawer when the home icon is selected from the toolbar.
-            mDrawerLayout.openDrawer(GravityCompat.START);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
