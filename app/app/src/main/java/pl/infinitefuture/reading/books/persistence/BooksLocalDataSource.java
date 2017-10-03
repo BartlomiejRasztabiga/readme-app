@@ -32,7 +32,7 @@ public class BooksLocalDataSource implements BooksDataSource {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(books -> {
-                    if (books.isEmpty()) {
+                    if (books == null) {
                         callback.onDataNotAvailable();
                     } else {
                         callback.onBooksLoaded(books);
