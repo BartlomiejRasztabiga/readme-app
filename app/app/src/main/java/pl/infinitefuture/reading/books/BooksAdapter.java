@@ -6,8 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.github.pavlospt.roundedletterview.RoundedLetterView;
+
 import java.util.List;
 
+import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.books.persistence.Book;
 import pl.infinitefuture.reading.databinding.BookItemBinding;
 
@@ -62,6 +65,11 @@ public class BooksAdapter extends BaseAdapter {
         binding.setListener(userActionsListener);
 
         binding.executePendingBindings();
+
+        Book book = binding.getBook();
+        RoundedLetterView roundedLetterView = binding.getRoot().findViewById(R.id.icon);
+        roundedLetterView.setTitleText(book.getTitle().substring(0, 1));
+
         return binding.getRoot();
     }
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -27,14 +27,16 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/list_item_padding">
 
-        <ImageView
+        <com.github.pavlospt.roundedletterview.RoundedLetterView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/btn_star" />
+            app:rlv_backgroundColorValue="@color/colorPrimary"
+            app:rlv_titleColor="@android:color/white"
+            app:rlv_titleSize="32dp" />
 
         <TextView
             android:id="@+id/title"
@@ -44,9 +46,9 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:fontFamily="sans-serif"
-            android:textSize="16sp"
-            android:textColor="@color/black"
             android:text="@{book.title}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/icon"
@@ -89,8 +91,8 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:fontFamily="sans-serif"
-            android:textSize="14sp"
             android:text="@{book.deadlineDate}"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/calendar_icon"
             app:layout_constraintTop_toBottomOf="@+id/title"

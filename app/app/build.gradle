@@ -142,4 +142,5 @@ dependencies {
     implementation "com.google.guava:guava:$rootProject.guavaVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    compile 'com.github.pavlospt:roundedletterview:1.2'
 }
