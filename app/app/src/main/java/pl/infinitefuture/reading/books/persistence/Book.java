@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -11,6 +12,10 @@ import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
 import java.util.Date;
+import java.util.Random;
+
+import pl.infinitefuture.reading.R;
+import pl.infinitefuture.reading.util.MaterialColors;
 
 @Entity(tableName = "books")
 public final class Book {
@@ -39,6 +44,10 @@ public final class Book {
     @ColumnInfo(name = "endDate")
     private Date deadlineDate;
 
+    @ColumnInfo(name = "iconColor")
+    @NonNull
+    private Integer iconColor;
+
     @ColumnInfo(name = "completed")
     private boolean completed;
 
@@ -47,12 +56,14 @@ public final class Book {
         title = "";
         totalPages = 0L;
         readPages = 0L;
+        iconColor = getMaterialColor();
     }
 
     @Ignore
     public Book(@Nullable String title, @Nullable Long totalPages) {
         this.title = title;
         this.totalPages = totalPages;
+        this.iconColor = getMaterialColor();
     }
 
     @Ignore
@@ -61,6 +72,7 @@ public final class Book {
         this.title = title;
         this.totalPages = totalPages;
         completed = false;
+        this.iconColor = getMaterialColor();
     }
 
     @Ignore
@@ -70,6 +82,7 @@ public final class Book {
         this.title = title;
         this.totalPages = totalPages;
         this.completed = completed;
+        this.iconColor = getMaterialColor();
     }
 
     @Ignore
@@ -79,6 +92,7 @@ public final class Book {
         this.totalPages = totalPages;
         this.startDate = startDate;
         this.deadlineDate = deadlineDate;
+        this.iconColor = getMaterialColor();
     }
 
     @Ignore
@@ -90,8 +104,10 @@ public final class Book {
         this.startDate = startDate;
         this.deadlineDate = deadlineDate;
         this.completed = completed;
+        this.iconColor = getMaterialColor();
     }
 
+    @Ignore
     public Book(Long id, @Nullable String title, @Nullable Long totalPages,
                 @Nullable Long readPages, boolean completed) {
         this.id = id;
@@ -99,6 +115,17 @@ public final class Book {
         this.totalPages = totalPages;
         this.readPages = readPages;
         this.completed = completed;
+        this.iconColor = getMaterialColor();
+    }
+
+    public Book(Long id, @Nullable String title, @Nullable Long totalPages,
+                @Nullable Long readPages, boolean completed, Integer iconColor) {
+        this.id = id;
+        this.title = title;
+        this.totalPages = totalPages;
+        this.readPages = readPages;
+        this.completed = completed;
+        this.iconColor = iconColor;
     }
 
     @NonNull
@@ -131,6 +158,11 @@ public final class Book {
         return deadlineDate;
     }
 
+    @NonNull
+    public Integer getIconColor() {
+        return iconColor;
+    }
+
     public String getFirstTitleLetter() {
         if (this.title == null) return "";
         return this.title.substring(0, 1);
@@ -156,6 +188,10 @@ public final class Book {
 
     public void setDeadlineDate(@Nullable Date deadlineDate) {
         this.deadlineDate = deadlineDate;
+    }
+
+    public void setIconColor(@NonNull Integer iconColor) {
+        this.iconColor = iconColor;
     }
 
     public boolean isEmpty() {
@@ -190,7 +226,14 @@ public final class Book {
                 ", readPages=" + readPages +
                 ", startDate=" + startDate +
                 ", deadlineDate=" + deadlineDate +
+                ", iconColor=" + iconColor +
                 ", completed=" + completed +
                 '}';
+    }
+
+    private int getMaterialColor() {
+        String[] materialColors = MaterialColors.getMaterialColors();
+
+        return Color.parseColor(materialColors[new Random().nextInt(materialColors.length)]);
     }
 }

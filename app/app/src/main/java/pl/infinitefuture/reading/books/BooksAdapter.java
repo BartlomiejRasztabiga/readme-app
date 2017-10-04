@@ -1,6 +1,8 @@
 package pl.infinitefuture.reading.books;
 
+import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.BaseAdapter;
 import com.github.pavlospt.roundedletterview.RoundedLetterView;
 
 import java.util.List;
+import java.util.Random;
 
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.books.persistence.Book;
@@ -66,9 +69,13 @@ public class BooksAdapter extends BaseAdapter {
 
         binding.executePendingBindings();
 
+        // Set first letter view
         Book book = binding.getBook();
         RoundedLetterView roundedLetterView = binding.getRoot().findViewById(R.id.icon);
         roundedLetterView.setTitleText(book.getFirstTitleLetter());
+
+        // Set random color
+        roundedLetterView.setBackgroundColor(book.getIconColor());
 
         return binding.getRoot();
     }
@@ -77,4 +84,5 @@ public class BooksAdapter extends BaseAdapter {
         mBooks = books;
         notifyDataSetChanged();
     }
+
 }

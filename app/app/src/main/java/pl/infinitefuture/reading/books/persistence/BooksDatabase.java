@@ -8,7 +8,7 @@ import android.content.Context;
 
 import pl.infinitefuture.reading.DatabaseConverters;
 
-@Database(entities = {Book.class}, version = 2)
+@Database(entities = {Book.class}, version = 3)
 @TypeConverters({DatabaseConverters.class})
 public abstract class BooksDatabase extends RoomDatabase {
 

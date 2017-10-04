@@ -34,7 +34,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:rlv_backgroundColorValue="@color/colorPrimary"
             app:rlv_titleColor="@android:color/white"
             app:rlv_titleSize="32dp" />
 
