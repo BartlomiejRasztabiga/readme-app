@@ -131,6 +131,11 @@ public final class Book {
         return deadlineDate;
     }
 
+    public String getFirstTitleLetter() {
+        if (this.title == null) return "";
+        return this.title.substring(0, 1);
+    }
+
     public boolean isCompleted() {
         return completed;
     }

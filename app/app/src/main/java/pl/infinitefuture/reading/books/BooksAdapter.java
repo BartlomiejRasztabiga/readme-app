@@ -68,7 +68,7 @@ public class BooksAdapter extends BaseAdapter {
 
         Book book = binding.getBook();
         RoundedLetterView roundedLetterView = binding.getRoot().findViewById(R.id.icon);
-        roundedLetterView.setTitleText(book.getTitle().substring(0, 1));
+        roundedLetterView.setTitleText(book.getFirstTitleLetter());
 
         return binding.getRoot();
     }
