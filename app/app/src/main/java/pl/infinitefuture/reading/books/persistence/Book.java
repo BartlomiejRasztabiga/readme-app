@@ -195,8 +195,9 @@ public final class Book {
     }
 
     public boolean isEmpty() {
-        return Strings.isNullOrEmpty(title) &&
-                (totalPages == null || totalPages == 0L);
+        return Strings.isNullOrEmpty(title) ||
+                (totalPages == null || totalPages == 0L) ||
+                (startDate == null) || (deadlineDate == null);
     }
 
     @Override
