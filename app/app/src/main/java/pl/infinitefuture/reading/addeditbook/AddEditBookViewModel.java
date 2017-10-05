@@ -126,9 +126,9 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
     }
 
     void setDate(String date, View view) {
-        if (view.getId() == R.id.add_book_start_date_layout) {
+        if (view.getId() == R.id.add_book_start_date) {
             this.startDate.set(date);
-        } else if (view.getId() == R.id.add_book_deadline_date_layout) {
+        } else if (view.getId() == R.id.add_book_deadline_date) {
             this.deadlineDate.set(date);
         }
     }

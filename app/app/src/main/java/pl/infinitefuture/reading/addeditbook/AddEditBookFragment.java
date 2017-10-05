@@ -1,5 +1,6 @@
 package pl.infinitefuture.reading.addeditbook;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -100,14 +101,18 @@ public class AddEditBookFragment extends Fragment {
         setRetainInstance(false);
 
         // set datepickers click listeners
-        mViewDataBinding.getRoot().findViewById(R.id.add_book_start_date_layout)
-                .setOnClickListener(this::showDatePickerDialog);
-        
-        mViewDataBinding.getRoot().findViewById(R.id.add_book_deadline_date_layout)
-                .setOnClickListener(this::showDatePickerDialog);
+        mViewDataBinding.getRoot().findViewById(R.id.add_book_start_date)
+                .setOnFocusChangeListener(datepickerFocusChangeListener);
+
+        mViewDataBinding.getRoot().findViewById(R.id.add_book_deadline_date)
+                .setOnFocusChangeListener(datepickerFocusChangeListener);
 
         return mViewDataBinding.getRoot();
     }
+
+    private View.OnFocusChangeListener datepickerFocusChangeListener = (view, hasFocus) -> {
+        if (hasFocus) showDatePickerDialog(view);
+    };
 
     private void setupSnackbar() {
         mViewModel.getSnackbarMessage().observe(this, (SnackbarMessage.SnackbarObserver)
@@ -122,7 +127,7 @@ public class AddEditBookFragment extends Fragment {
     }
 
     private void setupActionBar() {
-        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar == null) {
             return;
         }
