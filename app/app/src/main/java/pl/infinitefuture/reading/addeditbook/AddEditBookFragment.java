@@ -1,5 +1,6 @@
 package pl.infinitefuture.reading.addeditbook;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.SnackbarMessage;
@@ -56,6 +62,27 @@ public class AddEditBookFragment extends Fragment {
         }
     }
 
+    public void showDatePickerDialog(View view) {
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getContext(), (datePicker, year, month, day) -> {
+            DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            Calendar newDate = Calendar.getInstance();
+            newDate.set(Calendar.YEAR, year);
+            newDate.set(Calendar.MONTH, month);
+            newDate.set(Calendar.DAY_OF_MONTH, day);
+
+            mViewModel.setDate(sdf.format(newDate.getTime()), view);
+        },
+                currentYear, currentMonth, currentDay);
+
+        datePickerDialog.show();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -71,6 +98,13 @@ public class AddEditBookFragment extends Fragment {
 
         setHasOptionsMenu(true);
         setRetainInstance(false);
+
+        // set datepickers click listeners
+        mViewDataBinding.getRoot().findViewById(R.id.add_book_start_date_layout)
+                .setOnClickListener(this::showDatePickerDialog);
+        
+        mViewDataBinding.getRoot().findViewById(R.id.add_book_deadline_date_layout)
+                .setOnClickListener(this::showDatePickerDialog);
 
         return mViewDataBinding.getRoot();
     }

@@ -86,8 +86,7 @@
                         android:ems="10"
                         android:hint="@string/start_date_hint"
                         android:inputType="date"
-                        android:text="@={viewmodel.startDate}"
-                        android:onClick="@{() -> viewmodel.setStartDate()}"/>
+                        android:text="@={viewmodel.startDate}"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout

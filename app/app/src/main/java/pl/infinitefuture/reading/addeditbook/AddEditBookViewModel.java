@@ -8,8 +8,10 @@ import android.databinding.ObservableField;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 
+import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,6 +44,8 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
 
     private final BooksRepository mBooksRepository;
 
+    private final WeakReference<Application> mContext;
+
     @Nullable
     private Long mBookId;
 
@@ -58,6 +62,7 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
                                 BooksRepository booksRepository) {
         super(context);
         mBooksRepository = booksRepository;
+        mContext = new WeakReference<>(context);
     }
 
     public void start(Long bookId) {
@@ -120,26 +125,12 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
 
     }
 
-    public void setStartDate() {
-        Calendar calendar = Calendar.getInstance();
-        int currentYear = calendar.get(Calendar.YEAR);
-        int currentMonth = calendar.get(Calendar.MONTH);
-        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                getApplication().getApplicationContext(), (datePicker, year, month, day) -> { //TODO Get Context in other way or call it in Fragment
-            DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            Calendar newDate = Calendar.getInstance();
-            newDate.set(Calendar.YEAR, year);
-            newDate.set(Calendar.MONTH, month);
-            newDate.set(Calendar.DAY_OF_MONTH, day);
-
-            startDate.set(sdf.format(newDate.getTime()));
-            Log.d("AddEditBookViewModel", startDate.get());
-        },
-                currentYear, currentMonth, currentDay);
-        
-        datePickerDialog.show();
+    void setDate(String date, View view) {
+        if (view.getId() == R.id.add_book_start_date_layout) {
+            this.startDate.set(date);
+        } else if (view.getId() == R.id.add_book_deadline_date_layout) {
+            this.deadlineDate.set(date);
+        }
     }
 
     SnackbarMessage getSnackbarMessage() {
