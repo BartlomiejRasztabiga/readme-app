@@ -10,11 +10,14 @@ import com.google.common.base.Throwables;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import pl.infinitefuture.reading.addeditbook.InvalidDateException;
+
 public class EditTextBindingAdapters {
+
+    private static final int BOOK_DATE_LENGTH = 10;
 
     private EditTextBindingAdapters() {}
 
@@ -40,15 +43,27 @@ public class EditTextBindingAdapters {
         return value != null ? sdf.format(value) : "date";
     }
 
-    //TODO refactor
-    public static Date strToDate(String value) {
-        DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        try {
-            return sdf.parse(value);
-        } catch (ParseException e) {
-            e.printStackTrace();
+    public static Date strToDate(String value) throws InvalidDateException, ParseException {
+        if (value == null || !isValidDate(value)) {
+            throw new InvalidDateException("Invalid date: " + value);
         }
-        return new Date();
+        DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        return sdf.parse(value);
+    }
+
+    private static boolean isValidDate(String date) {
+        if (date.length() != BOOK_DATE_LENGTH) return false;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        Date testDate;
+        try {
+            testDate = sdf.parse(date);
+        }
+        catch (ParseException e) {
+            return false;
+        }
+        return sdf.format(testDate).equals(date);
+
     }
 
 /*    @InverseBindingAdapter(attribute = "android:text", event = "android:textAttrChanged")

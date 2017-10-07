@@ -24,4 +24,5 @@
     <string name="bottom_drawer_about">About</string>
     <string name="start_date_hint">Start date</string>
     <string name="deadline_date_hint">Deadline date</string>
+    <string name="invalid_date_message">Invalid date</string>
 </resources>

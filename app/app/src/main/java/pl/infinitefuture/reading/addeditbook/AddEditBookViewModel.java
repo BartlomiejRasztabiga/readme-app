@@ -13,6 +13,7 @@ import android.view.WindowManager;
 
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -107,20 +108,24 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
 
     // Called when clicking on fab.
     void saveBook() {
-        Book book = new Book(title.get(), totalPages.get(),
-                EditTextBindingAdapters.strToDate(startDate.get()),
-                EditTextBindingAdapters.strToDate(deadlineDate.get()));
-        if (book.isEmpty()) {
-            mSnackbarText.setValue(R.string.empty_book_message);
-            return;
-        }
-        if (!mIsNewBook && mBookId != null) {
-            book = new Book(mBookId, title.get(), totalPages.get(),
+        try {
+            Book book = new Book(title.get(), totalPages.get(),
                     EditTextBindingAdapters.strToDate(startDate.get()),
-                    EditTextBindingAdapters.strToDate(deadlineDate.get()), mBookCompleted);
-            updateBook(book);
-        } else {
-            saveBook(book);
+                    EditTextBindingAdapters.strToDate(deadlineDate.get()));
+            if (book.isEmpty()) {
+                mSnackbarText.setValue(R.string.empty_book_message);
+                return;
+            }
+            if (!mIsNewBook && mBookId != null) {
+                book = new Book(mBookId, title.get(), totalPages.get(),
+                        EditTextBindingAdapters.strToDate(startDate.get()),
+                        EditTextBindingAdapters.strToDate(deadlineDate.get()), mBookCompleted);
+                updateBook(book);
+            } else {
+                saveBook(book);
+            }
+        } catch (ParseException | InvalidDateException e) {
+            mSnackbarText.setValue(R.string.invalid_date_message);
         }
 
     }
