@@ -25,4 +25,6 @@
     <string name="start_date_hint">Start date</string>
     <string name="deadline_date_hint">Deadline date</string>
     <string name="invalid_date_message">Invalid date</string>
+    <string name="you_have_read_pages">You have read</string>
+    <string name="you_have_left">You have left</string>
 </resources>
