@@ -6,6 +6,9 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.StringRes;
 
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.SingleLiveEvent;
 import pl.infinitefuture.reading.SnackbarMessage;
@@ -18,6 +21,12 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
     public final ObservableField<Book> book = new ObservableField<>();
 
     public final ObservableBoolean completed = new ObservableBoolean();
+
+    public final ObservableField<Long> pagesLeftToRead = new ObservableField<>();
+
+    public final ObservableField<Long> daysLeft = new ObservableField<>();
+
+    public final ObservableBoolean hasGoodReadingTempo = new ObservableBoolean();
 
     private final SingleLiveEvent<Void> mEditBookCommand = new SingleLiveEvent<>();
 
@@ -94,6 +103,25 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
     public void onBookLoaded(Book book) {
         setBook(book);
         mIsDataLoading = false;
+
+        // calculate some data
+
+        // calculate pagesLeftToRead
+        Long totalPages = book.getTotalPages() != null ? book.getTotalPages() : 0L;
+        Long readPages = book.getReadPages() != null ? book.getReadPages() : 0L;
+        this.pagesLeftToRead.set(totalPages - readPages);
+
+        // calculate daysLeft
+        Long nowDateInMilis = new Date().getTime();
+        Long deadlineDateInMilis = book.getDeadlineDate().getTime();
+        Long daysBetween = daysBetween(nowDateInMilis, deadlineDateInMilis);
+        this.daysLeft.set(daysBetween);
+
+        //TODO Firstly calculate tempo
+
+        // calculate hasGoodReadingTempo
+
+
     }
 
     @Override
@@ -110,5 +138,9 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     private void showSnackbarMessage(@StringRes Integer message) {
         mSnackbarText.setValue(message);
+    }
+
+    private Long daysBetween(Long date1, Long date2) {
+        return Math.round((double) (date2 - date1) / (1000 * 60 * 60 * 24));
     }
 }

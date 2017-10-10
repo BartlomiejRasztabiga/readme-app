@@ -27,4 +27,6 @@
     <string name="invalid_date_message">Invalid date</string>
     <string name="you_have_read_pages">You have read</string>
     <string name="you_have_left">You have left</string>
+    <string name="pages_left_to_read">pages left to read</string>
+    <string name="days_left">days left</string>
 </resources>
