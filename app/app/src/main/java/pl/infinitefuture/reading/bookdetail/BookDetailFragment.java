@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,6 +63,8 @@ public class BookDetailFragment extends Fragment {
         Long bookId = getArguments().getLong(ARGUMENT_BOOK_ID);
         if (bookId != 0L) {
             mViewModel.start(getArguments().getLong(ARGUMENT_BOOK_ID));
+            // Set toolbar title
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(mViewModel.book.get().getTitle());
         } // Else I don't know...
     }
 
