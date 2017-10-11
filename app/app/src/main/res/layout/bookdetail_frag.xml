@@ -273,7 +273,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="Ostatnie sesje"
+                        android:text="@string/last_sessions"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 

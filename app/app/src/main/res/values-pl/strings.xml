@@ -30,4 +30,5 @@
     <string name="days_left">dni do upływu terminu</string>
     <string name="left_message_good">Utrzymaj tempo, a zdążysz na czas</string>
     <string name="left_message_bad">Z obecnym tempem nie zdążysz! \nMusisz czytać %d stron na dzień!</string>
+    <string name="last_sessions">Ostatnie sesje</string>
 </resources>
