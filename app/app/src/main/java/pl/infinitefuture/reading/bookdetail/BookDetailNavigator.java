@@ -5,4 +5,6 @@ public interface BookDetailNavigator {
     void onBookDeleted();
 
     void onStartEditBook();
+
+    void onStartAddSession();
 }

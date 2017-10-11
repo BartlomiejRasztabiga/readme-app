@@ -36,6 +36,8 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     private final SingleLiveEvent<Void> mDeleteBookCommand = new SingleLiveEvent<>();
 
+    private final SingleLiveEvent<Void> mAddSessionCommand = new SingleLiveEvent<>();
+
     private final BooksRepository mBooksRepository;
 
     private final SnackbarMessage mSnackbarText = new SnackbarMessage();
@@ -58,6 +60,10 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         mEditBookCommand.call();
     }
 
+    public void addSession() {
+        mAddSessionCommand.call();
+    }
+
     public SnackbarMessage getSnackbarMessage() {
         return mSnackbarText;
     }
@@ -68,6 +74,10 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     public SingleLiveEvent<Void> getDeleteBookCommand() {
         return mDeleteBookCommand;
+    }
+
+    public SingleLiveEvent<Void> getAddSessionCommand() {
+        return mAddSessionCommand;
     }
 
     public void setCompleted(boolean completed) {

@@ -45,9 +45,9 @@ public class BookDetailFragment extends Fragment {
     }
 
     private void setupFab() {
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab_edit_book);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_session);
 
-        fab.setOnClickListener(v -> mViewModel.editBook());
+        fab.setOnClickListener(v -> mViewModel.addSession());
     }
 
     private void setupSnackbar() {
@@ -102,6 +102,9 @@ public class BookDetailFragment extends Fragment {
         int i = item.getItemId();
         if (i == R.id.menu_delete) {
             mViewModel.deleteBook();
+            return true;
+        } else if (i == R.id.menu_edit) {
+            mViewModel.editBook();
             return true;
         }
         return false;

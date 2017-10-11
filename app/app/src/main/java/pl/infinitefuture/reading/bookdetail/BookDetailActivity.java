@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.ViewModelFactory;
@@ -87,6 +89,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         // The activity observes the navigation commands in the ViewModel
         viewModel.getEditBookCommand().observe(this, e -> BookDetailActivity.this.onStartEditBook());
         viewModel.getDeleteBookCommand().observe(this, e -> BookDetailActivity.this.onBookDeleted());
+        viewModel.getAddSessionCommand().observe(this, e -> BookDetailActivity.this.onStartAddSession());
     }
 
     @Override
@@ -120,5 +123,10 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         Intent intent = new Intent(this, AddEditBookActivity.class);
         intent.putExtra(AddEditBookFragment.ARGUMENT_EDIT_BOOK_ID, bookId);
         startActivityForResult(intent, REQUEST_EDIT_BOOK);
+    }
+
+    @Override
+    public void onStartAddSession() {
+        Toast.makeText(this, "TODO: Add reading session", Toast.LENGTH_SHORT).show();
     }
 }
