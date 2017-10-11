@@ -29,4 +29,6 @@
     <string name="you_have_left">You have left</string>
     <string name="pages_left_to_read">pages left to read</string>
     <string name="days_left">days left</string>
+    <string name="left_message_good">Keep up the tempo and you\'ll be on time</string>
+    <string name="left_message_bad">With current tempo you won\'t make it on time! \nYou have to read %d pages per day!</string>
 </resources>

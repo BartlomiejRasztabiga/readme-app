@@ -26,7 +26,11 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     public final ObservableField<Long> daysLeft = new ObservableField<>();
 
+    public final ObservableField<Double> readingTempo = new ObservableField<>();
+
     public final ObservableBoolean hasGoodReadingTempo = new ObservableBoolean();
+
+    public final ObservableField<Long> readingTempoToMakeIt = new ObservableField<>();
 
     private final SingleLiveEvent<Void> mEditBookCommand = new SingleLiveEvent<>();
 
@@ -112,15 +116,25 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         this.pagesLeftToRead.set(totalPages - readPages);
 
         // calculate daysLeft
-        Long nowDateInMilis = new Date().getTime();
-        Long deadlineDateInMilis = book.getDeadlineDate().getTime();
-        Long daysBetween = daysBetween(nowDateInMilis, deadlineDateInMilis);
+        Long nowDateInMillis = new Date().getTime();
+        Long deadlineDateInMillis = book.getDeadlineDate().getTime();
+        Long daysBetween = daysBetween(nowDateInMillis, deadlineDateInMillis);
         this.daysLeft.set(daysBetween);
 
-        //TODO Firstly calculate tempo
+        // calculate readingTempo
+        Double tempo = ((double)readPages) / ((double)daysBetween);
+        this.readingTempo.set(tempo);
 
         // calculate hasGoodReadingTempo
+        Boolean isReadingTempoGood = false;
+        if ((tempo != 0) && ((totalPages - readPages) / tempo <= daysBetween)) isReadingTempoGood = true;
+        this.hasGoodReadingTempo.set(isReadingTempoGood);
 
+        // calculate readingTempoToMakeItToDeadline
+        if (!isReadingTempoGood) {
+            Long tempoToMakeIt = (totalPages - readPages) / daysBetween;
+            this.readingTempoToMakeIt.set(tempoToMakeIt);
+        }
 
     }
 
