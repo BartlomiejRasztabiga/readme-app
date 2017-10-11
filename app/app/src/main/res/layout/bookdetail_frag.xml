@@ -98,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="@{` / ` + viewmodel.book.totalPages + ` pages`}"
+                        android:text="@{` / ` + viewmodel.book.totalPages + ` ` + @string/pages}"
                         android:textSize="34sp" />
                 </LinearLayout>
             </LinearLayout>

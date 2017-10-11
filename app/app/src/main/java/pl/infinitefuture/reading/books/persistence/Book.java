@@ -97,14 +97,14 @@ public final class Book {
 
     @Ignore
     public Book(Long id, @Nullable String title, @Nullable Long totalPages,
-                @Nullable Date startDate, @Nullable Date deadlineDate, boolean completed) {
+                @Nullable Date startDate, @Nullable Date deadlineDate, boolean completed, Integer iconColor) {
         this.id = id;
         this.title = title;
         this.totalPages = totalPages;
         this.startDate = startDate;
         this.deadlineDate = deadlineDate;
         this.completed = completed;
-        this.iconColor = getMaterialColor();
+        this.iconColor = iconColor;
     }
 
     @Ignore
