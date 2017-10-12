@@ -8,7 +8,7 @@ public interface BooksDataSource {
 
     interface LoadBooksCallback {
 
-        void onBooksLoaded(List<Book> books);
+        void onBooksLoaded(List<BookWithSessions> books);
 
         void onDataNotAvailable();
     }

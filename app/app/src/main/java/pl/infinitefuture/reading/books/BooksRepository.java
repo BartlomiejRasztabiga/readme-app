@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import pl.infinitefuture.reading.books.persistence.Book;
+import pl.infinitefuture.reading.books.persistence.BookWithSessions;
 import pl.infinitefuture.reading.books.persistence.BooksDataSource;
 import pl.infinitefuture.reading.util.EspressoIdlingResource;
 
@@ -22,7 +23,7 @@ public class BooksRepository implements BooksDataSource {
 
     private final BooksDataSource mBooksLocalDataSource;
 
-    Map<Long, Book> mCachedBooks;
+    Map<Long, BookWithSessions> mCachedBooks;
 
     private boolean mCacheIsDirty = false;
 
@@ -64,7 +65,7 @@ public class BooksRepository implements BooksDataSource {
         // Query the local storage if available. If not, query the network.
         mBooksLocalDataSource.getBooks(new LoadBooksCallback() {
             @Override
-            public void onBooksLoaded(List<Book> books) {
+            public void onBooksLoaded(List<BookWithSessions> books) {
                 refreshCache(books);
 
                 EspressoIdlingResource.decrement(); // Set app as idle.
@@ -245,7 +246,7 @@ public class BooksRepository implements BooksDataSource {
     private void getBooksFromRemoteDataSource(@NonNull final LoadBooksCallback callback) {
         mBooksRemoteDataSource.getBooks(new LoadBooksCallback() {
             @Override
-            public void onBooksLoaded(List<Book> books) {
+            public void onBooksLoaded(List<BookWithSessions> books) {
                 refreshCache(books);
                 refreshLocalDataSource(books);
 
@@ -261,26 +262,26 @@ public class BooksRepository implements BooksDataSource {
         });
     }
 
-    private void refreshCache(List<Book> books) {
+    private void refreshCache(List<BookWithSessions> books) {
         if (mCachedBooks == null) {
             mCachedBooks = new LinkedHashMap<>();
         }
         mCachedBooks.clear();
-        for (Book book : books) {
-            mCachedBooks.put(book.getId(), book);
+        for (BookWithSessions book : books) {
+            mCachedBooks.put(book.book.getId(), book);
         }
         mCacheIsDirty = false;
     }
 
-    private void refreshLocalDataSource(List<Book> books) {
+    private void refreshLocalDataSource(List<BookWithSessions> books) {
         mBooksLocalDataSource.deleteAllBooks();
-        for (Book book : books) {
-            mBooksLocalDataSource.saveBook(book, new SaveBookCallback() {});
+        for (BookWithSessions book : books) {
+            mBooksLocalDataSource.saveBook(book.book, new SaveBookCallback() {});
         }
     }
 
     @Nullable
-    private Book getBookWithId(@NonNull Long id) {
+    private BookWithSessions getBookWithId(@NonNull Long id) {
         checkNotNull(id);
         if (mCachedBooks == null || mCachedBooks.isEmpty()) {
             return null;

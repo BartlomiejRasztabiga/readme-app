@@ -31,4 +31,7 @@ public interface BooksDao {
 
     @Query("DELETE FROM Books")
     void deleteBooks();
+
+    @Query("SELECT * FROM Books")
+    List<BookWithSessions> getBooksWithSessions();
 }
