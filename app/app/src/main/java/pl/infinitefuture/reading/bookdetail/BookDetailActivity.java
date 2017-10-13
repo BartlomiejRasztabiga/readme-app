@@ -130,24 +130,16 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
 
     @Override
     public void onStartAddSession() {
-        Toast.makeText(this, "TODO: Add reading session", Toast.LENGTH_SHORT).show();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
 
         builder.setView(inflater.inflate(R.layout.addsession_dialog, null))
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // bla bla
+                .setPositiveButton(R.string.add, (dialogInterface, i) -> {
+                    // bla bla
 
-                    }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
 
-                    }
                 });
         builder.create().show();
     }
