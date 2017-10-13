@@ -279,6 +279,26 @@
 
                 </LinearLayout>
 
+                <ListView
+                    android:id="@+id/sessions_list"
+                    app:sessions="@{viewmodel.lastSessions}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:visibility="@{viewmodel.emptySessions ? View.GONE : View.VISIBLE}"/>
+
+                <TextView
+                    android:id="@+id/no_sessions_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_sessions"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="@{viewmodel.emptySessions ? View.VISIBLE : View.GONE}"/>
+
             </LinearLayout>
 
 

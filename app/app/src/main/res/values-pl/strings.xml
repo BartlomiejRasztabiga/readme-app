@@ -32,4 +32,5 @@
     <string name="left_message_bad">Z obecnym tempem nie zdążysz! \nMusisz czytać %d stron na dzień!</string>
     <string name="last_sessions">Ostatnie sesje</string>
     <string name="pages">stron</string>
+    <string name="no_sessions">Brak sesji</string>
 </resources>

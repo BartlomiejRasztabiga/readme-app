@@ -33,4 +33,5 @@
     <string name="left_message_bad">With current tempo you won\'t make it on time! \nYou have to read %d pages per day!</string>
     <string name="last_sessions">Last reading sessions</string>
     <string name="pages">pages</string>
+    <string name="no_sessions">No sessions</string>
 </resources>

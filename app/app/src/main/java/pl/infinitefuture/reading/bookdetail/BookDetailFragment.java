@@ -12,11 +12,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.SnackbarMessage;
 import pl.infinitefuture.reading.addeditbook.BookDetailUserActionsListener;
 import pl.infinitefuture.reading.databinding.BookdetailFragBinding;
+import pl.infinitefuture.reading.sessions.ReadingSessionsAdapter;
+import pl.infinitefuture.reading.sessions.ReadingSessionsListBindings;
 import pl.infinitefuture.reading.util.SnackbarUtils;
 
 public class BookDetailFragment extends Fragment {
@@ -26,6 +31,8 @@ public class BookDetailFragment extends Fragment {
     public static final int REQUEST_EDIT_BOOK = 1;
 
     private BookDetailViewModel mViewModel;
+
+    private BookdetailFragBinding mBookDetailsFragBinding;
 
     public static BookDetailFragment newInstance(Long bookId) {
         Bundle arguments = new Bundle();
@@ -84,6 +91,12 @@ public class BookDetailFragment extends Fragment {
         viewDataBinding.setListener(actionsListener);
 
         setHasOptionsMenu(true);
+
+        // setupReadingSessionsListAdapter
+        ListView listView = viewDataBinding.sessionsList;
+
+        ReadingSessionsAdapter mListAdapter = new ReadingSessionsAdapter(new ArrayList<>(0));
+        listView.setAdapter(mListAdapter);
 
         return view;
     }

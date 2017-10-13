@@ -15,12 +15,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_height="wrap_content"
         android:background="@drawable/touch_feedback"
-        android:paddingBottom="@dimen/list_item_padding"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/list_item_padding"
+        android:paddingTop="8dp"
         android:orientation="horizontal">
 
         <TextView

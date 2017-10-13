@@ -2,12 +2,16 @@ package pl.infinitefuture.reading.bookdetail;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableList;
 import android.support.annotation.StringRes;
 
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.SingleLiveEvent;
@@ -16,12 +20,12 @@ import pl.infinitefuture.reading.books.BooksRepository;
 import pl.infinitefuture.reading.books.persistence.Book;
 import pl.infinitefuture.reading.books.persistence.BooksDataSource;
 import pl.infinitefuture.reading.sessions.ReadingSessionsRepository;
+import pl.infinitefuture.reading.sessions.persistence.ReadingSession;
+import pl.infinitefuture.reading.sessions.persistence.ReadingSessionsDataSource;
 
 public class BookDetailViewModel extends AndroidViewModel implements BooksDataSource.GetBookCallback {
 
     public final ObservableField<Book> book = new ObservableField<>();
-
-    public final ObservableBoolean completed = new ObservableBoolean();
 
     public final ObservableField<Long> pagesLeftToRead = new ObservableField<>();
 
@@ -32,6 +36,10 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
     public final ObservableBoolean hasGoodReadingTempo = new ObservableBoolean();
 
     public final ObservableField<Long> readingTempoToMakeIt = new ObservableField<>();
+
+    public final ObservableList<ReadingSession> lastSessions = new ObservableArrayList<>();
+
+    public final ObservableBoolean emptySessions = new ObservableBoolean();
 
     private final SingleLiveEvent<Void> mEditBookCommand = new SingleLiveEvent<>();
 
@@ -100,15 +108,22 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         if (bookId != null) {
             mIsDataLoading = true;
             mBooksRepository.getBook(bookId, this);
+            mSessionsRepository.getSessions(bookId, new ReadingSessionsDataSource.LoadSessionsCallback() {
+                @Override
+                public void onSessionsLoaded(List<ReadingSession> sessions) {
+                    lastSessions.clear();
+                    lastSessions.addAll(sessions);
+                    emptySessions.set(lastSessions.isEmpty());
+                }
+
+                @Override
+                public void onDataNotAvailable() {
+                    emptySessions.set(true);
+                }
+            });
         }
     }
 
-    public void setBook(Book book) {
-        this.book.set(book);
-        if (book != null) {
-            completed.set(book.isCompleted());
-        }
-    }
 
     public boolean isDataAvailable() {
         return book.get() != null;
@@ -120,7 +135,7 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     @Override
     public void onBookLoaded(Book book) {
-        setBook(book);
+        this.book.set(book);
         mIsDataLoading = false;
 
         // calculate some data
