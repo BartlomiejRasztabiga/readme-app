@@ -33,4 +33,8 @@
     <string name="last_sessions">Ostatnie sesje</string>
     <string name="pages">stron</string>
     <string name="no_sessions">Brak sesji</string>
+    <string name="add">Dodaj</string>
+    <string name="cancel">Anuluj</string>
+    <string name="choose_date">Wybierz datę</string>
+    <string name="how_many_pages_have_you_read">Ile stron przeczytałeś?</string>
 </resources>

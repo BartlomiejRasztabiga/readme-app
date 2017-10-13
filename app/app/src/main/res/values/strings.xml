@@ -34,4 +34,8 @@
     <string name="last_sessions">Last reading sessions</string>
     <string name="pages">pages</string>
     <string name="no_sessions">No sessions</string>
+    <string name="how_many_pages_have_you_read">How many pages have you read?</string>
+    <string name="choose_date">Choose date</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
 </resources>
