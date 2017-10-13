@@ -73,11 +73,14 @@ public class BooksRepository implements BooksDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                getBooksFromRemoteDataSource(callback);
+                callback.onDataNotAvailable();
+                // TODO Temporarily disabled
+                // getBooksFromRemoteDataSource(callback);
             }
         });
 
-        // If user refreshed manually, synchronise with remote
+        // TODO Temporarily disabled
+/*        // If user refreshed manually, synchronise with remote
         if (mCacheIsDirty && mCachedBooks != null) {
             mBooksRemoteDataSource.deleteAllBooks();
             for (Book book : mCachedBooks.values()) {
@@ -85,7 +88,7 @@ public class BooksRepository implements BooksDataSource {
                 // TODO Replace with saveAll then
                 mBooksRemoteDataSource.saveBook(book, new SaveBookCallback() {});
             }
-        }
+        }*/
     }
 
     @Override
@@ -105,8 +108,9 @@ public class BooksRepository implements BooksDataSource {
                 }
                 mCachedBooks.put(book.getId(), book);
 
-                // Save entity to remote
-                mBooksRemoteDataSource.saveBook(book, new SaveBookCallback() {});
+                // TODO Temporarily disabled
+                /*// Save entity to remote
+                mBooksRemoteDataSource.saveBook(book, new SaveBookCallback() {});*/
 
                 callback.onBookSaved(bookId);
             }
@@ -126,7 +130,10 @@ public class BooksRepository implements BooksDataSource {
     @Override
     public void updateBook(@NonNull Book book) {
         checkNotNull(book);
-        mBooksRemoteDataSource.updateBook(book);
+
+        // TODO Temporarily disabled
+        // mBooksRemoteDataSource.updateBook(book);
+
         mBooksLocalDataSource.updateBook(book);
 
         // Do in memory cache update to keep the app UI up to date
@@ -139,7 +146,9 @@ public class BooksRepository implements BooksDataSource {
     @Override
     public void completeBook(@NonNull Book book) {
         checkNotNull(book);
-        mBooksRemoteDataSource.completeBook(book);
+
+        // TODO Temporarily disabled
+        // mBooksRemoteDataSource.completeBook(book);
         mBooksLocalDataSource.completeBook(book);
 
         Book completedBook = new Book(book.getId(), book.getTitle(), book.getTotalPages(),true);
@@ -190,7 +199,10 @@ public class BooksRepository implements BooksDataSource {
 
             @Override
             public void onDataNotAvailable() {
-                mBooksRemoteDataSource.getBook(bookId, new GetBookCallback() {
+                callback.onDataNotAvailable();
+
+                // TODO Temporarily disabled
+/*                mBooksRemoteDataSource.getBook(bookId, new GetBookCallback() {
                     @Override
                     public void onBookLoaded(Book book) {
                         if (book == null) {
@@ -213,7 +225,7 @@ public class BooksRepository implements BooksDataSource {
 
                         callback.onDataNotAvailable();
                     }
-                });
+                });*/
             }
         });
     }
@@ -225,7 +237,8 @@ public class BooksRepository implements BooksDataSource {
 
     @Override
     public void deleteAllBooks() {
-        mBooksRemoteDataSource.deleteAllBooks();
+        // TODO Temporarily disabled
+        // mBooksRemoteDataSource.deleteAllBooks();
         mBooksLocalDataSource.deleteAllBooks();
 
         if (mCachedBooks == null) {
@@ -236,14 +249,16 @@ public class BooksRepository implements BooksDataSource {
 
     @Override
     public void deleteBook(@NonNull Long bookId) {
-        mBooksRemoteDataSource.deleteBook(checkNotNull(bookId));
+        // TODO Temporarily disabled
+        // mBooksRemoteDataSource.deleteBook(checkNotNull(bookId));
         mBooksLocalDataSource.deleteBook(checkNotNull(bookId));
 
         mCachedBooks.remove(bookId);
     }
 
     private void getBooksFromRemoteDataSource(@NonNull final LoadBooksCallback callback) {
-        mBooksRemoteDataSource.getBooks(new LoadBooksCallback() {
+        // TODO Temporarily disabled
+/*        mBooksRemoteDataSource.getBooks(new LoadBooksCallback() {
             @Override
             public void onBooksLoaded(List<Book> books) {
                 refreshCache(books);
@@ -258,7 +273,7 @@ public class BooksRepository implements BooksDataSource {
                 EspressoIdlingResource.decrement(); // Set app as idle
                 callback.onDataNotAvailable();
             }
-        });
+        });*/
     }
 
     private void refreshCache(List<Book> books) {
