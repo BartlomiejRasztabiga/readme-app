@@ -1,5 +1,6 @@
 package pl.infinitefuture.reading.bookdetail;
 
+import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +14,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.ViewModelFactory;
@@ -133,7 +141,12 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
 
-        builder.setView(inflater.inflate(R.layout.addsession_dialog, null))
+        View dialogView = inflater.inflate(R.layout.addsession_dialog, null);
+        dialogView.findViewById(R.id.add_session_date).setOnFocusChangeListener((view, hasFocus) -> {
+            if (hasFocus) showDatePickerDialog(view);
+        });
+
+        builder.setView(dialogView)
                 .setPositiveButton(R.string.add, (dialogInterface, i) -> {
                     // bla bla
 
@@ -142,5 +155,28 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
 
                 });
         builder.create().show();
+    }
+
+    public void showDatePickerDialog(View view) {
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this, (datePicker, year, month, day) -> {
+            DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            Calendar newDate = Calendar.getInstance();
+            newDate.set(Calendar.YEAR, year);
+            newDate.set(Calendar.MONTH, month);
+            newDate.set(Calendar.DAY_OF_MONTH, day);
+
+            // TODO DO something with return value
+            Toast.makeText(this, sdf.format(newDate.getTime()), Toast.LENGTH_SHORT).show();
+            //mViewModel.setDate(sdf.format(newDate.getTime()), view);
+        },
+                currentYear, currentMonth, currentDay);
+
+        datePickerDialog.show();
     }
 }
