@@ -13,7 +13,17 @@ public interface ReadingSessionsDataSource {
         void onDataNotAvailable();
     }
 
-    void getSessions(@NonNull LoadSessionsCallback callback, @NonNull Long bookId);
+    interface SaveSessionCallback {
 
-    void saveSession(@NonNull ReadingSession session, @NonNull Long bookId);
+        default void onSessionSaved() {}
+
+        default void onDataNotAvailable() {}
+    }
+
+    void getSessions(@NonNull Long bookId, @NonNull LoadSessionsCallback callback);
+
+    void saveSession(@NonNull Long bookId, @NonNull ReadingSession session);
+
+    void saveSession(@NonNull Long bookId, @NonNull ReadingSession session,
+                     @NonNull SaveSessionCallback callback);
 }
