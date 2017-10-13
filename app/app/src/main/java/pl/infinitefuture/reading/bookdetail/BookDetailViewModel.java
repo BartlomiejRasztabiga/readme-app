@@ -15,6 +15,7 @@ import pl.infinitefuture.reading.SnackbarMessage;
 import pl.infinitefuture.reading.books.BooksRepository;
 import pl.infinitefuture.reading.books.persistence.Book;
 import pl.infinitefuture.reading.books.persistence.BooksDataSource;
+import pl.infinitefuture.reading.sessions.ReadingSessionsRepository;
 
 public class BookDetailViewModel extends AndroidViewModel implements BooksDataSource.GetBookCallback {
 
@@ -40,13 +41,17 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     private final BooksRepository mBooksRepository;
 
+    private final ReadingSessionsRepository mSessionsRepository;
+
     private final SnackbarMessage mSnackbarText = new SnackbarMessage();
 
     private boolean mIsDataLoading;
 
-    public BookDetailViewModel(Application context, BooksRepository booksRepository) {
+    public BookDetailViewModel(Application context, BooksRepository booksRepository,
+                               ReadingSessionsRepository sessionsRepository) {
         super(context);
         mBooksRepository = booksRepository;
+        mSessionsRepository = sessionsRepository;
     }
 
     public void deleteBook() {
