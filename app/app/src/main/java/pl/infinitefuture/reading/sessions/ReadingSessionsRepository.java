@@ -49,9 +49,9 @@ public class ReadingSessionsRepository implements ReadingSessionsDataSource {
     }
 
     @Override
-    public void saveSession(@NonNull Long bookId, @NonNull ReadingSession session,
+    public void saveSession(@NonNull ReadingSession session,
                             @NonNull SaveSessionCallback callback) {
-        mSessionsLocalDataSource.saveSession(bookId, session, new SaveSessionCallback() {
+        mSessionsLocalDataSource.saveSession(session, new SaveSessionCallback() {
             @Override
             public void onSessionSaved() {
                 callback.onSessionSaved();
@@ -65,7 +65,7 @@ public class ReadingSessionsRepository implements ReadingSessionsDataSource {
     }
 
     @Override
-    public void saveSession(@NonNull Long bookId, @NonNull ReadingSession session) {
-        saveSession(bookId, session, new SaveSessionCallback() {});
+    public void saveSession(@NonNull ReadingSession session) {
+        saveSession(session, new SaveSessionCallback() {});
     }
 }

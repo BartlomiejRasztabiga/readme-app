@@ -22,8 +22,8 @@ public interface ReadingSessionsDataSource {
 
     void getSessions(@NonNull Long bookId, @NonNull LoadSessionsCallback callback);
 
-    void saveSession(@NonNull Long bookId, @NonNull ReadingSession session);
+    void saveSession(@NonNull ReadingSession session);
 
-    void saveSession(@NonNull Long bookId, @NonNull ReadingSession session,
+    void saveSession(@NonNull ReadingSession session,
                      @NonNull SaveSessionCallback callback);
 }

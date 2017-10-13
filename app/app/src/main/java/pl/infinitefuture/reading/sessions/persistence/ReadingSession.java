@@ -2,6 +2,7 @@ package pl.infinitefuture.reading.sessions.persistence;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.google.common.base.Objects;
@@ -23,6 +24,13 @@ public class ReadingSession {
 
     @ColumnInfo(name = "pages")
     private Long readPages;
+
+    @Ignore
+    public ReadingSession(Long bookId, Date date, Long readPages) {
+        this.bookId = bookId;
+        this.date = date;
+        this.readPages = readPages;
+    }
 
     public ReadingSession(Long id, Long bookId, Date date, Long readPages) {
         this.id = id;

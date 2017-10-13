@@ -41,7 +41,7 @@ public class ReadingSessionsLocalDataSource implements ReadingSessionsDataSource
     }
 
     @Override
-    public void saveSession(@NonNull Long bookId, @NonNull ReadingSession session,
+    public void saveSession(@NonNull ReadingSession session,
                             @NonNull SaveSessionCallback callback) {
         checkNotNull(session);
         Observable.fromCallable(() -> mSessionsDao.insertSession(session))
@@ -51,7 +51,7 @@ public class ReadingSessionsLocalDataSource implements ReadingSessionsDataSource
     }
 
     @Override
-    public void saveSession(@NonNull Long bookId, @NonNull ReadingSession session) {
-        saveSession(bookId, session, new SaveSessionCallback() {});
+    public void saveSession(@NonNull ReadingSession session) {
+        saveSession(session, new SaveSessionCallback() {});
     }
 }

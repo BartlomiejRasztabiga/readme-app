@@ -194,6 +194,11 @@ public final class Book {
         this.iconColor = iconColor;
     }
 
+    public void addReadPages(Long pages) {
+        if (this.readPages == null) this.readPages = 0L;
+        this.readPages += pages;
+    }
+
     public boolean isEmpty() {
         return Strings.isNullOrEmpty(title) ||
                 (totalPages == null || totalPages == 0L) ||

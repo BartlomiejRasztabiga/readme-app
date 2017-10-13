@@ -8,8 +8,6 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.annotation.StringRes;
 
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -124,6 +122,19 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         }
     }
 
+    public void addReadingSession(Long readPages, Date sessionDate) {
+        // update book
+        book.get().addReadPages(readPages);
+        mBooksRepository.updateBook(book.get());
+
+        ReadingSession readingSession = new ReadingSession(book.get().getId(), sessionDate, readPages);
+        mSessionsRepository.saveSession(readingSession, new ReadingSessionsDataSource.SaveSessionCallback() {
+            @Override
+            public void onSessionSaved() {
+                start(book.get().getId());
+            }
+        });
+    }
 
     public boolean isDataAvailable() {
         return book.get() != null;
@@ -152,12 +163,13 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         this.daysLeft.set(daysBetween);
 
         // calculate readingTempo
-        Double tempo = ((double)readPages) / ((double)daysBetween);
+        Double tempo = ((double) readPages) / ((double) daysBetween);
         this.readingTempo.set(tempo);
 
         // calculate hasGoodReadingTempo
         Boolean isReadingTempoGood = false;
-        if ((tempo != 0) && ((totalPages - readPages) / tempo <= daysBetween)) isReadingTempoGood = true;
+        if ((tempo != 0) && ((totalPages - readPages) / tempo <= daysBetween))
+            isReadingTempoGood = true;
         this.hasGoodReadingTempo.set(isReadingTempoGood);
 
         // calculate readingTempoToMakeItToDeadline

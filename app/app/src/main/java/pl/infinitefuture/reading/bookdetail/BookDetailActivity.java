@@ -2,12 +2,11 @@ package pl.infinitefuture.reading.bookdetail;
 
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -15,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -25,8 +23,8 @@ import java.util.Locale;
 
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.ViewModelFactory;
-import pl.infinitefuture.reading.addeditbook.AddEditBookFragment;
 import pl.infinitefuture.reading.addeditbook.AddEditBookActivity;
+import pl.infinitefuture.reading.addeditbook.AddEditBookFragment;
 import pl.infinitefuture.reading.util.ActivityUtils;
 
 import static pl.infinitefuture.reading.addeditbook.AddEditBookActivity.ADD_EDIT_RESULT_OK;
@@ -35,7 +33,7 @@ import static pl.infinitefuture.reading.bookdetail.BookDetailFragment.REQUEST_ED
 /**
  * Displays book details screen.
  */
-public class BookDetailActivity extends AppCompatActivity implements BookDetailNavigator{
+public class BookDetailActivity extends AppCompatActivity implements BookDetailNavigator {
 
     public static final String EXTRA_BOOK_ID = "BOOK_ID";
 
@@ -142,41 +140,45 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         LayoutInflater inflater = this.getLayoutInflater();
 
         View dialogView = inflater.inflate(R.layout.addsession_dialog, null);
+
+        Calendar newDate = Calendar.getInstance();
+        TextInputEditText pages = dialogView.findViewById(R.id.add_session_pages);
+
         dialogView.findViewById(R.id.add_session_date).setOnFocusChangeListener((view, hasFocus) -> {
-            if (hasFocus) showDatePickerDialog(view);
+            if (hasFocus) {
+                Calendar calendar = Calendar.getInstance();
+                int currentYear = calendar.get(Calendar.YEAR);
+                int currentMonth = calendar.get(Calendar.MONTH);
+                int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        this, (datePicker, year, month, day) -> {
+                    DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                    newDate.set(Calendar.YEAR, year);
+                    newDate.set(Calendar.MONTH, month);
+                    newDate.set(Calendar.DAY_OF_MONTH, day);
+
+                    // set edittext value to chosen date
+                    ((TextInputEditText) dialogView.findViewById(R.id.add_session_date))
+                            .setText(sdf.format(newDate.getTime()));
+                },
+                        currentYear, currentMonth, currentDay);
+
+                datePickerDialog.show();
+            }
         });
 
         builder.setView(dialogView)
                 .setPositiveButton(R.string.add, (dialogInterface, i) -> {
-                    // bla bla
+                    // TODO Validate input
+
+                    // pass values to viewmodel
+                    mBookViewModel.addReadingSession(Long.valueOf(pages.getText().toString()), newDate.getTime());
 
                 })
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-
+                    dialogInterface.dismiss();
                 });
         builder.create().show();
-    }
-
-    public void showDatePickerDialog(View view) {
-        Calendar calendar = Calendar.getInstance();
-        int currentYear = calendar.get(Calendar.YEAR);
-        int currentMonth = calendar.get(Calendar.MONTH);
-        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this, (datePicker, year, month, day) -> {
-            DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            Calendar newDate = Calendar.getInstance();
-            newDate.set(Calendar.YEAR, year);
-            newDate.set(Calendar.MONTH, month);
-            newDate.set(Calendar.DAY_OF_MONTH, day);
-
-            // TODO DO something with return value
-            Toast.makeText(this, sdf.format(newDate.getTime()), Toast.LENGTH_SHORT).show();
-            //mViewModel.setDate(sdf.format(newDate.getTime()), view);
-        },
-                currentYear, currentMonth, currentDay);
-
-        datePickerDialog.show();
     }
 }
