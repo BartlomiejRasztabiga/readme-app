@@ -17,6 +17,7 @@ import pl.infinitefuture.reading.TestUtils;
 import pl.infinitefuture.reading.books.BooksRepository;
 import pl.infinitefuture.reading.books.persistence.Book;
 import pl.infinitefuture.reading.books.persistence.BooksDataSource;
+import pl.infinitefuture.reading.sessions.ReadingSessionsRepository;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Matchers.eq;
@@ -38,6 +39,9 @@ public class BookDetailViewModelTest {
     private BooksRepository mBooksRepository;
 
     @Mock
+    private ReadingSessionsRepository mSessionsRepository;
+
+    @Mock
     private Application mContext;
 
     @Mock
@@ -57,7 +61,7 @@ public class BookDetailViewModelTest {
 
         setupContext();
 
-        mViewModel = new BookDetailViewModel(mContext, mBooksRepository);
+        mViewModel = new BookDetailViewModel(mContext, mBooksRepository, mSessionsRepository);
 
         BOOK = new Book(1L, "Title 1", 100L, false);
 
