@@ -93,7 +93,6 @@ public class BooksRepository implements BooksDataSource {
 
     @Override
     public void saveBook(@NonNull Book book, @NonNull SaveBookCallback callback) {
-        callback.onDataNotAvailable();
         checkNotNull(book);
         EspressoIdlingResource.increment(); // App is busy until further notice
 
