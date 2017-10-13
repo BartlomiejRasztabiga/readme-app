@@ -5,16 +5,21 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
+import android.support.annotation.RequiresPermission;
 
 import pl.infinitefuture.reading.DatabaseConverters;
+import pl.infinitefuture.reading.sessions.persistence.ReadingSession;
+import pl.infinitefuture.reading.sessions.persistence.ReadingSessionsDao;
 
-@Database(entities = {Book.class}, version = 3)
+@Database(entities = {Book.class, ReadingSession.class}, version = 3)
 @TypeConverters({DatabaseConverters.class})
 public abstract class BooksDatabase extends RoomDatabase {
 
     private static BooksDatabase instance;
 
     public abstract BooksDao booksDao();
+
+    public abstract ReadingSessionsDao readingSessionsDao();
 
     private static final Object sLock = new Object();
 
