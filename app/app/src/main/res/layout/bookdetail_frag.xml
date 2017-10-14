@@ -13,8 +13,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -281,23 +280,23 @@
 
                 <ListView
                     android:id="@+id/sessions_list"
-                    app:sessions="@{viewmodel.lastSessions}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:divider="@null"
                     android:dividerHeight="0dp"
-                    android:visibility="@{viewmodel.emptySessions ? View.GONE : View.VISIBLE}"/>
+                    android:visibility="@{viewmodel.emptySessions ? View.GONE : View.VISIBLE}"
+                    app:sessions="@{viewmodel.lastSessions}" />
 
                 <TextView
                     android:id="@+id/no_sessions_message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/no_sessions"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="16sp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
-                    android:visibility="@{viewmodel.emptySessions ? View.VISIBLE : View.GONE}"/>
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/no_sessions"
+                    android:textSize="16sp"
+                    android:visibility="@{viewmodel.emptySessions ? View.VISIBLE : View.GONE}" />
 
             </LinearLayout>
 

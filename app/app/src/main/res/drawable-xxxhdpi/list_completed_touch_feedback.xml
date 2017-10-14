@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~  Copyright 2017 Google Inc.
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +15,7 @@
   -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:drawable="@drawable/touchFeedback" />
+    <item android:drawable="@drawable/touchFeedback" android:state_pressed="true" />
 
     <item android:drawable="@drawable/completedTaskBackground" />
 </selector>

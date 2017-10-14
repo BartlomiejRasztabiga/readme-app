@@ -44,8 +44,8 @@
                         android:id="@+id/add_book_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_title_black_24dp"
                         android:drawablePadding="16dp"
+                        android:drawableStart="@drawable/ic_title_black_24dp"
                         android:hint="@string/title_hint"
                         android:maxLines="1"
                         android:text="@={viewmodel.title}" />
@@ -85,8 +85,8 @@
                         android:drawableStart="@drawable/ic_event_black_24dp"
                         android:ems="10"
                         android:hint="@string/start_date_hint"
-                        android:text="@={viewmodel.startDate}"
-                        android:inputType="date" />
+                        android:inputType="date"
+                        android:text="@={viewmodel.startDate}" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -100,12 +100,12 @@
                         android:id="@+id/add_book_deadline_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_event_black_24dp"
                         android:drawablePadding="16dp"
+                        android:drawableStart="@drawable/ic_event_black_24dp"
                         android:ems="10"
                         android:hint="@string/deadline_date_hint"
-                        android:text="@={viewmodel.deadlineDate}"
-                        android:inputType="date" />
+                        android:inputType="date"
+                        android:text="@={viewmodel.deadlineDate}" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>

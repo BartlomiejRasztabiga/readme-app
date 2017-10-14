@@ -23,8 +23,8 @@
             android:id="@+id/add_sessions_dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/add_reading_session"
             android:textColor="@color/white"
@@ -55,8 +55,8 @@
                 android:drawablePadding="16dp"
                 android:drawableStart="@drawable/ic_content_copy_black_24dp"
                 android:hint="@string/how_many_pages_have_you_read"
-                android:maxLines="1"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal"
+                android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
