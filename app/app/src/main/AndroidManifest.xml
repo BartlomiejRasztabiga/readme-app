@@ -1,0 +1,26 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="pl.infinitefuture.reading">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="pl.infinitefuture.reading.books.BooksActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="pl.infinitefuture.reading.addeditbook.AddEditBookActivity" />
+        <activity android:name="pl.infinitefuture.reading.bookdetail.BookDetailActivity"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="a4adb38dbde64a16bfc91d2182c87b663e920709" />
+    </application>
+</manifest>
