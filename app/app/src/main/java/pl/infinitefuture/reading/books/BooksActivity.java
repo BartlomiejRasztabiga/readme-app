@@ -15,6 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
+import io.fabric.sdk.android.Fabric;
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.ViewModelFactory;
 import pl.infinitefuture.reading.addeditbook.AddEditBookActivity;
@@ -28,6 +31,7 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
         setContentView(R.layout.books_act);
 
         setupToolbar();

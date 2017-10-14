@@ -19,5 +19,8 @@
         </activity>
         <activity android:name="pl.infinitefuture.reading.addeditbook.AddEditBookActivity" />
         <activity android:name="pl.infinitefuture.reading.bookdetail.BookDetailActivity"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="a4adb38dbde64a16bfc91d2182c87b663e920709" />
     </application>
 </manifest>

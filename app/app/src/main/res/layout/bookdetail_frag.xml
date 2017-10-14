@@ -47,7 +47,7 @@
 
             <LinearLayout
                 android:id="@+id/book_detail_you_have_read_layout"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="32dp"
@@ -115,7 +115,7 @@
 
             <LinearLayout
                 android:id="@+id/book_detail_left_layout"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="32dp"
@@ -242,7 +242,7 @@
 
             <LinearLayout
                 android:id="@+id/book_detail_sessions_layout"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="32dp"
