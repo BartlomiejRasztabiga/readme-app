@@ -47,7 +47,7 @@ public class ReadingSessionsLocalDataSource implements ReadingSessionsDataSource
         Observable.fromCallable(() -> mSessionsDao.insertSession(session))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe(e -> callback.onSessionSaved());
     }
 
     @Override

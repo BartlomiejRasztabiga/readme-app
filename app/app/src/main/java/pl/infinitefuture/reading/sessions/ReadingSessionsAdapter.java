@@ -32,7 +32,6 @@ public class ReadingSessionsAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return mSessions != null ? mSessions.size() : 0;
-        //return 3; // limit items to 3 latest
     }
 
     @Override
@@ -67,7 +66,11 @@ public class ReadingSessionsAdapter extends BaseAdapter {
     }
 
     private void setList(List<ReadingSession> sessions) {
-        mSessions = Lists.reverse(sessions);
+        mSessions = Lists.reverse(sessions); //reverse list to have newest session on top
+        if (mSessions.size() > 3) {
+            mSessions = mSessions.subList(0, 3); //keep only 3 items
+        }
+
         notifyDataSetChanged();
     }
 }

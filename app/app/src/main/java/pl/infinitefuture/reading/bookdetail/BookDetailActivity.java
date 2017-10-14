@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -138,47 +137,45 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
     public void onStartAddSession() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
-
-        View dialogView = inflater.inflate(R.layout.addsession_dialog, null);
-
         Calendar newDate = Calendar.getInstance();
+        View dialogView = inflater.inflate(R.layout.addsession_dialog, null);
         TextInputEditText pages = dialogView.findViewById(R.id.add_session_pages);
 
         dialogView.findViewById(R.id.add_session_date).setOnFocusChangeListener((view, hasFocus) -> {
             if (hasFocus) {
-                Calendar calendar = Calendar.getInstance();
-                int currentYear = calendar.get(Calendar.YEAR);
-                int currentMonth = calendar.get(Calendar.MONTH);
-                int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        this, (datePicker, year, month, day) -> {
-                    DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                    newDate.set(Calendar.YEAR, year);
-                    newDate.set(Calendar.MONTH, month);
-                    newDate.set(Calendar.DAY_OF_MONTH, day);
-
-                    // set edittext value to chosen date
-                    ((TextInputEditText) dialogView.findViewById(R.id.add_session_date))
-                            .setText(sdf.format(newDate.getTime()));
-                },
-                        currentYear, currentMonth, currentDay);
-
-                datePickerDialog.show();
+                showDatePickerDialog(dialogView, newDate);
             }
         });
 
         builder.setView(dialogView)
                 .setPositiveButton(R.string.add, (dialogInterface, i) -> {
-                    // TODO Validate input
-
-                    // pass values to viewmodel
-                    mBookViewModel.addReadingSession(Long.valueOf(pages.getText().toString()), newDate.getTime());
+                    Long readPages = Long.valueOf(pages.getText().toString());
+                    mBookViewModel.addReadingSession(readPages, newDate.getTime());
 
                 })
-                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                    dialogInterface.dismiss();
-                });
+                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
         builder.create().show();
+    }
+
+    private void showDatePickerDialog(View dialogView, Calendar newDate) {
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this, (datePicker, year, month, day) -> {
+            DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            newDate.set(Calendar.YEAR, year);
+            newDate.set(Calendar.MONTH, month);
+            newDate.set(Calendar.DAY_OF_MONTH, day);
+
+            // set edittext value to chosen date
+            ((TextInputEditText) dialogView.findViewById(R.id.add_session_date))
+                    .setText(sdf.format(newDate.getTime()));
+        },
+                currentYear, currentMonth, currentDay);
+
+        datePickerDialog.show();
     }
 }

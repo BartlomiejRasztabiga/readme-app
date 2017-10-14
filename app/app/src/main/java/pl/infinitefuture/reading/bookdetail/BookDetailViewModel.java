@@ -25,6 +25,8 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     public final ObservableField<Book> book = new ObservableField<>();
 
+    public final ObservableField<Long> readPages = new ObservableField<>();
+
     public final ObservableField<Long> pagesLeftToRead = new ObservableField<>();
 
     public final ObservableField<Long> daysLeft = new ObservableField<>();
@@ -155,6 +157,9 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         Long totalPages = book.getTotalPages() != null ? book.getTotalPages() : 0L;
         Long readPages = book.getReadPages() != null ? book.getReadPages() : 0L;
         this.pagesLeftToRead.set(totalPages - readPages);
+
+        // calculate readPages
+        this.readPages.set(readPages);
 
         // calculate daysLeft
         Long nowDateInMillis = new Date().getTime();
