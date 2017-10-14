@@ -14,12 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import pl.infinitefuture.reading.EditTextBindingAdapters;
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.ViewModelFactory;
 import pl.infinitefuture.reading.addeditbook.AddEditBookActivity;
@@ -149,9 +151,17 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
 
         builder.setView(dialogView)
                 .setPositiveButton(R.string.add, (dialogInterface, i) -> {
-                    Long readPages = Long.valueOf(pages.getText().toString());
-                    mBookViewModel.addReadingSession(readPages, newDate.getTime());
-
+                    Boolean wantToCloseDialog = true;
+                    if (pages.getText() == null || pages.getText().toString().equals("")
+                            || newDate.getTime() == null) {
+                        Toast.makeText(this, R.string.errors_in_form, Toast.LENGTH_SHORT).show();
+                        wantToCloseDialog = false;
+                    }
+                    if (wantToCloseDialog) {
+                        Long readPages = Long.valueOf(pages.getText().toString());
+                        mBookViewModel.addReadingSession(readPages, newDate.getTime());
+                        dialogInterface.dismiss();
+                    }
                 })
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
         builder.create().show();

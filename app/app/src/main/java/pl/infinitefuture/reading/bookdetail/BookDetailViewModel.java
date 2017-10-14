@@ -7,6 +7,8 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.annotation.StringRes;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.util.List;
@@ -31,7 +33,7 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     public final ObservableField<Long> daysLeft = new ObservableField<>();
 
-    public final ObservableField<Double> readingTempo = new ObservableField<>();
+    public final ObservableField<Long> readingTempo = new ObservableField<>();
 
     public final ObservableBoolean hasGoodReadingTempo = new ObservableBoolean();
 
@@ -75,6 +77,11 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     public void addSession() {
         mAddSessionCommand.call();
+    }
+    
+    public void showFullSessionsHistory(View view) {
+        // TODO
+        Toast.makeText(getApplication(), "TODO: ShowFullSessionsHistory", Toast.LENGTH_SHORT).show();
     }
 
     public SnackbarMessage getSnackbarMessage() {
@@ -168,8 +175,10 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         this.daysLeft.set(daysBetween);
 
         // calculate readingTempo
-        Double tempo = ((double) readPages) / ((double) daysBetween);
-        this.readingTempo.set(tempo);
+        Long startDateInMilis = book.getStartDate().getTime();
+        Long daysSinceStart = daysBetween(startDateInMilis, nowDateInMillis);
+        Double tempo = ((double) readPages) / ((double) daysSinceStart);
+        this.readingTempo.set(Math.round(tempo));
 
         // calculate hasGoodReadingTempo
         Boolean isReadingTempoGood = false;
@@ -202,6 +211,7 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
     }
 
     private Long daysBetween(Long date1, Long date2) {
-        return Math.round((double) (date2 - date1) / (1000 * 60 * 60 * 24));
+        Long daysBetween = Math.round((double) (date2 - date1) / (1000 * 60 * 60 * 24));
+        return daysBetween > 0 ? daysBetween : 1L; //prevent situation when now == startDate
     }
 }

@@ -39,4 +39,10 @@
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
     <string name="add_reading_session">Add reading session</string>
+    <string name="full_history">Full history</string>
+    <string name="information">Information</string>
+    <string name="deadline">Deadline</string>
+    <string name="tempo">Tempo</string>
+    <string name="pages_per_day">pages per day</string>
+    <string name="errors_in_form">Fix errors in form</string>
 </resources>

@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.arch.lifecycle.AndroidViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableShort;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
@@ -35,6 +36,8 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
     public final ObservableField<String> startDate = new ObservableField<>();
 
     public final ObservableField<String> deadlineDate = new ObservableField<>();
+
+    public final ObservableField<Long> readPages = new ObservableField<>();
 
     public final ObservableBoolean dataLoading = new ObservableBoolean(false);
 
@@ -91,6 +94,7 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
     public void onBookLoaded(Book book) {
         title.set(book.getTitle());
         totalPages.set(book.getTotalPages());
+        readPages.set(book.getReadPages());
         startDate.set(EditTextBindingAdapters.dateToStr(book.getStartDate()));
         deadlineDate.set(EditTextBindingAdapters.dateToStr(book.getDeadlineDate()));
         mBookCompleted = book.isCompleted();
@@ -120,7 +124,7 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
                 book = new Book(mBookId, title.get(), totalPages.get(),
                         EditTextBindingAdapters.strToDate(startDate.get()),
                         EditTextBindingAdapters.strToDate(deadlineDate.get()), mBookCompleted,
-                        book.getIconColor()); //TODO Fix getting color
+                        book.getIconColor(), readPages.get()); //TODO Fix getting color
                 updateBook(book);
             } else {
                 saveBook(book);

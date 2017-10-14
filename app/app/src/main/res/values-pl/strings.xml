@@ -37,4 +37,11 @@
     <string name="cancel">Anuluj</string>
     <string name="choose_date">Wybierz datę</string>
     <string name="how_many_pages_have_you_read">Ile stron przeczytałeś?</string>
+    <string name="add_reading_session">Dodaj sesję czytania</string>
+    <string name="full_history">Pełna historia</string>
+    <string name="information">Informacje</string>
+    <string name="deadline">Termin</string>
+    <string name="tempo">Tempo</string>
+    <string name="pages_per_day">stron na dzień</string>
+    <string name="errors_in_form">Sprawdź poprawność danych</string>
 </resources>

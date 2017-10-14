@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="@{viewmodel.readPages != null ? viewmodel.readPages : Long.valueOf(0)}"
+                        android:text="@{viewmodel.readPages != null ? viewmodel.readPages : Long.valueOf(0), default=350}"
                         android:textColor="@color/black"
                         android:textSize="34sp" />
 
@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="@{` / ` + viewmodel.book.totalPages + ` ` + @string/pages}"
+                        android:text="@{` / ` + viewmodel.book.totalPages + ` ` + @string/pages, default= ` / 900`}"
                         android:textSize="34sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -167,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="@{viewmodel.pagesLeftToRead + ` `}"
+                        android:text="@{viewmodel.pagesLeftToRead + ` `, default=`550 `}"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -194,7 +194,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="@{viewmodel.daysLeft + ` `}"
+                        android:text="@{viewmodel.daysLeft + ` `, default=`10 `}"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -297,6 +297,131 @@
                     android:text="@string/no_sessions"
                     android:textSize="16sp"
                     android:visibility="@{viewmodel.emptySessions ? View.VISIBLE : View.GONE}" />
+
+                <TextView
+                    android:id="@+id/full_history_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif-light"
+                    android:onClick="@{viewmodel.showFullSessionsHistory}"
+                    android:text="@string/full_history"
+                    android:textSize="14sp"
+                    android:visibility="@{viewmodel.emptySessions ? View.GONE : View.VISIBLE}" />
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider_3"
+                style="@style/Divider"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/book_detail_sessions_layout" />
+
+            <LinearLayout
+                android:id="@+id/book_detail_info_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_3">
+
+                <LinearLayout
+                    android:id="@+id/book_detail_info_title_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/info_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:tint="@color/colorPrimary"
+                        app:srcCompat="@drawable/ic_info_outline_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/book_detail_info_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/information"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.205"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/book_detail_info_details_deadline_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/book_detail_info_deadline_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/deadline"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/book_detail_info_deadline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@{viewmodel.book.deadlineDate, default=`25-10-2017`}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/book_detail_info_details_tempo_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/book_detail_info_tempo_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/tempo"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/book_detail_info_tempo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@{viewmodel.readingTempo + ` ` + @string/pages_per_day, default=`28 pages per day`}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

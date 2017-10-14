@@ -51,7 +51,7 @@ public class EditTextBindingAdapters {
         return sdf.parse(value);
     }
 
-    private static boolean isValidDate(String date) {
+    public static boolean isValidDate(String date) {
         if (date.length() != BOOK_DATE_LENGTH) return false;
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
