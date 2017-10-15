@@ -161,20 +161,10 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
         transitive = true;
     }
-    compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.6@aar') {
-        transitive = true;
-    }
     compile('com.crashlytics.sdk.android:answers:1.4.0@aar') {
         transitive = true;
     }
 
     // AdMob
     implementation 'com.google.android.gms:play-services-ads:11.4.2'
-
-}
-
-crashlytics {
-    enableNdk true
-    androidNdkOut 'src/main/obj'
-    androidNdkLibsOut 'src/main/libs'
 }
