@@ -7,6 +7,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.annotation.StringRes;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -48,6 +49,8 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
     private final SingleLiveEvent<Void> mDeleteBookCommand = new SingleLiveEvent<>();
 
     private final SingleLiveEvent<Void> mAddSessionCommand = new SingleLiveEvent<>();
+
+    private final SingleLiveEvent<String> mSetToolbarTitleCommand = new SingleLiveEvent<>();
 
     private final BooksRepository mBooksRepository;
 
@@ -98,6 +101,10 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     public SingleLiveEvent<Void> getAddSessionCommand() {
         return mAddSessionCommand;
+    }
+
+    public SingleLiveEvent<String> getSetToolbarTitleCommand() {
+        return mSetToolbarTitleCommand;
     }
 
     public void setCompleted(boolean completed) {
@@ -157,6 +164,9 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
     public void onBookLoaded(Book book) {
         this.book.set(book);
         mIsDataLoading = false;
+
+        // Set toolbar title
+        mSetToolbarTitleCommand.setValue(book.getTitle());
 
         // calculate some data
 

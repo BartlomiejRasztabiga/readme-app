@@ -49,6 +49,8 @@ public class BookDetailFragment extends Fragment {
         setupFab();
 
         setupSnackbar();
+
+        setupToolbar();
     }
 
     private void setupFab() {
@@ -64,14 +66,18 @@ public class BookDetailFragment extends Fragment {
                                 getString(snackbarMessageResourceId)));
     }
 
+    private void setupToolbar() {
+        mViewModel.getSetToolbarTitleCommand().observe(this, title ->
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(title));
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         Long bookId = getArguments().getLong(ARGUMENT_BOOK_ID);
         if (bookId != 0L) {
             mViewModel.start(getArguments().getLong(ARGUMENT_BOOK_ID));
-            // Set toolbar title
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(mViewModel.book.get().getTitle());
+            //TODO set toolbar title
         } // Else I don't know...
     }
 
