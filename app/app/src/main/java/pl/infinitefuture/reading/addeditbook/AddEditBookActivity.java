@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
@@ -59,6 +62,12 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         // Initialise interstitial ad
         mInterstitial = new InterstitialAd(this);
         mInterstitial.setAdUnitId(getString(R.string.onAddBookInterstitial_id));
+        mInterstitial.setAdListener(new AdListener() {
+            @Override
+            public void onAdClicked() {
+                Answers.getInstance().logCustom(new CustomEvent("Clicked onAddBookAd"));
+            }
+        });
 
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("F259DB1215FFE47DFF8D24207A7A1B56") //Bartłomiej Rasztabiga genymotion

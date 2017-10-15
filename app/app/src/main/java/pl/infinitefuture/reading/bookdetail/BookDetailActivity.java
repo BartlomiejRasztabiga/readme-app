@@ -17,6 +17,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
@@ -68,6 +71,12 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         // Initialise interstitial ad
         mInterstitial = new InterstitialAd(this);
         mInterstitial.setAdUnitId(getString(R.string.onAddSessionInterstitial_id));
+        mInterstitial.setAdListener(new AdListener() {
+            @Override
+            public void onAdClicked() {
+                Answers.getInstance().logCustom(new CustomEvent("Clicked onAddSessionAd"));
+            }
+        });
 
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("F259DB1215FFE47DFF8D24207A7A1B56") //Bartłomiej Rasztabiga genymotion
