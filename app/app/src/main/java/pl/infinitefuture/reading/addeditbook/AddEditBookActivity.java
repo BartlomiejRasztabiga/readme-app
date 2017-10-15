@@ -62,6 +62,7 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
 
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("F259DB1215FFE47DFF8D24207A7A1B56") //Bartłomiej Rasztabiga genymotion
+                .addTestDevice("862CC9D548D4515DF8A5FB779827E938") //Bartłomiej Rasztabiga redmi note 3
                 .build();
         mInterstitial.loadAd(adRequest);
     }
