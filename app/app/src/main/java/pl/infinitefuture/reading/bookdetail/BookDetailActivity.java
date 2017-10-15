@@ -12,9 +12,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,6 +40,8 @@ import static pl.infinitefuture.reading.bookdetail.BookDetailFragment.REQUEST_ED
  */
 public class BookDetailActivity extends AppCompatActivity implements BookDetailNavigator {
 
+    private static final String TAG = "BookDetailActivity";
+
     public static final String EXTRA_BOOK_ID = "BOOK_ID";
 
     public static final int DELETE_RESULT_OK = RESULT_FIRST_USER + 2;
@@ -43,6 +49,8 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
     public static final int EDIT_RESULT_OK = RESULT_FIRST_USER + 3;
 
     private BookDetailViewModel mBookViewModel;
+
+    private InterstitialAd mInterstitial;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +64,15 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         mBookViewModel = obtainViewModel(this);
 
         subscribeToNavigationChanges(mBookViewModel);
+
+        // Initialise interstitial ad
+        mInterstitial = new InterstitialAd(this);
+        mInterstitial.setAdUnitId(getString(R.string.onAddSessionInterstitial_id));
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("F259DB1215FFE47DFF8D24207A7A1B56") //Bartłomiej Rasztabiga genymotion
+                .build();
+        mInterstitial.loadAd(adRequest);
     }
 
     private void setupToolbar() {
@@ -158,6 +175,10 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
                         wantToCloseDialog = false;
                     }
                     if (wantToCloseDialog) {
+
+                        //show ad
+                        showInterstitial();
+
                         Long readPages = Long.valueOf(pages.getText().toString());
                         mBookViewModel.addReadingSession(readPages, newDate.getTime());
                         dialogInterface.dismiss();
@@ -165,6 +186,15 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
                 })
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
         builder.create().show();
+    }
+
+    private void showInterstitial() {
+        // show ad
+        if (mInterstitial.isLoaded()) {
+            mInterstitial.show();
+        } else {
+            Log.d(TAG, "The interstitial wasn't loaded yet");
+        }
     }
 
     private void showDatePickerDialog(View dialogView, Calendar newDate) {

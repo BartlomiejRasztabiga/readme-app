@@ -8,6 +8,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.ViewModelFactory;
@@ -18,9 +22,13 @@ import pl.infinitefuture.reading.util.ActivityUtils;
  */
 public class AddEditBookActivity extends AppCompatActivity implements AddEditBookNavigator {
 
+    private static final String TAG = "AddEditBookActivity";
+
     public static final int REQUEST_CODE = 1;
 
     public static final int ADD_EDIT_RESULT_OK = RESULT_FIRST_USER + 1;
+
+    private InterstitialAd mInterstitial;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -30,6 +38,13 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
 
     @Override
     public void onBookSaved() {
+        // show ad
+        if (mInterstitial.isLoaded()) {
+            mInterstitial.show();
+        } else {
+            Log.d(TAG, "The interstitial wasn't loaded yet");
+        }
+
         setResult(ADD_EDIT_RESULT_OK);
         finish();
     }
@@ -40,6 +55,15 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
         setContentView(R.layout.addbook_act);
 
         setupToolbar();
+
+        // Initialise interstitial ad
+        mInterstitial = new InterstitialAd(this);
+        mInterstitial.setAdUnitId(getString(R.string.onAddBookInterstitial_id));
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("F259DB1215FFE47DFF8D24207A7A1B56") //Bartłomiej Rasztabiga genymotion
+                .build();
+        mInterstitial.loadAd(adRequest);
     }
 
     private void setupToolbar() {

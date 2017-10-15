@@ -156,12 +156,17 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation 'com.github.pavlospt:roundedletterview:1.2'
+
+    // Fabric
     compile('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
         transitive = true;
     }
     compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.6@aar') {
         transitive = true;
     }
+
+    // AdMob
+    implementation 'com.google.android.gms:play-services-ads:11.4.2'
 }
 
 crashlytics {
