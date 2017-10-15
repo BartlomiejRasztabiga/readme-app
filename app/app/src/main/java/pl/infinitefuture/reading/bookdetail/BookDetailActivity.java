@@ -76,6 +76,11 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
             public void onAdClicked() {
                 Answers.getInstance().logCustom(new CustomEvent("Clicked onAddSessionAd"));
             }
+
+            @Override
+            public void onAdLeftApplication() {
+                Answers.getInstance().logCustom(new CustomEvent("Clicked onAddSessionAd"));
+            }
         });
 
         AdRequest adRequest = new AdRequest.Builder()

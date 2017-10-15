@@ -67,6 +67,11 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
             public void onAdClicked() {
                 Answers.getInstance().logCustom(new CustomEvent("Clicked onAddBookAd"));
             }
+
+            @Override
+            public void onAdLeftApplication() {
+                Answers.getInstance().logCustom(new CustomEvent("Clicked onAddBookAd"));
+            }
         });
 
         AdRequest adRequest = new AdRequest.Builder()
