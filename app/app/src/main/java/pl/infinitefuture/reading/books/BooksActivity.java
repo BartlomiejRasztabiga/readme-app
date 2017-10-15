@@ -16,7 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.ndk.CrashlyticsNdk;
+import com.crashlytics.android.answers.Answers;
 import com.google.android.gms.ads.MobileAds;
 
 import io.fabric.sdk.android.Fabric;
@@ -36,7 +36,7 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
         setContentView(R.layout.books_act);
 
         // Initialize Fabric and AdMob
-        Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
+        Fabric.with(this, new Crashlytics(), new Answers());
         MobileAds.initialize(this, getString(R.string.admob_app_id));
 
         setupToolbar();
