@@ -378,7 +378,7 @@
 
                 </LinearLayout>
 
-                <ListView
+                <pl.infinitefuture.reading.NonScrollListView
                     android:id="@+id/sessions_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
