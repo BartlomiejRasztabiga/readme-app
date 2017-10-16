@@ -221,7 +221,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="@{viewmodel.hasGoodReadingTempo ? @string/left_message_good : (String.format(@string/left_message_bad, viewmodel.readingTempoToMakeIt.get()))}"
+                        android:text="@{viewmodel.hasGoodReadingTempo ? @string/left_message_good : (String.format(@string/left_message_bad, viewmodel.readingTempoToMakeIt.get())), default=@string/left_message_good}"
                         android:textColor="@color/colorPrimary"
                         android:textSize="16sp" />
 

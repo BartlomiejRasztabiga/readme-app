@@ -76,8 +76,7 @@ public class BookDetailFragment extends Fragment {
         super.onResume();
         Long bookId = getArguments().getLong(ARGUMENT_BOOK_ID);
         if (bookId != 0L) {
-            mViewModel.start(getArguments().getLong(ARGUMENT_BOOK_ID));
-            //TODO set toolbar title
+            mViewModel.start(bookId);
         } // Else I don't know...
     }
 
