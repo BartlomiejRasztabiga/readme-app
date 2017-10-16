@@ -14,8 +14,7 @@
   ~ limitations under the License.
   -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -39,10 +38,6 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:visibility="@{viewmodel.dataAvailable ? View.VISIBLE : View.GONE}">
 
             <LinearLayout
@@ -384,7 +379,6 @@
                     android:layout_height="wrap_content"
                     android:divider="@null"
                     android:dividerHeight="0dp"
-                    android:nestedScrollingEnabled="true"
                     android:visibility="@{viewmodel.emptySessions ? View.GONE : View.VISIBLE}"
                     app:sessions="@{viewmodel.lastSessions}" />
 
@@ -403,6 +397,7 @@
                     android:id="@+id/full_history_message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginTop="8dp"
                     android:clickable="true"
                     android:focusable="true"
