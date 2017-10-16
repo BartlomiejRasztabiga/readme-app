@@ -35,7 +35,7 @@
     <string name="days_left">days left</string>
     <string name="left_message_good">Keep up the tempo and you\'ll be on time</string>
     <string name="left_message_bad">With current tempo you won\'t make it on time! \nYou have to read %d pages per day!</string>
-    <string name="last_sessions">Last reading sessions</string>
+    <string name="last_sessions">Reading sessions</string>
     <string name="pages">pages</string>
     <string name="no_sessions">No sessions</string>
     <string name="how_many_pages_have_you_read">How many pages have you read?</string>
