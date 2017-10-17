@@ -183,28 +183,33 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
 
         builder.setView(dialogView)
                 .setPositiveButton(R.string.add, (dialogInterface, i) -> {
-                    Boolean wantToCloseDialog = true;
-                    if (pages.getText() == null || pages.getText().toString().equals("")
-                            || newDate.getTime() == null) {
-                        Toast.makeText(this, R.string.errors_in_form, Toast.LENGTH_SHORT).show();
-                        wantToCloseDialog = false;
-                    } else if (newDate.getTime().getTime() > new Date().getTime()) {
-                        Toast.makeText(this, R.string.end_before_start_date_message, Toast.LENGTH_SHORT).show();
-                        wantToCloseDialog = false;
-                    }
-
-                    if (wantToCloseDialog) {
-
-                        //show ad
-                        showInterstitial();
-
-                        Long readPages = Long.valueOf(pages.getText().toString());
-                        mBookViewModel.addReadingSession(readPages, newDate.getTime());
-                        dialogInterface.dismiss();
-                    }
+                    // ignore
                 })
-                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
-        builder.create().show();
+                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                    // ignore
+                });
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            Boolean wantToCloseDialog = true;
+            if (pages.getText() == null || pages.getText().toString().equals("")
+                    || newDate.getTime() == null) {
+                Toast.makeText(this, R.string.errors_in_form, Toast.LENGTH_SHORT).show();
+                wantToCloseDialog = false;
+            } else if (newDate.getTime().getTime() > new Date().getTime()) {
+                Toast.makeText(this, R.string.end_before_start_date_message, Toast.LENGTH_SHORT).show();
+                wantToCloseDialog = false;
+            }
+            if (wantToCloseDialog) {
+                //show ad
+                showInterstitial();
+
+                Long readPages = Long.valueOf(pages.getText().toString());
+                mBookViewModel.addReadingSession(readPages, newDate.getTime());
+                dialog.dismiss();
+            }
+        });
+
     }
 
     private void showInterstitial() {
