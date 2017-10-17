@@ -44,4 +44,5 @@
     <string name="tempo">Tempo</string>
     <string name="pages_per_day">stron na dzień</string>
     <string name="errors_in_form">Sprawdź poprawność danych</string>
+    <string name="end_before_start_date_message">Termin przeczytania musi być później niż start</string>
 </resources>

@@ -26,9 +26,9 @@ import com.google.android.gms.ads.InterstitialAd;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
-import pl.infinitefuture.reading.EditTextBindingAdapters;
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.ViewModelFactory;
 import pl.infinitefuture.reading.addeditbook.AddEditBookActivity;
@@ -188,7 +188,11 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
                             || newDate.getTime() == null) {
                         Toast.makeText(this, R.string.errors_in_form, Toast.LENGTH_SHORT).show();
                         wantToCloseDialog = false;
+                    } else if (newDate.getTime().getTime() > new Date().getTime()) {
+                        Toast.makeText(this, R.string.end_before_start_date_message, Toast.LENGTH_SHORT).show();
+                        wantToCloseDialog = false;
                     }
+
                     if (wantToCloseDialog) {
 
                         //show ad

@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import pl.infinitefuture.reading.EditTextBindingAdapters;
@@ -113,18 +114,23 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
     // Called when clicking on fab.
     void saveBook() {
         try {
-            Book book = new Book(title.get(), totalPages.get(),
-                    EditTextBindingAdapters.strToDate(startDate.get()),
-                    EditTextBindingAdapters.strToDate(deadlineDate.get()));
+            Date bookStartDate = EditTextBindingAdapters.strToDate(this.startDate.get());
+            Date bookDeadlineDate = EditTextBindingAdapters.strToDate(this.deadlineDate.get());
+
+            // check if deadlineDate is before startDate
+            if (bookStartDate.getTime() >= bookDeadlineDate.getTime()) {
+                mSnackbarText.setValue(R.string.end_before_start_date_message);
+                return;
+            }
+
+            Book book = new Book(title.get(), totalPages.get(), bookStartDate, bookDeadlineDate);
             if (book.isEmpty()) {
                 mSnackbarText.setValue(R.string.empty_book_message);
                 return;
             }
             if (!mIsNewBook && mBookId != null) {
-                book = new Book(mBookId, title.get(), totalPages.get(),
-                        EditTextBindingAdapters.strToDate(startDate.get()),
-                        EditTextBindingAdapters.strToDate(deadlineDate.get()), mBookCompleted,
-                        book.getIconColor(), readPages.get()); //TODO Fix getting color
+                book = new Book(mBookId, title.get(), totalPages.get(), bookStartDate,
+                        bookDeadlineDate, mBookCompleted, book.getIconColor(), readPages.get()); //TODO Fix getting color
                 updateBook(book);
             } else {
                 saveBook(book);
