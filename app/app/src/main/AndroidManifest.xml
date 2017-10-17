@@ -11,14 +11,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="pl.infinitefuture.reading.books.BooksActivity">
+            android:name="pl.infinitefuture.reading.books.BooksActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="pl.infinitefuture.reading.addeditbook.AddEditBookActivity" />
-        <activity android:name="pl.infinitefuture.reading.bookdetail.BookDetailActivity"/>
+        <activity
+            android:name="pl.infinitefuture.reading.addeditbook.AddEditBookActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="pl.infinitefuture.reading.bookdetail.BookDetailActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a4adb38dbde64a16bfc91d2182c87b663e920709" />
