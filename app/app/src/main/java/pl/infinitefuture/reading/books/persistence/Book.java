@@ -14,7 +14,6 @@ import com.google.common.base.Strings;
 import java.util.Date;
 import java.util.Random;
 
-import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.util.MaterialColors;
 
 @Entity(tableName = "books")
@@ -29,8 +28,12 @@ public final class Book {
     private String title;
 
     @Nullable
-    @ColumnInfo(name = "totalPages")
-    private Long totalPages;
+    @ColumnInfo(name = "firstPage")
+    private Long firstPage;
+
+    @Nullable
+    @ColumnInfo(name = "lastPage")
+    private Long lastPage;
 
     @Nullable
     @ColumnInfo(name = "readPages")
@@ -54,54 +57,56 @@ public final class Book {
     @Ignore
     public Book() {
         title = "";
-        totalPages = 0L;
+        firstPage = 0L;
+        lastPage = 0L;
         readPages = 0L;
         iconColor = getMaterialColor();
     }
 
     @Ignore
-    public Book(@Nullable String title, @Nullable Long totalPages) {
+    public Book(@Nullable String title, @Nullable Long lastPage) {
         this.title = title;
-        this.totalPages = totalPages;
+        this.lastPage = lastPage;
         this.iconColor = getMaterialColor();
     }
 
     @Ignore
-    public Book(@NonNull Long id, @Nullable String title, @Nullable Long totalPages) {
+    public Book(@NonNull Long id, @Nullable String title, @Nullable Long lastPage) {
         this.id = id;
         this.title = title;
-        this.totalPages = totalPages;
+        this.lastPage = lastPage;
         completed = false;
         this.iconColor = getMaterialColor();
     }
 
     @Ignore
-    public Book(@NonNull Long id, @Nullable String title, @Nullable Long totalPages,
+    public Book(@NonNull Long id, @Nullable String title, @Nullable Long lastPage,
                 boolean completed) {
         this.id = id;
         this.title = title;
-        this.totalPages = totalPages;
+        this.lastPage = lastPage;
         this.completed = completed;
         this.iconColor = getMaterialColor();
     }
 
     @Ignore
-    public Book(@Nullable String title, @Nullable Long totalPages,
+    public Book(@Nullable String title, @Nullable Long firstPage, @Nullable Long lastPage,
                 @Nullable Date startDate, @Nullable Date deadlineDate) {
         this.title = title;
-        this.totalPages = totalPages;
+        this.firstPage = firstPage;
+        this.lastPage = lastPage;
         this.startDate = startDate;
         this.deadlineDate = deadlineDate;
         this.iconColor = getMaterialColor();
     }
 
     @Ignore
-    public Book(Long id, @Nullable String title, @Nullable Long totalPages,
+    public Book(Long id, @Nullable String title, @Nullable Long lastPage,
                 @Nullable Date startDate, @Nullable Date deadlineDate, boolean completed,
                 @NonNull Integer iconColor, @Nullable Long readPages) {
         this.id = id;
         this.title = title;
-        this.totalPages = totalPages;
+        this.lastPage = lastPage;
         this.startDate = startDate;
         this.deadlineDate = deadlineDate;
         this.completed = completed;
@@ -110,22 +115,26 @@ public final class Book {
     }
 
     @Ignore
-    public Book(Long id, @Nullable String title, @Nullable Long totalPages,
+    public Book(Long id, @Nullable String title, @Nullable Long lastPage,
                 @Nullable Long readPages, boolean completed) {
         this.id = id;
         this.title = title;
-        this.totalPages = totalPages;
+        this.lastPage = lastPage;
         this.readPages = readPages;
         this.completed = completed;
         this.iconColor = getMaterialColor();
     }
 
-    public Book(Long id, @Nullable String title, @Nullable Long totalPages,
-                @Nullable Long readPages, boolean completed, Integer iconColor) {
+    public Book(Long id, @Nullable String title, @Nullable Long firstPage, @Nullable Long lastPage,
+                @Nullable Long readPages, @Nullable Date startDate,
+                @Nullable Date deadlineDate, boolean completed, Integer iconColor) {
         this.id = id;
         this.title = title;
-        this.totalPages = totalPages;
+        this.firstPage = firstPage;
+        this.lastPage = lastPage;
         this.readPages = readPages;
+        this.startDate = startDate;
+        this.deadlineDate = deadlineDate;
         this.completed = completed;
         this.iconColor = iconColor;
     }
@@ -141,8 +150,13 @@ public final class Book {
     }
 
     @Nullable
-    public Long getTotalPages() {
-        return totalPages;
+    public Long getFirstPage() {
+        return firstPage;
+    }
+
+    @Nullable
+    public Long getLastPage() {
+        return lastPage;
     }
 
     @Nullable
@@ -203,7 +217,7 @@ public final class Book {
 
     public boolean isEmpty() {
         return Strings.isNullOrEmpty(title) ||
-                (totalPages == null || totalPages == 0L) ||
+                (lastPage == null || lastPage == 0L) ||
                 (startDate == null) || (deadlineDate == null);
     }
 
@@ -214,7 +228,7 @@ public final class Book {
         Book book = (Book) o;
         return Objects.equal(id, book.id) &&
                 Objects.equal(title, book.title) &&
-                Objects.equal(totalPages, book.totalPages) &&
+                Objects.equal(lastPage, book.lastPage) &&
                 Objects.equal(readPages, book.readPages) &&
                 Objects.equal(startDate, book.startDate) &&
                 Objects.equal(deadlineDate, book.deadlineDate);
@@ -222,7 +236,7 @@ public final class Book {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, title, totalPages);
+        return Objects.hashCode(id, title, lastPage);
     }
 
     @Override
@@ -230,7 +244,7 @@ public final class Book {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", totalPages=" + totalPages +
+                ", lastPage=" + lastPage +
                 ", readPages=" + readPages +
                 ", startDate=" + startDate +
                 ", deadlineDate=" + deadlineDate +

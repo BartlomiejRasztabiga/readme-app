@@ -52,6 +52,25 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/add_book_firstpage_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/add_book_firstpage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="16dp"
+                        android:drawableStart="@drawable/ic_content_copy_black_24dp"
+                        android:ems="10"
+                        android:hint="@string/firstpage_hint"
+                        android:inputType="number"
+                        android:text="@={viewmodel.firstPage}" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
                     android:id="@+id/add_book_pages_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -65,9 +84,9 @@
                         android:drawablePadding="16dp"
                         android:drawableStart="@drawable/ic_content_copy_black_24dp"
                         android:ems="10"
-                        android:hint="@string/pages_hint"
+                        android:hint="@string/lastpage_hint"
                         android:inputType="number"
-                        android:text="@={viewmodel.totalPages}" />
+                        android:text="@={viewmodel.lastPage}" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout

@@ -29,6 +29,8 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     public final ObservableField<Long> readPages = new ObservableField<>();
 
+    public final ObservableField<Long> currentPage = new ObservableField<>();
+
     public final ObservableField<Long> pagesLeftToRead = new ObservableField<>();
 
     public final ObservableField<Long> daysLeft = new ObservableField<>();
@@ -131,12 +133,32 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         }
     }
 
-    public void addReadingSession(Long readPages, Date sessionDate) {
+    public void addReadingSession(Long currentPage, Date sessionDate) {
+        Long firstPage = book.get().getFirstPage() != null ? book.get().getFirstPage() : 0L;
+        Long lastPage = book.get().getLastPage() != null ? book.get().getLastPage() : 0L;
+        Long readPages = book.get().getReadPages() != null ? book.get().getReadPages() : 0L;
+        Long bookOldCurrentPage = firstPage + readPages;
+        Long newReadPages = currentPage - bookOldCurrentPage;
+
+        if (currentPage <= bookOldCurrentPage) {
+            //negative delta, something is wrong
+            Toast.makeText(getApplication().getApplicationContext(),
+                    getApplication().getString(R.string.wrong_pages), Toast.LENGTH_SHORT).show();
+            return;
+        } else if (newReadPages >= (lastPage - bookOldCurrentPage)) {
+            //book is completed
+            newReadPages = lastPage - bookOldCurrentPage;
+            book.get().setCompleted(true);
+
+            Toast.makeText(getApplication().getApplicationContext(), "TODO: Book completed",
+                    Toast.LENGTH_SHORT).show();
+        }
+
         // update book
-        book.get().addReadPages(readPages);
+        book.get().addReadPages(newReadPages);
         mBooksRepository.updateBook(book.get());
 
-        ReadingSession readingSession = new ReadingSession(book.get().getId(), sessionDate, readPages);
+        ReadingSession readingSession = new ReadingSession(book.get().getId(), sessionDate, newReadPages);
         mSessionsRepository.saveSession(readingSession, new ReadingSessionsDataSource.SaveSessionCallback() {
             @Override
             public void onSessionSaved() {
@@ -161,12 +183,18 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         // calculate some data
 
         // calculate pagesLeftToRead
-        Long totalPages = book.getTotalPages() != null ? book.getTotalPages() : 0L;
+        Long firstPage = book.getFirstPage() != null ? book.getFirstPage() : 0L;
+        Long lastPage = book.getLastPage() != null ? book.getLastPage() : 0L;
+        Long totalPages = lastPage - firstPage;
         Long readPages = book.getReadPages() != null ? book.getReadPages() : 0L;
         this.pagesLeftToRead.set(totalPages - readPages);
 
         // calculate readPages
         this.readPages.set(readPages);
+
+        // calculate currentPage
+
+        this.currentPage.set(firstPage + readPages);
 
         // calculate daysLeft
         Long nowDateInMillis = new Date().getTime();

@@ -173,7 +173,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         LayoutInflater inflater = this.getLayoutInflater();
         Calendar newDate = Calendar.getInstance();
         View dialogView = inflater.inflate(R.layout.addsession_dialog, null);
-        TextInputEditText pages = dialogView.findViewById(R.id.add_session_pages);
+        TextInputEditText page = dialogView.findViewById(R.id.add_session_current_page);
 
         dialogView.findViewById(R.id.add_session_date).setOnFocusChangeListener((view, hasFocus) -> {
             if (hasFocus) {
@@ -192,7 +192,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             Boolean wantToCloseDialog = true;
-            if (pages.getText() == null || pages.getText().toString().equals("")
+            if (page.getText() == null || page.getText().toString().equals("")
                     || newDate.getTime() == null) {
                 Toast.makeText(this, R.string.errors_in_form, Toast.LENGTH_SHORT).show();
                 wantToCloseDialog = false;
@@ -204,8 +204,8 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
                 //show ad
                 showInterstitial();
 
-                Long readPages = Long.valueOf(pages.getText().toString());
-                mBookViewModel.addReadingSession(readPages, newDate.getTime());
+                Long currentPage = Long.valueOf(page.getText().toString());
+                mBookViewModel.addReadingSession(currentPage, newDate.getTime());
                 dialog.dismiss();
             }
         });

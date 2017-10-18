@@ -1,24 +1,17 @@
 package pl.infinitefuture.reading.addeditbook;
 
 import android.app.Application;
-import android.app.DatePickerDialog;
 import android.arch.lifecycle.AndroidViewModel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.databinding.ObservableShort;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
 import java.lang.ref.WeakReference;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import pl.infinitefuture.reading.EditTextBindingAdapters;
 import pl.infinitefuture.reading.R;
@@ -32,11 +25,14 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
 
     public final ObservableField<String> title = new ObservableField<>();
 
-    public final ObservableField<Long> totalPages = new ObservableField<>();
+    public final ObservableField<Long> firstPage = new ObservableField<>();
+
+    public final ObservableField<Long> lastPage = new ObservableField<>();
 
     public final ObservableField<String> startDate = new ObservableField<>();
 
     public final ObservableField<String> deadlineDate = new ObservableField<>();
+
 
     public final ObservableField<Long> readPages = new ObservableField<>();
 
@@ -94,7 +90,8 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
     @Override
     public void onBookLoaded(Book book) {
         title.set(book.getTitle());
-        totalPages.set(book.getTotalPages());
+        firstPage.set(book.getFirstPage());
+        lastPage.set(book.getLastPage());
         readPages.set(book.getReadPages());
         startDate.set(EditTextBindingAdapters.dateToStr(book.getStartDate()));
         deadlineDate.set(EditTextBindingAdapters.dateToStr(book.getDeadlineDate()));
@@ -123,14 +120,15 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
                 return;
             }
 
-            Book book = new Book(title.get(), totalPages.get(), bookStartDate, bookDeadlineDate);
+            Book book = new Book(title.get(), firstPage.get(), lastPage.get(), bookStartDate, bookDeadlineDate);
             if (book.isEmpty()) {
                 mSnackbarText.setValue(R.string.empty_book_message);
                 return;
             }
             if (!mIsNewBook && mBookId != null) {
-                book = new Book(mBookId, title.get(), totalPages.get(), bookStartDate,
-                        bookDeadlineDate, mBookCompleted, book.getIconColor(), readPages.get()); //TODO Fix getting color
+                book = new Book(mBookId, title.get(), firstPage.get(), lastPage.get(),
+                        readPages.get(), bookStartDate, bookDeadlineDate, mBookCompleted,
+                        book.getIconColor()); //TODO Fix getting color
                 updateBook(book);
             } else {
                 saveBook(book);

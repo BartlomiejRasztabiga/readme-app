@@ -13,7 +13,8 @@
     <string name="edit_book">Edytuj książkę</string>
     <string name="add_book">Dodaj książkę</string>
     <string name="title_hint">Tytuł książki</string>
-    <string name="pages_hint">Liczba stron</string>
+    <string name="firstpage_hint">Numer pierwszej strony</string>
+    <string name="lastpage_hint">Numer ostatniej strony</string>
     <string name="book_updated">Zaktualizowano książkę</string>
     <string name="menu_delete_book">Usuń książkę</string>
     <string name="no_data">Brak danych</string>
@@ -24,7 +25,8 @@
     <string name="start_date_hint">Data rozpoczęcia czytania</string>
     <string name="deadline_date_hint">Data zakończenia czytania</string>
     <string name="invalid_date_message">Niepoprawna data</string>
-    <string name="you_have_read_pages">Przeczytałeś już</string>
+    <string name="you_are_on_page">Jesteś na</string>
+    <string name="of">z</string>
     <string name="you_have_left">Pozostało</string>
     <string name="pages_left_to_read">stron do przeczytania</string>
     <string name="days_left">dni do upływu terminu</string>
@@ -36,13 +38,15 @@
     <string name="add">Dodaj</string>
     <string name="cancel">Anuluj</string>
     <string name="choose_date">Data czytania</string>
-    <string name="how_many_pages_have_you_read">Ile stron przeczytałeś?</string>
+    <string name="on_which_page_are_you">Na której stronie skończyłeś?</string>
     <string name="add_reading_session">Dodaj sesję czytania</string>
     <string name="full_history">Pełna historia</string>
     <string name="information">Informacje</string>
     <string name="deadline">Termin</string>
-    <string name="tempo">Tempo</string>
+    <string name="tempo">Aktualne tempo</string>
     <string name="pages_per_day">stron na dzień</string>
     <string name="errors_in_form">Sprawdź poprawność danych</string>
     <string name="end_before_start_date_message">Termin przeczytania musi być później niż start</string>
+    <string name="on_page">stronie</string>
+    <string name="wrong_pages">Błędna ilość stron</string>
 </resources>

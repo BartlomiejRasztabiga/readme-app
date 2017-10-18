@@ -112,7 +112,7 @@ public class AddEditBookViewModelTest {
 
         //And data loaded
         assertThat(mViewModel.title.get()).isEqualTo(BOOK.getTitle());
-        assertThat(mViewModel.totalPages.get()).isEqualTo(BOOK.getTotalPages());
+        assertThat(mViewModel.lastPage.get()).isEqualTo(BOOK.getLastPage());
         assertThat(mViewModel.mBookCompleted).isEqualTo(BOOK.isCompleted());
         assertThat(mViewModel.dataLoading.get()).isFalse();
         assertThat(mViewModel.mIsDataLoaded).isTrue();
@@ -139,7 +139,7 @@ public class AddEditBookViewModelTest {
 
         // When adding new book
         mViewModel.title.set(bookToSave.getTitle());
-        mViewModel.totalPages.set(bookToSave.getTotalPages());
+        mViewModel.lastPage.set(bookToSave.getLastPage());
         mViewModel.saveBook();
 
         verify(mBooksRepository).saveBook(eq(bookToSave), mSaveBookCallbackCaptor.capture());
@@ -162,7 +162,7 @@ public class AddEditBookViewModelTest {
         mViewModel.start(1L);
         mViewModel.mIsNewBook = false;
         mViewModel.title.set(BOOK.getTitle());
-        mViewModel.totalPages.set(BOOK.getTotalPages());
+        mViewModel.lastPage.set(BOOK.getLastPage());
 
         mViewModel.saveBook();
 

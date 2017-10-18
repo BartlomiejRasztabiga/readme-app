@@ -11,7 +11,7 @@ import pl.infinitefuture.reading.DatabaseConverters;
 import pl.infinitefuture.reading.sessions.persistence.ReadingSession;
 import pl.infinitefuture.reading.sessions.persistence.ReadingSessionsDao;
 
-@Database(entities = {Book.class, ReadingSession.class}, version = 4)
+@Database(entities = {Book.class, ReadingSession.class}, version = 7)
 @TypeConverters({DatabaseConverters.class})
 public abstract class BooksDatabase extends RoomDatabase {
 

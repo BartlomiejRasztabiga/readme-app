@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="sans-serif"
-                    android:text="@string/you_have_read_pages"
+                    android:text="@string/you_are_on_page"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="@{viewmodel.readPages != null ? viewmodel.readPages : Long.valueOf(0), default=350}"
+                        android:text="@{viewmodel.currentPage + ` ` + @string/on_page, default=`350 stronie`}"
                         android:textColor="@color/black"
                         android:textSize="34sp" />
 
@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="@{` / ` + viewmodel.book.totalPages + ` ` + @string/pages, default= ` / 900`}"
+                        android:text="@{` ` + @string/of + ` ` + viewmodel.book.lastPage, default= ` z 900`}"
                         android:textSize="34sp" />
                 </LinearLayout>
             </LinearLayout>
