@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
-                android:text="@{book.readPages != null ? book.readPages : Long.valueOf(0)}"
+                android:text="@{book.readPages != null ? (book.firstPage + book.readPages) : Long.valueOf(0)}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="italic" />
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
-                android:text="@{`/` + book.lastPage + ` ` + @string/pages}"
+                android:text="@{` ` + @string/of + ` ` + book.lastPage + ` ` + @string/pages}"
                 android:textSize="16sp"
                 android:textStyle="italic" />
         </LinearLayout>
