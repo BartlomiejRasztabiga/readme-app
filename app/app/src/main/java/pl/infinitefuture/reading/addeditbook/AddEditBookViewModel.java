@@ -33,7 +33,6 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
 
     public final ObservableField<String> deadlineDate = new ObservableField<>();
 
-
     public final ObservableField<Long> readPages = new ObservableField<>();
 
     public final ObservableBoolean dataLoading = new ObservableBoolean(false);
@@ -117,6 +116,12 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
             // check if deadlineDate is before startDate
             if (bookStartDate.getTime() >= bookDeadlineDate.getTime()) {
                 mSnackbarText.setValue(R.string.end_before_start_date_message);
+                return;
+            }
+
+            // check if lastPage is before startPage
+            if (this.lastPage.get() <= this.firstPage.get()) {
+                mSnackbarText.setValue(R.string.last_page_before_first_page);
                 return;
             }
 

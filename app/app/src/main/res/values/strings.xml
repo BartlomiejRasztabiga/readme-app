@@ -54,4 +54,5 @@
     <string name="of">of</string>
     <string name="on_page">pages</string>
     <string name="wrong_pages">Wrong page number</string>
+    <string name="last_page_before_first_page">Last page cannot be set before first page</string>
 </resources>
