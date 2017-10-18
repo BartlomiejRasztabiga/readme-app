@@ -28,7 +28,6 @@ public abstract class BooksDatabase extends RoomDatabase {
             if (instance == null) {
                 instance = Room.databaseBuilder(context.getApplicationContext(),
                         BooksDatabase.class, "Books.db")
-                        .fallbackToDestructiveMigration() //TODO Remove
                         .build();
             }
             return instance;
