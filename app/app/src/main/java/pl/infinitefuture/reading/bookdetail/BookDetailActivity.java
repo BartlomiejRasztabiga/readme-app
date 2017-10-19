@@ -197,7 +197,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
                 Toast.makeText(this, R.string.errors_in_form, Toast.LENGTH_SHORT).show();
                 wantToCloseDialog = false;
             } else if (newDate.getTime().getTime() > new Date().getTime()) {
-                Toast.makeText(this, R.string.end_before_start_date_message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.session_date_after_now, Toast.LENGTH_SHORT).show();
                 wantToCloseDialog = false;
             }
             if (wantToCloseDialog) {

@@ -67,6 +67,7 @@
                         android:ems="10"
                         android:hint="@string/firstpage_hint"
                         android:inputType="number"
+                        android:maxLength="5"
                         android:text="@={viewmodel.firstPage}" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -86,6 +87,7 @@
                         android:ems="10"
                         android:hint="@string/lastpage_hint"
                         android:inputType="number"
+                        android:maxLength="5"
                         android:text="@={viewmodel.lastPage}" />
                 </android.support.design.widget.TextInputLayout>
 
