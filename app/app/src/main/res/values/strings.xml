@@ -3,7 +3,7 @@
     <string name="onAddBookInterstitial_id" translatable="false">ca-app-pub-8699140209330486/2496608661</string>
     <string name="onAddSessionInterstitial_id" translatable="false">ca-app-pub-8699140209330486/8941052920</string>
 
-    <string name="app_name">Reading app</string>
+    <string name="app_name" translatable="false">ReadMe</string>
     <string name="navigation_view_header_title">Books</string>
     <string name="list_title">Books List</string>
     <string name="no_books_add">Add a book +</string>
