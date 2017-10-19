@@ -50,4 +50,5 @@
     <string name="wrong_pages">Błędna liczba stron</string>
     <string name="last_page_before_first_page">Ostatnia strona musi być dalej niż pierwsza</string>
     <string name="session_date_after_now">Data czytania nie może być w przyszłości</string>
+    <string name="pages_left">Pozostało %d stron</string>
 </resources>

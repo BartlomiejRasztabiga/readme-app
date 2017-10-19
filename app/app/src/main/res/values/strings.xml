@@ -56,4 +56,5 @@
     <string name="wrong_pages">Wrong page number</string>
     <string name="last_page_before_first_page">Last page cannot be set before first page</string>
     <string name="session_date_after_now">Session date cannot be set in future</string>
+    <string name="pages_left">%d pages left</string>
 </resources>
