@@ -29,6 +29,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import pl.infinitefuture.reading.EditTextBindingAdapters;
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.ViewModelFactory;
 import pl.infinitefuture.reading.addeditbook.AddEditBookActivity;
@@ -174,6 +175,10 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         Calendar newDate = Calendar.getInstance();
         View dialogView = inflater.inflate(R.layout.addsession_dialog, null);
         TextInputEditText page = dialogView.findViewById(R.id.add_session_current_page);
+
+        // set default date to now
+        ((TextInputEditText)dialogView.findViewById(R.id.add_session_date))
+                .setText(EditTextBindingAdapters.dateToStr(newDate.getTime()));
 
         dialogView.findViewById(R.id.add_session_date).setOnFocusChangeListener((view, hasFocus) -> {
             if (hasFocus) {
