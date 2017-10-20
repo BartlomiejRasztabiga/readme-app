@@ -12,6 +12,9 @@ public class MaterialColors {
     public static final String GREY = "#9e9e9e";
     public static final String BLUE_GREY = "#607d8b";
 
+    public static final String DATE_RED = "#bd3536";
+    public static final String DATE_GREEN = "#5ea276";
+
     public static String[] getMaterialColors() {
         return new String[]{PINK, DEEP_PURPLE, INDIGO, BLUE,
                 CYAN, GREEN, ORANGE, DEEP_ORANGE, GREY, BLUE_GREY
