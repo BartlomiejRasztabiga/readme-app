@@ -6,7 +6,7 @@
 
         <variable
             name="viewmodel"
-            type="pl.infinitefuture.readme.addeditbook.AddEditBookViewModel" />
+            type="pl.infinitefuture.reading.addeditbook.AddEditBookViewModel" />
     </data>
 
     <LinearLayout

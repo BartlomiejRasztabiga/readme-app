@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="pl.infinitefuture.readme.books.BooksViewModel" />
+            type="pl.infinitefuture.reading.books.BooksViewModel" />
     </data>
 
     <pl.infinitefuture.reading.ScrollChildSwipeRefreshLayout
