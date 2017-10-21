@@ -79,6 +79,8 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(R.string.your_books);
     }
 
     private void setupNavigation() {
