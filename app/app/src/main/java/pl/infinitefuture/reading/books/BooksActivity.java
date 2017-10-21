@@ -14,9 +14,12 @@ import android.view.View;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import io.fabric.sdk.android.Fabric;
 import pl.infinitefuture.reading.R;
+import pl.infinitefuture.reading.ReadMeApplication;
 import pl.infinitefuture.reading.ViewModelFactory;
 import pl.infinitefuture.reading.about.AboutFragment;
 import pl.infinitefuture.reading.addeditbook.AddEditBookActivity;
@@ -26,6 +29,8 @@ import pl.infinitefuture.reading.util.ActivityUtils;
 public class BooksActivity extends AppCompatActivity implements BooksNavigator, BookItemNavigator {
 
     private BooksViewModel mViewModel;
+
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +58,19 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
 
         // Subscribe to "new task" event
         mViewModel.getNewBookEvent().observe(this, e -> addNewBook());
+
+        // Setup Analytics tracker
+        ReadMeApplication application = (ReadMeApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Send screen name to Analytics
+        mTracker.setScreenName("Books list");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public static BooksViewModel obtainViewModel(FragmentActivity activity) {
@@ -75,6 +93,28 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
                 getSupportFragmentManager(), booksFragment, R.id.contentFrame);
     }
 
+    private void navigateToBooksFragment(BooksFragment fragment, FloatingActionButton fab) {
+        ActivityUtils.replaceFragmentInActivity(
+                getSupportFragmentManager(), fragment, R.id.contentFrame);
+        getSupportActionBar().setTitle(R.string.your_books);
+        fab.setVisibility(View.VISIBLE);
+
+        // Send screen name to Analytics
+        mTracker.setScreenName("Books list");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    private void navigateToAboutFragment(AboutFragment fragment, FloatingActionButton fab) {
+        ActivityUtils.replaceFragmentInActivity(
+                getSupportFragmentManager(), fragment, R.id.contentFrame);
+        getSupportActionBar().setTitle(R.string.about_us);
+        fab.setVisibility(View.GONE);
+
+        // Send screen name to Analytics
+        mTracker.setScreenName("About us");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
     private void setupNavigation() {
         final BooksFragment booksFragment = BooksFragment.newInstance();
         final AboutFragment aboutFragment = AboutFragment.newInstance();
@@ -86,18 +126,12 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
                 item -> {
                     switch (item.getItemId()) {
                         case R.id.bottom_navigation_books_item:
-                            ActivityUtils.replaceFragmentInActivity(
-                                    getSupportFragmentManager(), booksFragment, R.id.contentFrame);
-                            getSupportActionBar().setTitle(R.string.your_books);
-                            fab.setVisibility(View.VISIBLE);
+                            navigateToBooksFragment(booksFragment, fab);
                             break;
                         case R.id.bottom_navigation_archives_item:
                             break;
                         case R.id.bottom_navigation_about_item:
-                            ActivityUtils.replaceFragmentInActivity(
-                                    getSupportFragmentManager(), aboutFragment, R.id.contentFrame);
-                            getSupportActionBar().setTitle(R.string.about_us);
-                            fab.setVisibility(View.GONE);
+                            navigateToAboutFragment(aboutFragment, fab);
                             break;
                     }
                     return true;
@@ -111,6 +145,12 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
 
     @Override
     public void openBookDetails(Long bookId) {
+        // Send event to Analytics
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Open book details")
+                .build());
+
         Intent intent = new Intent(this, BookDetailActivity.class);
         intent.putExtra(BookDetailActivity.EXTRA_BOOK_ID, bookId);
         startActivityForResult(intent, AddEditBookActivity.REQUEST_CODE);
@@ -118,6 +158,12 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
 
     @Override
     public void addNewBook() {
+        // Send event to Analytics
+        mTracker.send(new HitBuilders.EventBuilder()
+        .setCategory("Action")
+        .setAction("Start adding book")
+        .build());
+
         Intent intent = new Intent(this, AddEditBookActivity.class);
         startActivityForResult(intent, AddEditBookActivity.REQUEST_CODE);
     }

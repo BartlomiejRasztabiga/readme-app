@@ -169,4 +169,7 @@ dependencies {
 
     // AdMob
     implementation 'com.google.android.gms:play-services-ads:11.4.2'
+
+    // Google Analytics
+    implementation 'com.google.android.gms:play-services-analytics:11.4.2'
 }

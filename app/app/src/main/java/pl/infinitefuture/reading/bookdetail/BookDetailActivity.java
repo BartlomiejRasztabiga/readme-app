@@ -22,6 +22,8 @@ import com.crashlytics.android.answers.CustomEvent;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,6 +33,7 @@ import java.util.Locale;
 
 import pl.infinitefuture.reading.EditTextBindingAdapters;
 import pl.infinitefuture.reading.R;
+import pl.infinitefuture.reading.ReadMeApplication;
 import pl.infinitefuture.reading.ViewModelFactory;
 import pl.infinitefuture.reading.addeditbook.AddEditBookActivity;
 import pl.infinitefuture.reading.addeditbook.AddEditBookFragment;
@@ -56,6 +59,8 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
 
     private InterstitialAd mInterstitial;
 
+    private Tracker mTracker;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,26 +74,20 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
 
         subscribeToNavigationChanges(mBookViewModel);
 
-        // Initialise interstitial ad
-        mInterstitial = new InterstitialAd(this);
-        mInterstitial.setAdUnitId(getString(R.string.onAddSessionInterstitial_id));
-        mInterstitial.setAdListener(new AdListener() {
-            @Override
-            public void onAdClicked() {
-                Answers.getInstance().logCustom(new CustomEvent("Clicked onAddSessionAd"));
-            }
+        setupAd();
 
-            @Override
-            public void onAdLeftApplication() {
-                Answers.getInstance().logCustom(new CustomEvent("Clicked onAddSessionAd"));
-            }
-        });
+        // Setup Analytics tracker
+        ReadMeApplication application = (ReadMeApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+    }
 
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("F259DB1215FFE47DFF8D24207A7A1B56") //Bartłomiej Rasztabiga genymotion
-                .addTestDevice("862CC9D548D4515DF8A5FB779827E938") //Bartłomiej Rasztabiga redmi note 3
-                .build();
-        mInterstitial.loadAd(adRequest);
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Send screen name to Analytics
+        mTracker.setScreenName("Book details");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     private void setupToolbar() {
@@ -104,6 +103,37 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
 
         ActivityUtils.replaceFragmentInActivity(getSupportFragmentManager(),
                 bookDetailFragment, R.id.contentFrame);
+    }
+
+    private void setupAd() {
+        // Initialise interstitial ad
+        mInterstitial = new InterstitialAd(this);
+        mInterstitial.setAdUnitId(getString(R.string.onAddSessionInterstitial_id));
+        mInterstitial.setAdListener(new AdListener() {
+            @Override
+            public void onAdClicked() {
+                // Send event to Analytics
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Ads")
+                        .setAction("onAddSession interstitial clicked")
+                        .build());
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Send event to Analytics
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Ads")
+                        .setAction("onAddSession interstitial clicked")
+                        .build());
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("F259DB1215FFE47DFF8D24207A7A1B56") //Bartłomiej Rasztabiga genymotion
+                .addTestDevice("862CC9D548D4515DF8A5FB779827E938") //Bartłomiej Rasztabiga redmi note 3
+                .build();
+        mInterstitial.loadAd(adRequest);
     }
 
     @NonNull
@@ -170,6 +200,8 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
 
     @Override
     public void onStartAddSession() {
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         Calendar newDate = Calendar.getInstance();

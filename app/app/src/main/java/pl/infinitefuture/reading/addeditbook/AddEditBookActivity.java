@@ -15,8 +15,11 @@ import com.crashlytics.android.answers.CustomEvent;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import pl.infinitefuture.reading.R;
+import pl.infinitefuture.reading.ReadMeApplication;
 import pl.infinitefuture.reading.ViewModelFactory;
 import pl.infinitefuture.reading.util.ActivityUtils;
 
@@ -32,6 +35,8 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
     public static final int ADD_EDIT_RESULT_OK = RESULT_FIRST_USER + 1;
 
     private InterstitialAd mInterstitial;
+
+    private Tracker mTracker;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -79,6 +84,19 @@ public class AddEditBookActivity extends AppCompatActivity implements AddEditBoo
                 .addTestDevice("862CC9D548D4515DF8A5FB779827E938") //Bartłomiej Rasztabiga redmi note 3
                 .build();
         mInterstitial.loadAd(adRequest);
+
+        // Setup Analytics tracker
+        ReadMeApplication application = (ReadMeApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Send screen name to Analytics
+        mTracker.setScreenName("Add/Edit book");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     private void setupToolbar() {

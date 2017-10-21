@@ -14,9 +14,13 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.util.ArrayList;
 
 import pl.infinitefuture.reading.R;
+import pl.infinitefuture.reading.ReadMeApplication;
 import pl.infinitefuture.reading.SnackbarMessage;
 import pl.infinitefuture.reading.addeditbook.BookDetailUserActionsListener;
 import pl.infinitefuture.reading.databinding.BookdetailFragBinding;
@@ -34,6 +38,8 @@ public class BookDetailFragment extends Fragment {
 
     private BookdetailFragBinding mBookDetailsFragBinding;
 
+    private Tracker mTracker;
+
     public static BookDetailFragment newInstance(Long bookId) {
         Bundle arguments = new Bundle();
         arguments.putLong(ARGUMENT_BOOK_ID, bookId);
@@ -49,6 +55,10 @@ public class BookDetailFragment extends Fragment {
         setupFab();
 
         setupSnackbar();
+
+        // Setup Analytics tracker
+        ReadMeApplication application = (ReadMeApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     private void setupFab() {
@@ -115,11 +125,29 @@ public class BookDetailFragment extends Fragment {
         int i = item.getItemId();
         if (i == R.id.menu_delete) {
             mViewModel.deleteBook();
+            sendDeleteBookEvent();
             return true;
         } else if (i == R.id.menu_edit) {
             mViewModel.editBook();
+            sendEditBookEvent();
             return true;
         }
         return false;
+    }
+
+    private void sendDeleteBookEvent() {
+        // Send event to Analytics
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Delete book")
+                .build());
+    }
+
+    private void sendEditBookEvent() {
+        // Send event to Analytics
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Edit book")
+                .build());
     }
 }
