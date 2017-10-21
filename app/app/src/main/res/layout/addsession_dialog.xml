@@ -74,7 +74,8 @@
                 android:drawablePadding="16dp"
                 android:drawableStart="@drawable/ic_event_black_24dp"
                 android:hint="@string/choose_date"
-                android:inputType="date" />
+                android:inputType="date"
+                android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>
 
 
