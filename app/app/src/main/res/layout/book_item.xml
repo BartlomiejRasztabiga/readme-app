@@ -43,7 +43,9 @@
             android:layout_alignParentStart="true"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
+            android:ellipsize="end"
             android:fontFamily="sans-serif"
+            android:maxLines="1"
             android:text="@{book.title}"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -79,17 +81,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
-                android:text="@{book.readPages != null ? book.readPages : Long.valueOf(0)}"
+                android:text="@{String.format(@string/pages_left, (book.lastPage - book.firstPage - book.readPages))}"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="italic" />
-
-            <TextView
-                android:id="@+id/pages_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:text="@{`/` + book.totalPages + ` ` + @string/pages}"
                 android:textSize="16sp"
                 android:textStyle="italic" />
         </LinearLayout>

@@ -26,6 +26,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import pl.infinitefuture.reading.EditTextBindingAdapters;
@@ -173,7 +174,11 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         LayoutInflater inflater = this.getLayoutInflater();
         Calendar newDate = Calendar.getInstance();
         View dialogView = inflater.inflate(R.layout.addsession_dialog, null);
-        TextInputEditText pages = dialogView.findViewById(R.id.add_session_pages);
+        TextInputEditText page = dialogView.findViewById(R.id.add_session_current_page);
+
+        // set default date to now
+        ((TextInputEditText)dialogView.findViewById(R.id.add_session_date))
+                .setText(EditTextBindingAdapters.dateToStr(newDate.getTime()));
 
         dialogView.findViewById(R.id.add_session_date).setOnFocusChangeListener((view, hasFocus) -> {
             if (hasFocus) {
@@ -183,24 +188,33 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
 
         builder.setView(dialogView)
                 .setPositiveButton(R.string.add, (dialogInterface, i) -> {
-                    Boolean wantToCloseDialog = true;
-                    if (pages.getText() == null || pages.getText().toString().equals("")
-                            || newDate.getTime() == null) {
-                        Toast.makeText(this, R.string.errors_in_form, Toast.LENGTH_SHORT).show();
-                        wantToCloseDialog = false;
-                    }
-                    if (wantToCloseDialog) {
-
-                        //show ad
-                        showInterstitial();
-
-                        Long readPages = Long.valueOf(pages.getText().toString());
-                        mBookViewModel.addReadingSession(readPages, newDate.getTime());
-                        dialogInterface.dismiss();
-                    }
+                    // ignore
                 })
-                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
-        builder.create().show();
+                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                    // ignore
+                });
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            Boolean wantToCloseDialog = true;
+            if (page.getText() == null || page.getText().toString().equals("")
+                    || newDate.getTime() == null) {
+                Toast.makeText(this, R.string.errors_in_form, Toast.LENGTH_SHORT).show();
+                wantToCloseDialog = false;
+            } else if (newDate.getTime().getTime() > new Date().getTime()) {
+                Toast.makeText(this, R.string.session_date_after_now, Toast.LENGTH_SHORT).show();
+                wantToCloseDialog = false;
+            }
+            if (wantToCloseDialog) {
+                //show ad
+                showInterstitial();
+
+                Long currentPage = Long.valueOf(page.getText().toString());
+                mBookViewModel.addReadingSession(currentPage, newDate.getTime());
+                dialog.dismiss();
+            }
+        });
+
     }
 
     private void showInterstitial() {

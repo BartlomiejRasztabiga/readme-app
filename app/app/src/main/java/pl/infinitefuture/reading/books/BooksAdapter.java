@@ -7,15 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.github.pavlospt.roundedletterview.RoundedLetterView;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.books.persistence.Book;
 import pl.infinitefuture.reading.databinding.BookItemBinding;
+import pl.infinitefuture.reading.util.MaterialColors;
 
 public class BooksAdapter extends BaseAdapter {
 
@@ -77,12 +80,38 @@ public class BooksAdapter extends BaseAdapter {
         // Set random color
         roundedLetterView.setBackgroundColor(book.getIconColor());
 
+        // Set date color depending on tempo
+        Long firstPage = book.getFirstPage() != null ? book.getFirstPage() : 0L;
+        Long lastPage = book.getLastPage() != null ? book.getLastPage() : 0L;
+        Long readPages = book.getReadPages() != null ? book.getReadPages() : 0L;
+        Long totalPages = lastPage - firstPage;
+
+        Long nowDateInMillis = new Date().getTime();
+        Long startDateInMilis = book.getStartDate().getTime();
+        Long deadlineDateInMillis = book.getDeadlineDate().getTime();
+        
+        Long daysBetween = daysBetween(nowDateInMillis, deadlineDateInMillis);
+        Long daysSinceStart = daysBetween(startDateInMilis, nowDateInMillis);
+        Double tempo = ((double) readPages) / ((double) daysSinceStart);
+
+        Boolean isReadingTempoGood = false;
+        if ((tempo != 0) && ((totalPages - readPages) / tempo <= daysBetween))
+            isReadingTempoGood = true;
+
+        TextView deadlineDate = binding.getRoot().findViewById(R.id.deadline_date);
+        deadlineDate.setTextColor(Color.parseColor(isReadingTempoGood ? MaterialColors.DATE_GREEN : MaterialColors.DATE_RED));
+
         return binding.getRoot();
     }
 
     private void setList(List<Book> books) {
         mBooks = books;
         notifyDataSetChanged();
+    }
+
+    private Long daysBetween(Long date1, Long date2) {
+        Long daysBetween = Math.round((double) (date2 - date1) / (1000 * 60 * 60 * 24));
+        return daysBetween > 0 ? daysBetween : 1L; //prevent situation when now == startDate
     }
 
 }

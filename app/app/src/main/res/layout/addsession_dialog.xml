@@ -48,15 +48,15 @@
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
-            <!--TODO Disable negative pages-->
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/add_session_pages"
+                android:id="@+id/add_session_current_page"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="16dp"
                 android:drawableStart="@drawable/ic_content_copy_black_24dp"
-                android:hint="@string/how_many_pages_have_you_read"
-                android:inputType="numberSigned|numberDecimal"
+                android:hint="@string/on_which_page_are_you"
+                android:inputType="number"
+                android:maxLength="5"
                 android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>
 
@@ -74,7 +74,8 @@
                 android:drawablePadding="16dp"
                 android:drawableStart="@drawable/ic_event_black_24dp"
                 android:hint="@string/choose_date"
-                android:inputType="date" />
+                android:inputType="date"
+                android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>
 
 
