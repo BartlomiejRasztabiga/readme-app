@@ -3,10 +3,10 @@ package pl.infinitefuture.readme;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import pl.infinitefuture.readme.books.BooksRepository;
 import pl.infinitefuture.readme.books.persistence.BooksDatabase;
 import pl.infinitefuture.readme.books.persistence.BooksLocalDataSource;
 import pl.infinitefuture.readme.books.persistence.BooksRemoteDataSource;
+import pl.infinitefuture.readme.books.BooksRepository;
 import pl.infinitefuture.readme.sessions.ReadingSessionsRepository;
 import pl.infinitefuture.readme.sessions.persistence.ReadingSessionsLocalDataSource;
 

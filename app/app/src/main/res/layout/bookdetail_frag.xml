@@ -8,11 +8,11 @@
 
         <variable
             name="viewmodel"
-            type="pl.infinitefuture.reading.bookdetail.BookDetailViewModel" />
+            type="pl.infinitefuture.readme.bookdetail.BookDetailViewModel" />
 
         <variable
             name="listener"
-            type="pl.infinitefuture.reading.addeditbook.BookDetailUserActionsListener" />
+            type="pl.infinitefuture.readme.addeditbook.BookDetailUserActionsListener" />
     </data>
 
     <ScrollView
@@ -359,7 +359,7 @@
 
                 </LinearLayout>
 
-                <pl.infinitefuture.reading.NonScrollListView
+                <pl.infinitefuture.readme.NonScrollListView
                     android:id="@+id/sessions_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

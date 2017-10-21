@@ -8,7 +8,7 @@
 
         <variable
             name="session"
-            type="pl.infinitefuture.reading.sessions.persistence.ReadingSession" />
+            type="pl.infinitefuture.readme.sessions.persistence.ReadingSession" />
 
     </data>
 

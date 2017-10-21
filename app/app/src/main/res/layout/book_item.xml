@@ -9,11 +9,11 @@
 
         <variable
             name="book"
-            type="pl.infinitefuture.reading.books.persistence.Book" />
+            type="pl.infinitefuture.readme.books.persistence.Book" />
 
         <variable
             name="listener"
-            type="pl.infinitefuture.reading.books.BookItemUserActionsListener" />
+            type="pl.infinitefuture.readme.books.BookItemUserActionsListener" />
     </data>
 
     <android.support.constraint.ConstraintLayout
