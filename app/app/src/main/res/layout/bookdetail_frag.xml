@@ -118,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:tint="@color/colorPrimary"
+                        android:tint="@color/colorAccent"
                         app:srcCompat="@drawable/ic_timer_black_24dp" />
 
                     <TextView
@@ -203,7 +203,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:text="@{viewmodel.hasGoodReadingTempo ? @string/left_message_good : (String.format(@string/left_message_bad, viewmodel.readingTempoToMakeIt.get()))}"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorAccent"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -234,7 +234,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:tint="@color/colorPrimary"
+                        android:tint="@color/colorAccent"
                         app:srcCompat="@drawable/ic_info_outline_black_24dp" />
 
                     <TextView
@@ -345,7 +345,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:tint="@color/colorPrimary"
+                        android:tint="@color/colorAccent"
                         app:srcCompat="@drawable/ic_history_black_24dp" />
 
                     <TextView

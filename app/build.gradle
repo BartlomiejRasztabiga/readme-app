@@ -56,16 +56,4 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-task sonarlint(type: Exec) {
-    commandLine 'cmd', '/c', 'run-sonar.bat'
-
-    //store the output instead of printing to the console:
-    standardOutput = new ByteArrayOutputStream()
-
-    //extension method stopTomcat.output() can be used to obtain the output:
-    ext.output = {
-        return standardOutput.toString()
-    }
-}
-
 
