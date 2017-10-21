@@ -21,7 +21,7 @@ android {
         config {
             keyAlias 'ReadMeKey'
             keyPassword 'Gallendors5'
-            storeFile file('../android.jks')
+            storeFile file('../../android.jks')
             storePassword 'Gallendors5'
         }
     }
