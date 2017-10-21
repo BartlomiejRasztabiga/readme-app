@@ -73,7 +73,7 @@ public class BooksFragment extends Fragment {
     }
 
     private void setupFab() {
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_task);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_book);
 
         fab.setImageResource(R.drawable.ic_add);
         fab.setOnClickListener(v -> mBooksViewModel.addNewBook());

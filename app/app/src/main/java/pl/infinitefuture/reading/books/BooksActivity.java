@@ -3,17 +3,13 @@ package pl.infinitefuture.reading.books;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
@@ -22,6 +18,7 @@ import com.google.android.gms.ads.MobileAds;
 import io.fabric.sdk.android.Fabric;
 import pl.infinitefuture.reading.R;
 import pl.infinitefuture.reading.ViewModelFactory;
+import pl.infinitefuture.reading.about.AboutFragment;
 import pl.infinitefuture.reading.addeditbook.AddEditBookActivity;
 import pl.infinitefuture.reading.bookdetail.BookDetailActivity;
 import pl.infinitefuture.reading.util.ActivityUtils;
@@ -65,17 +62,6 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
         return ViewModelProviders.of(activity, factory).get(BooksViewModel.class);
     }
 
-    private void setupViewFragment() {
-        BooksFragment booksFragment =
-                (BooksFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (booksFragment == null) {
-            // Create the fragment
-            booksFragment = BooksFragment.newInstance();
-            ActivityUtils.replaceFragmentInActivity(
-                    getSupportFragmentManager(), booksFragment, R.id.contentFrame);
-        }
-    }
-
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,16 +69,35 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
         getSupportActionBar().setTitle(R.string.your_books);
     }
 
+    private void setupViewFragment() {
+        BooksFragment booksFragment = BooksFragment.newInstance();
+        ActivityUtils.replaceFragmentInActivity(
+                getSupportFragmentManager(), booksFragment, R.id.contentFrame);
+    }
+
     private void setupNavigation() {
+        final BooksFragment booksFragment = BooksFragment.newInstance();
+        final AboutFragment aboutFragment = AboutFragment.newInstance();
+        final FloatingActionButton fab = findViewById(R.id.fab_add_book);
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
         bottomNav.setOnNavigationItemSelectedListener(
                 item -> {
                     switch (item.getItemId()) {
                         case R.id.bottom_navigation_books_item:
+                            ActivityUtils.replaceFragmentInActivity(
+                                    getSupportFragmentManager(), booksFragment, R.id.contentFrame);
+                            getSupportActionBar().setTitle(R.string.your_books);
+                            fab.setVisibility(View.VISIBLE);
+                            break;
+                        case R.id.bottom_navigation_archives_item:
                             break;
                         case R.id.bottom_navigation_about_item:
-                            // navigate to about activity
+                            ActivityUtils.replaceFragmentInActivity(
+                                    getSupportFragmentManager(), aboutFragment, R.id.contentFrame);
+                            getSupportActionBar().setTitle(R.string.about_us);
+                            fab.setVisibility(View.GONE);
                             break;
                     }
                     return true;
