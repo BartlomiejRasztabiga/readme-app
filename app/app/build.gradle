@@ -20,7 +20,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
-        applicationId "pl.infinitefuture.reading"
+        applicationId "pl.infinitefuture.readme"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion  rootProject.ext.targetSdkVersion
         versionCode 1
