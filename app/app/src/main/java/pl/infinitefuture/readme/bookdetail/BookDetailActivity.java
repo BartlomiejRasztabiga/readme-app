@@ -1,6 +1,7 @@
 package pl.infinitefuture.readme.bookdetail;
 
 import android.app.DatePickerDialog;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -77,6 +78,10 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         // Setup Analytics tracker
         ReadMeApplication application = (ReadMeApplication) getApplication();
         mTracker = application.getDefaultTracker();
+
+        mBookViewModel.getSetToolbarTitleCommand().observe(this, s -> {
+            getSupportActionBar().setTitle(s);
+        });
     }
 
     @Override

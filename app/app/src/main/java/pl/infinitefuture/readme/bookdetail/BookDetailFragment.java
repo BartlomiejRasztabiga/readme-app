@@ -79,8 +79,6 @@ public class BookDetailFragment extends Fragment {
         Long bookId = getArguments().getLong(ARGUMENT_BOOK_ID);
         if (bookId != 0L) {
             mViewModel.start(getArguments().getLong(ARGUMENT_BOOK_ID));
-            // Set toolbar title
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(mViewModel.book.get().getTitle());
         } // Else I don't know...
     }
 
