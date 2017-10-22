@@ -87,7 +87,6 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
     }
     
     public void showFullSessionsHistory(View view) {
-        Toast.makeText(getApplication(), "TODO: ShowFullSessionsHistory", Toast.LENGTH_SHORT).show();
         mOpenSessionsCommand.call();
     }
 
