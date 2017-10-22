@@ -52,4 +52,8 @@
     <string name="session_date_after_now">Data czytania nie może być w przyszłości</string>
     <string name="pages_left">Pozostało %d stron</string>
     <string name="your_books">Twoje książki</string>
+    <string name="bottom_drawer_read_books">Archiwum</string>
+    <string name="about_us">O nas</string>
+    <string name="connect_with_us">Połącz się z nami</string>
+    <string name="version">Wersja</string>
 </resources>

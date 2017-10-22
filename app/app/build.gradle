@@ -17,22 +17,29 @@ repositories {
 apply plugin: 'jacoco-android'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'ReadMeKey'
+            keyPassword 'Gallendors5'
+            storeFile file('../../android.jks')
+            storePassword 'Gallendors5'
+        }
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
-        applicationId "pl.infinitefuture.reading"
+        applicationId "pl.infinitefuture.readme"
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion  rootProject.ext.targetSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0-alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        signingConfig signingConfigs.config
     }
-
     lintOptions {
         abortOnError false
     }
-
     buildTypes {
         debug {
             minifyEnabled false
@@ -48,10 +55,8 @@ android {
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardTest-rules.pro'
         }
     }
-
     // Specifies a flavor dimension.
     flavorDimensions "env"
-
     // If you need to add more flavors, consider using flavor dimensions.
     productFlavors {
         mock {
@@ -62,26 +67,22 @@ android {
             dimension "env"
         }
     }
-
     // Remove mockRelease as it's not needed.
     android.variantFilter { variant ->
-        if(variant.buildType.name == 'release'
+        if (variant.buildType.name == 'release'
                 && variant.getFlavors().get(0).name == 'mock') {
             variant.setIgnore(true);
         }
     }
-
     // Always show the result of every unit test, even if it passes.
     testOptions.unitTests.all {
         testLogging {
             events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
         }
     }
-
     dataBinding {
         enabled = true
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -89,6 +90,7 @@ android {
 }
 
 dependencies {
+
     // Initial dependencies
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation "junit:junit:$rootProject.junitVersion"
@@ -97,17 +99,16 @@ dependencies {
     })
 
     // Lifecycle, LiveData, and ViewModel
-    implementation "android.arch.lifecycle:runtime:1.0.0-rc1"
-    implementation "android.arch.lifecycle:extensions:1.0.0-rc1"
+    implementation 'android.arch.lifecycle:runtime:1.0.3'
+    implementation 'android.arch.lifecycle:extensions:1.0.0-rc1'
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-rc1"
-
-    implementation "android.arch.lifecycle:common-java8:1.0.0-rc1"
-    implementation "android.arch.lifecycle:reactivestreams:1.0.0-rc1"
+    implementation 'android.arch.lifecycle:common-java8:1.0.0-rc1'
+    implementation 'android.arch.lifecycle:reactivestreams:1.0.0-rc1'
 
     // Room
-    implementation "android.arch.persistence.room:runtime:1.0.0-rc1"
+    implementation 'android.arch.persistence.room:runtime:1.0.0-rc1'
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-rc1"
-    implementation "android.arch.persistence.room:rxjava2:1.0.0-rc1"
+    implementation 'android.arch.persistence.room:rxjava2:1.0.0-rc1'
 
     // Support library
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
@@ -118,7 +119,6 @@ dependencies {
     testImplementation "junit:junit:$rootProject.ext.junitVersion"
     testImplementation "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
     testImplementation "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
-
     testImplementation "android.arch.core:core-testing:$rootProject.archLifecycleVersion"
 
     // Android Testing Support Library's runner and rules
@@ -127,7 +127,7 @@ dependencies {
 
     // Dependencies for Android unit tests
     androidTestImplementation "junit:junit:$rootProject.ext.junitVersion"
-    androidTestImplementation "org.mockito:mockito-core:2.10.0"
+    androidTestImplementation 'org.mockito:mockito-core:2.10.0'
     androidTestImplementation 'com.google.dexmaker:dexmaker:1.2'
     androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.2'
     testImplementation 'org.assertj:assertj-core:3.8.0'
@@ -150,13 +150,14 @@ dependencies {
     androidTestImplementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     androidTestImplementation "com.android.support:support-compat:$rootProject.supportLibraryVersion"
     androidTestImplementation "com.android.support:design:$rootProject.supportLibraryVersion"
-    implementation "com.google.code.findbugs:jsr305:3.0.1"
+    implementation 'com.google.code.findbugs:jsr305:3.0.1'
 
     // Other dependencies
     implementation "com.google.guava:guava:$rootProject.guavaVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation 'com.github.pavlospt:roundedletterview:1.2'
+    implementation 'com.github.medyo:android-about-page:1.2.1'
 
     // Fabric
     compile('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
@@ -168,4 +169,7 @@ dependencies {
 
     // AdMob
     implementation 'com.google.android.gms:play-services-ads:11.4.2'
+
+    // Google Analytics
+    implementation 'com.google.android.gms:play-services-analytics:11.4.2'
 }

@@ -4,14 +4,14 @@
     <item
         android:id="@+id/bottom_navigation_books_item"
         android:enabled="true"
-        android:icon="@drawable/ic_library_books_black_24dp"
+        android:icon="@drawable/ic_library_books_white_24dp"
         android:title="@string/bottom_drawer_books"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/bottom_navigation_second_item"
+        android:id="@+id/bottom_navigation_archives_item"
         android:enabled="true"
-        android:icon="@drawable/ic_library_books_black_24dp"
-        android:title="@string/bottom_drawer_books"
+        android:icon="@drawable/ic_library_books_white_24dp"
+        android:title="@string/bottom_drawer_read_books"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/bottom_navigation_about_item"

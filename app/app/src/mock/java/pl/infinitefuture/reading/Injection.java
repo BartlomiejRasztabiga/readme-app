@@ -1,14 +1,14 @@
-package pl.infinitefuture.reading;
+package pl.infinitefuture.readme;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import pl.infinitefuture.reading.books.BooksRepository;
-import pl.infinitefuture.reading.books.persistence.BooksDatabase;
-import pl.infinitefuture.reading.books.persistence.BooksLocalDataSource;
-import pl.infinitefuture.reading.books.persistence.BooksRemoteDataSource;
-import pl.infinitefuture.reading.sessions.ReadingSessionsRepository;
-import pl.infinitefuture.reading.sessions.persistence.ReadingSessionsLocalDataSource;
+import pl.infinitefuture.readme.books.BooksRepository;
+import pl.infinitefuture.readme.books.persistence.BooksDatabase;
+import pl.infinitefuture.readme.books.persistence.BooksLocalDataSource;
+import pl.infinitefuture.readme.books.persistence.BooksRemoteDataSource;
+import pl.infinitefuture.readme.sessions.ReadingSessionsRepository;
+import pl.infinitefuture.readme.sessions.persistence.ReadingSessionsLocalDataSource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

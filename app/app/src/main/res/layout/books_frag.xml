@@ -9,10 +9,10 @@
 
         <variable
             name="viewmodel"
-            type="pl.infinitefuture.reading.books.BooksViewModel" />
+            type="pl.infinitefuture.readme.books.BooksViewModel" />
     </data>
 
-    <pl.infinitefuture.reading.ScrollChildSwipeRefreshLayout
+    <pl.infinitefuture.readme.ScrollChildSwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,6 +62,6 @@
 
             </LinearLayout>
         </RelativeLayout>
-    </pl.infinitefuture.reading.ScrollChildSwipeRefreshLayout>
+    </pl.infinitefuture.readme.ScrollChildSwipeRefreshLayout>
 </layout>
 
