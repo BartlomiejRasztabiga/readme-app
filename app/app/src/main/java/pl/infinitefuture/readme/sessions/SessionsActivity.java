@@ -93,4 +93,10 @@ public class SessionsActivity extends AppCompatActivity {
         }
         return sessionsFragment;
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }
