@@ -3,6 +3,7 @@ package pl.infinitefuture.readme.sessions;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import pl.infinitefuture.readme.SnackbarMessage;
+import pl.infinitefuture.readme.databinding.SessionsFragBinding;
 import pl.infinitefuture.readme.util.SnackbarUtils;
 
 public class SessionsFragment extends Fragment {
@@ -73,10 +75,12 @@ public class SessionsFragment extends Fragment {
         RecyclerView recyclerView = mSessionsFragBinding.sessionsList;
 
         RecyclerViewSessionsAdapter mAdapter = new RecyclerViewSessionsAdapter(
-                new ArrayList<>(0),
-                mSessionsViewModel
+                new ArrayList<>(0)
         );
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
     }
 }
