@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".bookdetail.BookDetailActivity">
+    tools:context=".sessions.SessionsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -30,23 +30,6 @@
             android:id="@+id/contentFrame"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_anchor="@id/contentFrame"
-            app:layout_anchorGravity="bottom|right|end">
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_add_session"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_add"
-                app:fabSize="normal" />
-
-        </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

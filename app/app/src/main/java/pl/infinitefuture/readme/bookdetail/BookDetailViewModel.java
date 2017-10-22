@@ -54,6 +54,8 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     private final SingleLiveEvent<String> mSetToolbarTitleCommand = new SingleLiveEvent<>();
 
+    private final SingleLiveEvent<Void> mOpenSessionsCommand = new SingleLiveEvent<>();
+
     private final BooksRepository mBooksRepository;
 
     private final ReadingSessionsRepository mSessionsRepository;
@@ -85,8 +87,8 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
     }
     
     public void showFullSessionsHistory(View view) {
-        // TODO
         Toast.makeText(getApplication(), "TODO: ShowFullSessionsHistory", Toast.LENGTH_SHORT).show();
+        mOpenSessionsCommand.call();
     }
 
     public SnackbarMessage getSnackbarMessage() {
@@ -107,6 +109,10 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
     public SingleLiveEvent<String> getSetToolbarTitleCommand() {
         return mSetToolbarTitleCommand;
+    }
+
+    public SingleLiveEvent<Void> getOpenSessionsCommand() {
+        return mOpenSessionsCommand;
     }
 
     public void setCompleted(boolean completed) {

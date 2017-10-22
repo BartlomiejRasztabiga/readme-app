@@ -7,4 +7,6 @@ public interface BookDetailNavigator {
     void onStartEditBook();
 
     void onStartAddSession();
+
+    void onOpenSessionsList();
 }
