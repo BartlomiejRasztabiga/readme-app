@@ -31,8 +31,8 @@ android {
         applicationId "pl.infinitefuture.readme"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.1-alpha"
+        versionCode 3
+        versionName "1.0.2-alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         signingConfig signingConfigs.config
