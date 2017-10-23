@@ -31,8 +31,8 @@ android {
         applicationId "pl.infinitefuture.readme"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0-alpha"
+        versionCode 2
+        versionName "1.0.1-alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         signingConfig signingConfigs.config
@@ -158,6 +158,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation 'com.github.pavlospt:roundedletterview:1.2'
     implementation 'com.github.medyo:android-about-page:1.2.1'
+    implementation 'com.hudomju:swipe-to-dismiss-undo:1.0'
 
     // Fabric
     compile('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {

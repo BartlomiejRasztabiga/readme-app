@@ -25,6 +25,7 @@ import android.support.annotation.VisibleForTesting;
 import pl.infinitefuture.readme.addeditbook.AddEditBookViewModel;
 import pl.infinitefuture.readme.bookdetail.BookDetailViewModel;
 import pl.infinitefuture.readme.books.BooksViewModel;
+import pl.infinitefuture.readme.sessions.SessionsViewModel;
 
 /**
  * A creator is used to inject the product ID into the ViewModel
@@ -71,6 +72,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         } else if (modelClass.isAssignableFrom(BookDetailViewModel.class)) {
             return (T) new BookDetailViewModel(mApplication, Injection.provideBooksRepository(mApplication.getApplicationContext()),
                     Injection.provideReadingSessionsRepository(mApplication.getApplicationContext()));
+        } else if (modelClass.isAssignableFrom(SessionsViewModel.class)) {
+            return (T) new SessionsViewModel(mApplication, Injection.provideReadingSessionsRepository(mApplication.getApplicationContext()));
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

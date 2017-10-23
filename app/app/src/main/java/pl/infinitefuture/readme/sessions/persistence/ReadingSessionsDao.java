@@ -13,7 +13,7 @@ public interface ReadingSessionsDao {
     @Query("SELECT * FROM readingSessions")
     List<ReadingSession> getSessions();
 
-    @Query("SELECT * FROM readingSessions WHERE book_id = :bookId")
+    @Query("SELECT * FROM readingSessions WHERE book_id = :bookId ORDER BY date ASC")
     List<ReadingSession> getSessionsByBookId(Long bookId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

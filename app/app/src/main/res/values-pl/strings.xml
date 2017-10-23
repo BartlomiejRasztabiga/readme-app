@@ -56,4 +56,6 @@
     <string name="about_us">O nas</string>
     <string name="connect_with_us">Połącz się z nami</string>
     <string name="version">Wersja</string>
+    <string name="sessions_list">Lista sesji czytania</string>
+    <string name="loading_sessions_error">Błąd podczas ładowania sesji</string>
 </resources>

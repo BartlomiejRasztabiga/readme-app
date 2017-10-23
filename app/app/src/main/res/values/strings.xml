@@ -63,4 +63,6 @@
     <string name="connect_with_us">Connect with us</string>
     <string name="copy_right" translatable="false">Copyrights © %1$d</string>
     <string name="version">Version</string>
+    <string name="sessions_list">Reading sessions list</string>
+    <string name="loading_sessions_error">Loading sessions error</string>
 </resources>
