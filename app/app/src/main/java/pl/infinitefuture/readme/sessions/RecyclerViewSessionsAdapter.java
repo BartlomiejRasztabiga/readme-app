@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import pl.infinitefuture.readme.R;
-import pl.infinitefuture.readme.databinding.SessionItemBinding;
+import pl.infinitefuture.readme.databinding.SessionFullItemBinding;
 import pl.infinitefuture.readme.sessions.persistence.ReadingSession;
 
 public class RecyclerViewSessionsAdapter
@@ -19,8 +19,8 @@ public class RecyclerViewSessionsAdapter
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final SessionItemBinding binding;
-        public ViewHolder(SessionItemBinding binding) {
+        private final SessionFullItemBinding binding;
+        public ViewHolder(SessionFullItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -39,8 +39,8 @@ public class RecyclerViewSessionsAdapter
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 
-        SessionItemBinding sessionFullItemBinding =
-                SessionItemBinding.inflate(layoutInflater, parent, false);
+        SessionFullItemBinding sessionFullItemBinding =
+                SessionFullItemBinding.inflate(layoutInflater, parent, false);
         return new ViewHolder(sessionFullItemBinding);
     }
 
