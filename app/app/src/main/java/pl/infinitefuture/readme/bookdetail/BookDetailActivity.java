@@ -1,7 +1,6 @@
 package pl.infinitefuture.readme.bookdetail;
 
 import android.app.DatePickerDialog;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +35,7 @@ import pl.infinitefuture.readme.ReadMeApplication;
 import pl.infinitefuture.readme.ViewModelFactory;
 import pl.infinitefuture.readme.addeditbook.AddEditBookActivity;
 import pl.infinitefuture.readme.addeditbook.AddEditBookFragment;
+import pl.infinitefuture.readme.sessions.SessionsActivity;
 import pl.infinitefuture.readme.util.ActivityUtils;
 
 import static pl.infinitefuture.readme.addeditbook.AddEditBookActivity.ADD_EDIT_RESULT_OK;
@@ -166,6 +166,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         viewModel.getEditBookCommand().observe(this, e -> BookDetailActivity.this.onStartEditBook());
         viewModel.getDeleteBookCommand().observe(this, e -> BookDetailActivity.this.onBookDeleted());
         viewModel.getAddSessionCommand().observe(this, e -> BookDetailActivity.this.onStartAddSession());
+        viewModel.getOpenSessionsCommand().observe(this, e -> BookDetailActivity.this.onOpenSessionsList());
     }
 
     @Override
@@ -199,6 +200,14 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         Intent intent = new Intent(this, AddEditBookActivity.class);
         intent.putExtra(AddEditBookFragment.ARGUMENT_EDIT_BOOK_ID, bookId);
         startActivityForResult(intent, REQUEST_EDIT_BOOK);
+    }
+
+    @Override
+    public void onOpenSessionsList() {
+        Long bookId = getIntent().getLongExtra(EXTRA_BOOK_ID, 0L);
+        Intent intent = new Intent(this, SessionsActivity.class);
+        intent.putExtra(SessionsActivity.ARGUMENT_BOOK_ID, bookId);
+        startActivity(intent);
     }
 
     @Override
@@ -282,4 +291,6 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
 
         datePickerDialog.show();
     }
+
+
 }

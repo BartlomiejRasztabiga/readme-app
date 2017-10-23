@@ -26,6 +26,9 @@
         <activity
             android:name="pl.infinitefuture.readme.bookdetail.BookDetailActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="pl.infinitefuture.readme.sessions.SessionsActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
