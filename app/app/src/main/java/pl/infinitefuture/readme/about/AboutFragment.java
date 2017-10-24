@@ -42,6 +42,8 @@ public class AboutFragment extends Fragment {
                 .addWebsite("http://google.com")
                 .addFacebook("ReadMeApp")
                 .addPlayStore("pl.infinitefuture.readme")
+                .addGroup("Credits")
+                .addItem(getCreditsElement())
                 .addItem(getCopyRightsElement())
                 .create();
     }
@@ -54,6 +56,13 @@ public class AboutFragment extends Fragment {
         copyRightsElement.setOnClickListener(v ->
                 Toast.makeText(getContext(), copyrights, Toast.LENGTH_SHORT).show());
         return copyRightsElement;
+    }
+
+    private Element getCreditsElement() {
+        Element creditsElement = new Element();
+        String credits = "Book icon made by Freepik from www.flaticon.com";
+        creditsElement.setTitle(credits);
+        return creditsElement;
     }
 
     private String versionName() {

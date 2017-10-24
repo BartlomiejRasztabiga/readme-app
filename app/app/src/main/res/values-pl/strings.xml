@@ -15,7 +15,7 @@
     <string name="firstpage_hint">Numer pierwszej strony</string>
     <string name="lastpage_hint">Numer ostatniej strony</string>
     <string name="book_updated">Zaktualizowano książkę</string>
-    <string name="menu_delete_book">Usuń książkę</string>
+    <string name="menu_delete_book">Usuń</string>
     <string name="no_data">Brak danych</string>
     <string name="no_internet">Brak połączenia z Internetem</string>
     <string name="save_book_error">Błąd podczas zapisywania książki</string>

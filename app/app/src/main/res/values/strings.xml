@@ -19,7 +19,7 @@
     <string name="firstpage_hint">First page number</string>
     <string name="lastpage_hint">Last page number</string>
     <string name="book_updated">Book updated</string>
-    <string name="menu_delete_book">Delete book</string>
+    <string name="menu_delete_book">Delete</string>
     <string name="no_data">No data</string>
 
     <string name="no_internet">No internet connection</string>
