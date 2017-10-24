@@ -98,7 +98,7 @@ public class SessionsFragment extends Fragment {
 
                     builder.setPositiveButton(R.string.remove, (dialog, which) -> {
                         mAdapter.notifyItemRemoved(position);
-                        mSessionsViewModel.removeSession(mAdapter.getItemForPosition(position)); //TODO Add callback, update book readPages
+                        mSessionsViewModel.removeSession(mAdapter.getItemForPosition(position));
                         mAdapter.removeAtPosition(position);
 
                     }).setNegativeButton(R.string.cancel, (dialog, which) -> {
