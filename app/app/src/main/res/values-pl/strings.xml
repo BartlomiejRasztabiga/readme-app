@@ -58,4 +58,6 @@
     <string name="version">Wersja</string>
     <string name="sessions_list">Lista sesji czytania</string>
     <string name="loading_sessions_error">Błąd podczas ładowania sesji</string>
+    <string name="remove">Usuń</string>
+    <string name="are_you_sure_to_delete">Czy na pewno chcesz usunąć ten element?</string>
 </resources>

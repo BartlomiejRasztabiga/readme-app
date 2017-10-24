@@ -31,10 +31,10 @@ public class ReadingSessionsRepository implements ReadingSessionsDataSource {
     }
 
     @Override
-    public void getSessions(@NonNull Long bookId, @NonNull LoadSessionsCallback callback) {
+    public void getSessions(@NonNull Long sessionId, @NonNull LoadSessionsCallback callback) {
         checkNotNull(callback);
 
-        mSessionsLocalDataSource.getSessions(bookId, new LoadSessionsCallback() {
+        mSessionsLocalDataSource.getSessions(sessionId, new LoadSessionsCallback() {
             @Override
             public void onSessionsLoaded(List<ReadingSession> sessions) {
                 callback.onSessionsLoaded(sessions);
@@ -66,5 +66,10 @@ public class ReadingSessionsRepository implements ReadingSessionsDataSource {
     @Override
     public void saveSession(@NonNull ReadingSession session) {
         saveSession(session, new SaveSessionCallback() {});
+    }
+
+    @Override
+    public void deleteSession(@NonNull Long sessionId) {
+        mSessionsLocalDataSource.deleteSession(sessionId);
     }
 }

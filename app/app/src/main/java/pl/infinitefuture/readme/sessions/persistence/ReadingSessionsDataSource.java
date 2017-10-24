@@ -20,10 +20,12 @@ public interface ReadingSessionsDataSource {
         default void onDataNotAvailable() {}
     }
 
-    void getSessions(@NonNull Long bookId, @NonNull LoadSessionsCallback callback);
+    void getSessions(@NonNull Long sessionId, @NonNull LoadSessionsCallback callback);
 
     void saveSession(@NonNull ReadingSession session);
 
     void saveSession(@NonNull ReadingSession session,
                      @NonNull SaveSessionCallback callback);
+
+    void deleteSession(@NonNull Long sessionId);
 }

@@ -18,4 +18,7 @@ public interface ReadingSessionsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Long insertSession(ReadingSession session);
+
+    @Query("DELETE FROM readingSessions WHERE session_id = :sessionId")
+    int deleteSessionById(Long sessionId);
 }

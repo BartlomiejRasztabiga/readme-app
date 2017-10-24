@@ -73,7 +73,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new BookDetailViewModel(mApplication, Injection.provideBooksRepository(mApplication.getApplicationContext()),
                     Injection.provideReadingSessionsRepository(mApplication.getApplicationContext()));
         } else if (modelClass.isAssignableFrom(SessionsViewModel.class)) {
-            return (T) new SessionsViewModel(mApplication, Injection.provideReadingSessionsRepository(mApplication.getApplicationContext()));
+            return (T) new SessionsViewModel(mApplication, Injection.provideReadingSessionsRepository(mApplication.getApplicationContext()),
+                    Injection.provideBooksRepository(mApplication.getApplicationContext()));
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

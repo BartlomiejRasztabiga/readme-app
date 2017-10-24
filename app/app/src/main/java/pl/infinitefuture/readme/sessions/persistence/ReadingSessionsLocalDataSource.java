@@ -26,8 +26,8 @@ public class ReadingSessionsLocalDataSource implements ReadingSessionsDataSource
     }
 
     @Override
-    public void getSessions(@NonNull Long bookId, @NonNull LoadSessionsCallback callback) {
-        Observable.fromCallable(() -> mSessionsDao.getSessionsByBookId(bookId))
+    public void getSessions(@NonNull Long sessionId, @NonNull LoadSessionsCallback callback) {
+        Observable.fromCallable(() -> mSessionsDao.getSessionsByBookId(sessionId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(sessions -> {
@@ -51,6 +51,18 @@ public class ReadingSessionsLocalDataSource implements ReadingSessionsDataSource
 
     @Override
     public void saveSession(@NonNull ReadingSession session) {
-        saveSession(session, new SaveSessionCallback() {});
+        saveSession(session, new SaveSessionCallback() {
+        });
+    }
+
+    @Override
+    public void deleteSession(@NonNull Long sessionId) {
+        Observable.fromCallable(() -> {
+            mSessionsDao.deleteSessionById(sessionId);
+            return Observable.empty();
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 }

@@ -20,21 +20,21 @@ public class RecyclerViewSessionsAdapter
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final SessionFullItemBinding binding;
+
         public ViewHolder(SessionFullItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
-
         public void bind(ReadingSession session) {
             binding.setSession(session);
             binding.executePendingBindings();
         }
 
     }
+
     public RecyclerViewSessionsAdapter(List<ReadingSession> sessions) {
         mSessions = sessions;
     }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
@@ -60,7 +60,11 @@ public class RecyclerViewSessionsAdapter
         notifyDataSetChanged();
     }
 
-    private ReadingSession getItemForPosition(int position) {
+    public ReadingSession getItemForPosition(int position) {
         return mSessions.get(position);
+    }
+
+    public void removeAtPosition(int position) {
+        mSessions.remove(position);
     }
 }
