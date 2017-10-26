@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -121,8 +122,7 @@ public class BookDetailFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
         if (i == R.id.menu_delete) {
-            mViewModel.deleteBook();
-            sendDeleteBookEvent();
+            showDeleteBookDialog();
             return true;
         } else if (i == R.id.menu_edit) {
             mViewModel.editBook();
@@ -130,6 +130,19 @@ public class BookDetailFragment extends Fragment {
             return true;
         }
         return false;
+    }
+
+    private void showDeleteBookDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(R.string.are_you_sure_to_delete);
+
+        builder.setPositiveButton(R.string.remove, (dialog, which) -> {
+            mViewModel.deleteBook();
+            sendDeleteBookEvent();
+
+        }).setNegativeButton(R.string.cancel, (dialog, which) -> {
+            // do nothing
+        }).show();
     }
 
     private void sendDeleteBookEvent() {
