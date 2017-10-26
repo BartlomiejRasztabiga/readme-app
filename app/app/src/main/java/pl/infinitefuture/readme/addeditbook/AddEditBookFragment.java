@@ -106,12 +106,6 @@ public class AddEditBookFragment extends Fragment {
         mViewDataBinding.getRoot().findViewById(R.id.add_book_deadline_date)
                 .setOnFocusChangeListener(datepickerFocusChangeListener);
 
-        mViewDataBinding.getRoot().findViewById(R.id.add_book_start_date)
-                .setOnClickListener(this::showDatePickerDialog);
-
-        mViewDataBinding.getRoot().findViewById(R.id.add_book_deadline_date)
-                .setOnClickListener(this::showDatePickerDialog);
-
         return mViewDataBinding.getRoot();
     }
 
