@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.common.collect.Lists;
 
+import java.util.Date;
 import java.util.List;
 
 import pl.infinitefuture.readme.R;
@@ -88,6 +89,7 @@ public class SessionsViewModel extends AndroidViewModel {
             @Override
             public void onBookLoaded(Book book) {
                 book.addReadPages(-session.getReadPages()); //subtract readPages
+                if(book.isCompleted()) book.setCompleted(false); //reverse completion
                 mBooksRepository.updateBook(book);
             }
 

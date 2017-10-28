@@ -133,7 +133,7 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
             if (!mIsNewBook && mBookId != null) {
                 book = new Book(mBookId, title.get(), firstPage.get(), lastPage.get(),
                         readPages.get(), bookStartDate, bookDeadlineDate, mBookCompleted,
-                        book.getIconColor()); //TODO Fix getting color
+                        book.getIconColor(), book.getCompleteDate()); //TODO Fix getting color
                 updateBook(book);
             } else {
                 saveBook(book);

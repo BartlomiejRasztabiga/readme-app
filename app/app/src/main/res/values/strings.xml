@@ -67,4 +67,8 @@
     <string name="remove">Remove</string>
     <string name="cancel">Cancel</string>
     <string name="are_you_sure_to_delete">Are you sure to delete?</string>
+    <string name="read_books">Read books</string>
+    <string name="read">Read</string>
+    <string name="finished">Finished</string>
+    <string name="you_have_read">You have read</string>
 </resources>

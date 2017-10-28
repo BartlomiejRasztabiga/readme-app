@@ -27,6 +27,9 @@ android {
     }
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
     defaultConfig {
         applicationId "pl.infinitefuture.readme"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -36,6 +39,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         signingConfig signingConfigs.config
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
     }
     lintOptions {
         abortOnError false
@@ -109,6 +118,7 @@ dependencies {
     implementation 'android.arch.persistence.room:runtime:1.0.0-rc1'
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-rc1"
     implementation 'android.arch.persistence.room:rxjava2:1.0.0-rc1'
+    testImplementation "android.arch.persistence.room:testing:1.0.0-rc1"
 
     // Support library
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"

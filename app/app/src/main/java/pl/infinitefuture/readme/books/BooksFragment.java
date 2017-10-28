@@ -35,7 +35,7 @@ public class BooksFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mBooksViewModel.start();
+        mBooksViewModel.start(false);
     }
 
     @Nullable

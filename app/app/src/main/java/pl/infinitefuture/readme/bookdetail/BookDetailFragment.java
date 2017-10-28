@@ -94,10 +94,6 @@ public class BookDetailFragment extends Fragment {
 
         viewDataBinding.setViewmodel(mViewModel);
 
-        BookDetailUserActionsListener actionsListener = getBookDetailUserActionsListener();
-
-        viewDataBinding.setListener(actionsListener);
-
         setHasOptionsMenu(true);
 
         // setupReadingSessionsListAdapter
@@ -107,10 +103,6 @@ public class BookDetailFragment extends Fragment {
         listView.setAdapter(mListAdapter);
 
         return view;
-    }
-
-    private BookDetailUserActionsListener getBookDetailUserActionsListener() {
-        return v -> mViewModel.setCompleted(((CheckBox) v).isChecked());
     }
 
     @Override

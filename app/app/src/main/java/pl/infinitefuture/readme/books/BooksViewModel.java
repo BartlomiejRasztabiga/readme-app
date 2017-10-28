@@ -40,7 +40,9 @@ public class BooksViewModel extends AndroidViewModel {
 
     private final ObservableBoolean mIsDataLoadingError = new ObservableBoolean(false);
 
-    private final SingleLiveEvent<Long> mOpenBookEvent = new SingleLiveEvent<>();
+    private final ObservableBoolean onlyCompleted = new ObservableBoolean(false);
+
+    private final SingleLiveEvent<Book> mOpenBookEvent = new SingleLiveEvent<>();
 
     private final SingleLiveEvent<Void> mNewBookEvent = new SingleLiveEvent<>();
 
@@ -51,19 +53,20 @@ public class BooksViewModel extends AndroidViewModel {
         mBooksRepository = repository;
     }
 
-    public void start() {
+    public void start(boolean onlyCompleted) {
+        this.onlyCompleted.set(onlyCompleted);
         loadBooks(false);
     }
 
-    public void loadBooks(boolean forceUpdate) {
-        loadBooks(forceUpdate, true);
+    public void loadBooks() {
+        loadBooks(true);
     }
 
     SnackbarMessage getSnackbarMessage() {
         return mSnackbarText;
     }
 
-    SingleLiveEvent<Long> getOpenBookEvent() {
+    SingleLiveEvent<Book> getOpenBookEvent() {
         return mOpenBookEvent;
     }
 
@@ -98,23 +101,27 @@ public class BooksViewModel extends AndroidViewModel {
 
     /**
      * @param forceUpdate   Pass in true to refresh the data in the {@link BooksDataSource}
-     * @param showLoadingUI Pass in true to display a loading icon in the UI
      */
-    private void loadBooks(boolean forceUpdate, final boolean showLoadingUI) {
-        if (showLoadingUI) {
-            dataLoading.set(true);
-        }
+    private void loadBooks(boolean forceUpdate) {
         if (forceUpdate) {
             mBooksRepository.refreshBooks();
         }
 
+        dataLoading.set(true);
+
+        if (onlyCompleted.get()) {
+            loadCompletedBooks();
+        } else {
+            loadActiveBooks();
+        }
+    }
+
+    private void loadActiveBooks() {
         mBooksRepository.getBooks(new BooksDataSource.LoadBooksCallback() {
             @Override
             public void onBooksLoaded(List<Book> books) {
-                if (showLoadingUI) {
-                    dataLoading.set(false);
-                }
                 mIsDataLoadingError.set(false);
+                dataLoading.set(false);
 
                 items.clear();
                 items.addAll(books);
@@ -128,5 +135,30 @@ public class BooksViewModel extends AndroidViewModel {
                 mSnackbarText.setValue(R.string.no_internet);
             }
         });
+    }
+
+    private void loadCompletedBooks() {
+        mBooksRepository.getCompletedBooks(new BooksDataSource.LoadBooksCallback() {
+            @Override
+            public void onBooksLoaded(List<Book> books) {
+                mIsDataLoadingError.set(false);
+                dataLoading.set(false);
+
+                items.clear();
+                items.addAll(books);
+                empty.set(items.isEmpty());
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                dataLoading.set(false);
+                mIsDataLoadingError.set(true);
+                mSnackbarText.setValue(R.string.no_internet);
+            }
+        });
+    }
+
+    public ObservableBoolean getOnlyCompleted() {
+        return onlyCompleted;
     }
 }

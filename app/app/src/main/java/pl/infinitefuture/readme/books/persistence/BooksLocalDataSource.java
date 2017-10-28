@@ -28,7 +28,21 @@ public class BooksLocalDataSource implements BooksDataSource {
 
     @Override
     public void getBooks(@NonNull LoadBooksCallback callback) {
-        Observable.fromCallable(() -> mBooksDao.getBooks())
+        Observable.fromCallable(() -> mBooksDao.getCompletedBooks(false))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(books -> {
+                    if (books == null) {
+                        callback.onDataNotAvailable();
+                    } else {
+                        callback.onBooksLoaded(books);
+                    }
+                });
+    }
+
+    @Override
+    public void getCompletedBooks(@NonNull LoadBooksCallback callback) {
+        Observable.fromCallable(() -> mBooksDao.getCompletedBooks(true))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(books -> {

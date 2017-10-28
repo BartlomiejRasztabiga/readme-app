@@ -47,6 +47,10 @@ public final class Book {
     @ColumnInfo(name = "endDate")
     private Date deadlineDate;
 
+    @Nullable
+    @ColumnInfo(name = "completeDate")
+    private Date completeDate;
+
     @ColumnInfo(name = "iconColor")
     @NonNull
     private Integer iconColor;
@@ -127,7 +131,8 @@ public final class Book {
 
     public Book(Long id, @Nullable String title, @Nullable Long firstPage, @Nullable Long lastPage,
                 @Nullable Long readPages, @Nullable Date startDate,
-                @Nullable Date deadlineDate, boolean completed, Integer iconColor) {
+                @Nullable Date deadlineDate, boolean completed, Integer iconColor,
+                @Nullable Date completeDate) {
         this.id = id;
         this.title = title;
         this.firstPage = firstPage;
@@ -137,6 +142,7 @@ public final class Book {
         this.deadlineDate = deadlineDate;
         this.completed = completed;
         this.iconColor = iconColor;
+        this.completeDate = completeDate;
     }
 
     @NonNull
@@ -172,6 +178,15 @@ public final class Book {
     @Nullable
     public Date getDeadlineDate() {
         return deadlineDate;
+    }
+
+    @Nullable
+    public Date getCompleteDate() {
+        return completeDate;
+    }
+
+    public void setCompleteDate(@Nullable Date completeDate) {
+        this.completeDate = completeDate;
     }
 
     @NonNull

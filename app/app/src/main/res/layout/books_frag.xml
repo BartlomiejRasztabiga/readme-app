@@ -57,6 +57,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/touch_feedback"
                     android:gravity="center"
+                    android:visibility="@{viewmodel.onlyCompleted ? View.GONE : View.VISIBLE}"
                     android:onClick="@{() -> viewmodel.addNewBook()}"
                     android:text="@string/no_books_add" />
 

@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
@@ -24,6 +25,7 @@ import pl.infinitefuture.readme.ViewModelFactory;
 import pl.infinitefuture.readme.about.AboutFragment;
 import pl.infinitefuture.readme.addeditbook.AddEditBookActivity;
 import pl.infinitefuture.readme.bookdetail.BookDetailActivity;
+import pl.infinitefuture.readme.archives.ArchivesFragment;
 import pl.infinitefuture.readme.util.ActivityUtils;
 
 public class BooksActivity extends AppCompatActivity implements BooksNavigator, BookItemNavigator {
@@ -50,9 +52,14 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
         mViewModel = obtainViewModel(this);
 
         // Subscribe to "open book" event
-        mViewModel.getOpenBookEvent().observe(this, bookId -> {
-            if (bookId != null) {
-                openBookDetails(bookId);
+        mViewModel.getOpenBookEvent().observe(this, book -> {
+            if (book != null) {
+                if (book.isCompleted()) {
+                    Toast.makeText(this, "TODO: Completed book details", Toast.LENGTH_SHORT).show();
+                    openBookDetails(book.getId());
+                } else {
+                    openBookDetails(book.getId());
+                }
             }
         });
 
@@ -104,6 +111,17 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
+    private void navigateToArchiveFragment(ArchivesFragment fragment, FloatingActionButton fab) {
+        ActivityUtils.replaceFragmentInActivity(
+                getSupportFragmentManager(), fragment, R.id.contentFrame);
+        getSupportActionBar().setTitle(R.string.read_books);
+        fab.setVisibility(View.GONE);
+
+        // Send screen name to Analytics
+        mTracker.setScreenName("Read books list");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
     private void navigateToAboutFragment(AboutFragment fragment, FloatingActionButton fab) {
         ActivityUtils.replaceFragmentInActivity(
                 getSupportFragmentManager(), fragment, R.id.contentFrame);
@@ -118,6 +136,7 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
     private void setupNavigation() {
         final BooksFragment booksFragment = BooksFragment.newInstance();
         final AboutFragment aboutFragment = AboutFragment.newInstance();
+        final ArchivesFragment archivesFragment = ArchivesFragment.newInstance();
         final FloatingActionButton fab = findViewById(R.id.fab_add_book);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
@@ -129,6 +148,7 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
                             navigateToBooksFragment(booksFragment, fab);
                             break;
                         case R.id.bottom_navigation_archives_item:
+                            navigateToArchiveFragment(archivesFragment, fab);
                             break;
                         case R.id.bottom_navigation_about_item:
                             navigateToAboutFragment(aboutFragment, fab);

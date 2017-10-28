@@ -1,6 +1,5 @@
 package pl.infinitefuture.readme.books;
 
-import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import java.util.List;
 
 import pl.infinitefuture.readme.R;
 import pl.infinitefuture.readme.books.persistence.Book;
+import pl.infinitefuture.readme.databinding.BookCompletedItemBinding;
 import pl.infinitefuture.readme.databinding.BookItemBinding;
 import pl.infinitefuture.readme.util.MaterialColors;
 
@@ -50,19 +50,22 @@ public class BooksAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        BookItemBinding binding;
-        if (view == null) {
-            // Inflate
-            LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-
-            // Create the binding
-            binding = BookItemBinding.inflate(inflater, viewGroup, false);
+        if (mBooks.get(position).isCompleted()) {
+            return getViewForCompletedBook(position, view, viewGroup);
         } else {
-            // Recycling view
-            binding = DataBindingUtil.getBinding(view);
+            return getViewForActiveBook(position, view, viewGroup);
         }
+    }
 
-        BookItemUserActionsListener userActionsListener = book -> mBooksViewModel.getOpenBookEvent().setValue(book.getId());
+    private View getViewForActiveBook(int position, View view, ViewGroup viewGroup) {
+        BookItemBinding binding;
+        // Inflate
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+
+        // Create the binding
+        binding = BookItemBinding.inflate(inflater, viewGroup, false);
+
+        BookItemUserActionsListener userActionsListener = book -> mBooksViewModel.getOpenBookEvent().setValue(book);
 
         binding.setBook(mBooks.get(position));
 
@@ -87,7 +90,7 @@ public class BooksAdapter extends BaseAdapter {
         Long nowDateInMillis = new Date().getTime();
         Long startDateInMilis = book.getStartDate().getTime();
         Long deadlineDateInMillis = book.getDeadlineDate().getTime();
-        
+
         Long daysBetween = daysBetween(nowDateInMillis, deadlineDateInMillis);
         Long daysSinceStart = daysBetween(startDateInMilis, nowDateInMillis);
         Double tempo = ((double) readPages) / ((double) daysSinceStart);
@@ -98,6 +101,27 @@ public class BooksAdapter extends BaseAdapter {
 
         TextView deadlineDate = binding.getRoot().findViewById(R.id.deadline_date);
         deadlineDate.setTextColor(Color.parseColor(isReadingTempoGood ? MaterialColors.DATE_GREEN : MaterialColors.DATE_RED));
+
+        return binding.getRoot();
+    }
+
+    private View getViewForCompletedBook(int position, View view, ViewGroup viewGroup) {
+        BookCompletedItemBinding binding;
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        binding = BookCompletedItemBinding.inflate(inflater, viewGroup, false);
+
+        BookItemUserActionsListener userActionsListener = book -> mBooksViewModel.getOpenBookEvent().setValue(book);
+        binding.setBook(mBooks.get(position));
+        binding.setListener(userActionsListener);
+        binding.executePendingBindings();
+
+        // Set first letter view
+        Book book = binding.getBook();
+        RoundedLetterView roundedLetterView = binding.getRoot().findViewById(R.id.icon);
+        roundedLetterView.setTitleText(book.getFirstTitleLetter());
+
+        // Set random color
+        roundedLetterView.setBackgroundColor(book.getIconColor());
 
         return binding.getRoot();
     }

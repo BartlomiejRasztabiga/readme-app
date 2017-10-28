@@ -161,9 +161,7 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
             //book is completed
             newReadPages = lastPage - bookOldCurrentPage;
             book.get().setCompleted(true);
-
-            Toast.makeText(getApplication().getApplicationContext(), "TODO: Book completed",
-                    Toast.LENGTH_SHORT).show();
+            book.get().setCompleteDate(new Date());
         }
 
         // update book

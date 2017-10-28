@@ -9,11 +9,8 @@
         <variable
             name="viewmodel"
             type="pl.infinitefuture.readme.bookdetail.BookDetailViewModel" />
-
-        <variable
-            name="listener"
-            type="pl.infinitefuture.readme.addeditbook.BookDetailUserActionsListener" />
     </data>
+
 
     <ScrollView
         android:id="@+id/refresh_layout"
@@ -23,8 +20,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{viewmodel.dataAvailable ? View.VISIBLE : View.GONE}">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/book_detail_you_have_read_layout"
@@ -411,4 +407,6 @@
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
+
+
 </layout>

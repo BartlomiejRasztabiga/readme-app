@@ -18,8 +18,6 @@ public class BooksRepository implements BooksDataSource {
 
     private static volatile BooksRepository instance = null;
 
-    private final BooksDataSource mBooksRemoteDataSource;
-
     private final BooksDataSource mBooksLocalDataSource;
 
     Map<Long, Book> mCachedBooks;
@@ -27,18 +25,15 @@ public class BooksRepository implements BooksDataSource {
     private boolean mCacheIsDirty = false;
 
     // Prevent direct instantiation.
-    private BooksRepository(@NonNull BooksDataSource booksRemoteDataSource,
-                            @NonNull BooksDataSource booksLocalDataSource) {
-        mBooksRemoteDataSource = checkNotNull(booksRemoteDataSource);
+    private BooksRepository(@NonNull BooksDataSource booksLocalDataSource) {
         mBooksLocalDataSource = checkNotNull(booksLocalDataSource);
     }
 
-    public static BooksRepository getInstance(BooksDataSource booksRemoteDataSource,
-                                              BooksDataSource booksLocalDataSource) {
+    public static BooksRepository getInstance(BooksDataSource booksLocalDataSource) {
         if (instance == null) {
             synchronized (BooksRepository.class) {
                 if (instance == null) {
-                    instance = new BooksRepository(booksRemoteDataSource, booksLocalDataSource);
+                    instance = new BooksRepository(booksLocalDataSource);
                 }
             }
         }
@@ -53,42 +48,34 @@ public class BooksRepository implements BooksDataSource {
     public void getBooks(@NonNull LoadBooksCallback callback) {
         checkNotNull(callback);
 
-        // Respond immediately with cache if available and not dirty
-        if (mCachedBooks != null && !mCacheIsDirty) {
-            callback.onBooksLoaded(new ArrayList<>(mCachedBooks.values()));
-            return;
-        }
-
-        EspressoIdlingResource.increment(); // App is busy until further notice
-
-        // Query the local storage if available. If not, query the network.
         mBooksLocalDataSource.getBooks(new LoadBooksCallback() {
             @Override
             public void onBooksLoaded(List<Book> books) {
-                refreshCache(books);
-
-                EspressoIdlingResource.decrement(); // Set app as idle.
-                callback.onBooksLoaded(new ArrayList<>(mCachedBooks.values()));
+                callback.onBooksLoaded(books);
             }
 
             @Override
             public void onDataNotAvailable() {
                 callback.onDataNotAvailable();
-                // TODO Temporarily disabled
-                // getBooksFromRemoteDataSource(callback);
             }
         });
+    }
 
-        // TODO Temporarily disabled
-/*        // If user refreshed manually, synchronise with remote
-        if (mCacheIsDirty && mCachedBooks != null) {
-            mBooksRemoteDataSource.deleteAllBooks();
-            for (Book book : mCachedBooks.values()) {
+    @Override
+    public void getCompletedBooks(@NonNull LoadBooksCallback callback) {
+        checkNotNull(callback);
 
-                // TODO Replace with saveAll then
-                mBooksRemoteDataSource.saveBook(book, new SaveBookCallback() {});
+        mBooksLocalDataSource.getCompletedBooks(new LoadBooksCallback() {
+            @Override
+            public void onBooksLoaded(List<Book> books) {
+                callback.onBooksLoaded(books);
             }
-        }*/
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
     }
 
     @Override

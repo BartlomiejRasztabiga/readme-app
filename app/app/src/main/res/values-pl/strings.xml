@@ -60,4 +60,8 @@
     <string name="loading_sessions_error">Błąd podczas ładowania sesji</string>
     <string name="remove">Usuń</string>
     <string name="are_you_sure_to_delete">Czy na pewno chcesz usunąć ten element?</string>
+    <string name="read_books">Przeczytane książki</string>
+    <string name="read">Przeczytano</string>
+    <string name="finished">Ukończono</string>
+    <string name="you_have_read">Przeczytałeś %d stron</string>
 </resources>

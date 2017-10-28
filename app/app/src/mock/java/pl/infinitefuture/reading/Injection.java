@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import pl.infinitefuture.readme.books.BooksRepository;
 import pl.infinitefuture.readme.books.persistence.BooksDatabase;
 import pl.infinitefuture.readme.books.persistence.BooksLocalDataSource;
-import pl.infinitefuture.readme.books.persistence.BooksRemoteDataSource;
 import pl.infinitefuture.readme.sessions.ReadingSessionsRepository;
 import pl.infinitefuture.readme.sessions.persistence.ReadingSessionsLocalDataSource;
 
@@ -21,8 +20,7 @@ public class Injection {
     public static BooksRepository provideBooksRepository(@NonNull Context context) {
         checkNotNull(context);
         BooksDatabase database = BooksDatabase.getInstance(context);
-        return BooksRepository.getInstance(BooksRemoteDataSource.getInstance(),
-                BooksLocalDataSource.getInstance(database.booksDao()));
+        return BooksRepository.getInstance(BooksLocalDataSource.getInstance(database.booksDao()));
     }
 
     public static ReadingSessionsRepository provideReadingSessionsRepository(@NonNull Context context) {

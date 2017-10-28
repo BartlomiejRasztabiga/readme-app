@@ -7,12 +7,13 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import pl.infinitefuture.readme.DatabaseConverters;
 import pl.infinitefuture.readme.sessions.persistence.ReadingSession;
 import pl.infinitefuture.readme.sessions.persistence.ReadingSessionsDao;
 
-@Database(entities = {Book.class, ReadingSession.class}, version = 7)
+@Database(entities = {Book.class, ReadingSession.class}, version = 8)
 @TypeConverters({DatabaseConverters.class})
 public abstract class BooksDatabase extends RoomDatabase {
 
@@ -38,8 +39,9 @@ public abstract class BooksDatabase extends RoomDatabase {
 
     private static final Migration MIGRATION_7_8 = new Migration(7, 8) {
         @Override
-        public void migrate(SupportSQLiteDatabase database) {
-            // ignore for now
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE Books "
+                    + " ADD COLUMN completeDate INTEGER");
         }
     };
 }

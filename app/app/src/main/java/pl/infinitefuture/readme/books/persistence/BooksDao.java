@@ -14,6 +14,9 @@ public interface BooksDao {
     @Query("SELECT * FROM Books")
     List<Book> getBooks();
 
+    @Query("SELECT * FROM Books WHERE completed = :completed")
+    List<Book> getCompletedBooks(boolean completed);
+
     @Query("SELECT * FROM Books WHERE book_id = :bookId")
     Book getBookById(Long bookId);
 
