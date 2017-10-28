@@ -1,0 +1,76 @@
+<resources>
+    <string name="admob_app_id" translatable="false">ca-app-pub-8699140209330486~6196180523</string>
+    <string name="onAddBookInterstitial_id" translatable="false">ca-app-pub-8699140209330486/2496608661</string>
+    <string name="onAddSessionInterstitial_id" translatable="false">ca-app-pub-8699140209330486/8941052920</string>
+
+    <string name="app_name" translatable="false">ReadMe</string>
+    <string name="navigation_view_header_title">Books</string>
+    <string name="list_title">Books List</string>
+    <string name="no_books_add">Add a book +</string>
+
+    <string name="successfully_saved_book_message">Book saved</string>
+    <string name="successfully_deleted_book_message">Book was deleted</string>
+    <string name="successfully_added_book_message">Book added</string>
+    <string name="logo">Logo</string>
+    <string name="empty_book_message">Book cannot be empty</string>
+    <string name="edit_book">Edit book</string>
+    <string name="add_book">Add book</string>
+    <string name="title_hint">Book title</string>
+    <string name="firstpage_hint">First page number</string>
+    <string name="lastpage_hint">Last page number</string>
+    <string name="book_updated">Book updated</string>
+    <string name="menu_delete_book">Delete</string>
+    <string name="no_data">No data</string>
+
+    <string name="no_internet">No internet connection</string>
+    <string name="save_book_error">Error while saving book</string>
+    <string name="error_save_book">Error: cannot save book</string>
+    <string name="bottom_drawer_books">Books</string>
+    <string name="bottom_drawer_read_books">Archives</string>
+    <string name="bottom_drawer_about">About</string>
+    <string name="start_date_hint">Start date</string>
+    <string name="deadline_date_hint">Deadline date</string>
+    <string name="invalid_date_message">Invalid date</string>
+    <string name="end_before_start_date_message">Deadline cannot be set before start date</string>
+    <string name="you_are_on_page">You are on</string>
+    <string name="you_have_left">You have left</string>
+    <string name="pages_left_to_read">pages left to read</string>
+    <string name="days_left">days left</string>
+    <string name="left_message_good">Keep up the tempo and you\'ll be on time</string>
+    <string name="left_message_bad">With current tempo you won\'t make it on time! \nYou have to read %d pages per day!</string>
+    <string name="last_sessions">Reading sessions</string>
+    <string name="pages">pages</string>
+    <string name="no_sessions">No sessions</string>
+    <string name="on_which_page_are_you">On which page have you ended?</string>
+    <string name="choose_date">Choose date</string>
+    <string name="add">Add</string>
+    <string name="add_reading_session">Add reading session</string>
+    <string name="full_history">Full history</string>
+    <string name="information">Information</string>
+    <string name="deadline">Deadline</string>
+    <string name="tempo">Current tempo</string>
+    <string name="pages_per_day">pages per day</string>
+    <string name="errors_in_form">Fix errors in form</string>
+    <string name="of">of</string>
+    <string name="on_page">page</string>
+    <string name="wrong_pages">Wrong page number</string>
+    <string name="last_page_before_first_page">Last page cannot be set before first page</string>
+    <string name="session_date_after_now">Session date cannot be set in future</string>
+    <string name="pages_left">%d pages left</string>
+    <string name="your_books">Your books</string>
+    <string name="about_us">About us</string>
+    <string name="connect_with_us">Connect with us</string>
+    <string name="copy_right" translatable="false">Copyrights © %1$d</string>
+    <string name="version">Version</string>
+    <string name="sessions_list">Reading sessions list</string>
+    <string name="loading_sessions_error">Loading sessions error</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="are_you_sure_to_delete">Are you sure to delete?</string>
+    <string name="read_books">Read books</string>
+    <string name="read">Read</string>
+    <string name="finished">Finished</string>
+    <string name="you_have_read">You have read</string>
+    <string name="session_date_before_start_date">Session date cannot be set before book start date</string>
+    <string name="field_empty">Field cannot be empty</string>
+</resources>
