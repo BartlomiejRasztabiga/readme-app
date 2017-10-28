@@ -230,6 +230,10 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
             }
         });
 
+        dialogView.findViewById(R.id.add_session_date).setOnClickListener(view -> {
+           showDatePickerDialog(dialogView, newDate);
+        });
+
         builder.setView(dialogView)
                 .setPositiveButton(R.string.add, (dialogInterface, i) -> {
                     // ignore
@@ -247,6 +251,9 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
                 wantToCloseDialog = false;
             } else if (newDate.getTime().getTime() > new Date().getTime()) {
                 Toast.makeText(this, R.string.session_date_after_now, Toast.LENGTH_SHORT).show();
+                wantToCloseDialog = false;
+            } else if (newDate.getTime().getTime() < mBookViewModel.book.get().getStartDate().getTime()) {
+                Toast.makeText(this, R.string.session_date_before_start_date, Toast.LENGTH_SHORT).show();
                 wantToCloseDialog = false;
             }
             if (wantToCloseDialog) {
