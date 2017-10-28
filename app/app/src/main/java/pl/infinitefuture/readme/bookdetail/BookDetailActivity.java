@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -220,6 +221,9 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         View dialogView = inflater.inflate(R.layout.addsession_dialog, null);
         TextInputEditText page = dialogView.findViewById(R.id.add_session_current_page);
 
+        TextInputLayout pagesInputLayout = dialogView.findViewById(R.id.add_session_dialog_pages_layout);
+        TextInputLayout dateInputLayout = dialogView.findViewById(R.id.add_session_dialog_date_layout);
+
         // set default date to now
         ((TextInputEditText)dialogView.findViewById(R.id.add_session_date))
                 .setText(EditTextBindingAdapters.dateToStr(newDate.getTime()));
@@ -247,14 +251,20 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
             Boolean wantToCloseDialog = true;
             if (page.getText() == null || page.getText().toString().equals("")
                     || newDate.getTime() == null) {
-                Toast.makeText(this, R.string.errors_in_form, Toast.LENGTH_SHORT).show();
+                pagesInputLayout.setError(getString(R.string.field_empty));
+                dateInputLayout.setError(getString(R.string.field_empty));
                 wantToCloseDialog = false;
             } else if (newDate.getTime().getTime() > new Date().getTime()) {
-                Toast.makeText(this, R.string.session_date_after_now, Toast.LENGTH_SHORT).show();
+                pagesInputLayout.setErrorEnabled(false);
+                dateInputLayout.setError(getString(R.string.session_date_after_now));
                 wantToCloseDialog = false;
             } else if (newDate.getTime().getTime() < mBookViewModel.book.get().getStartDate().getTime()) {
-                Toast.makeText(this, R.string.session_date_before_start_date, Toast.LENGTH_SHORT).show();
+                pagesInputLayout.setErrorEnabled(false);
+                dateInputLayout.setError(getString(R.string.session_date_before_start_date));
                 wantToCloseDialog = false;
+            } else {
+                pagesInputLayout.setErrorEnabled(false);
+                dateInputLayout.setErrorEnabled(false);
             }
             if (wantToCloseDialog) {
                 //show ad
