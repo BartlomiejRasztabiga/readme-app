@@ -91,9 +91,9 @@ public class BooksAdapter extends BaseAdapter {
         Long startDateInMilis = book.getStartDate().getTime();
         Long deadlineDateInMillis = book.getDeadlineDate().getTime();
 
-        Long daysBetween = daysBetween(nowDateInMillis, deadlineDateInMillis);
-        Long daysSinceStart = daysBetween(startDateInMilis, nowDateInMillis);
-        Double tempo = ((double) readPages) / ((double) daysSinceStart);
+        Double daysBetween = daysBetween(nowDateInMillis, deadlineDateInMillis);
+        Double daysSinceStart = daysBetween(startDateInMilis, nowDateInMillis);
+        Double tempo = ((double) readPages / daysSinceStart);
 
         Boolean isReadingTempoGood = false;
         if ((tempo != 0) && ((totalPages - readPages) / tempo <= daysBetween))
@@ -131,8 +131,8 @@ public class BooksAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private Long daysBetween(Long date1, Long date2) {
-        Long daysBetween = Math.round((double) (date2 - date1) / (1000 * 60 * 60 * 24));
+    private Double daysBetween(Long date1, Long date2) {
+        Double daysBetween = (double) (date2 - date1) / (1000 * 60 * 60 * 24);
         return daysBetween > 0 ? daysBetween : 1L; //prevent situation when now == startDate
     }
 
