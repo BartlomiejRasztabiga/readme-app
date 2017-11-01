@@ -60,7 +60,7 @@ public class AboutFragment extends Fragment {
 
     private Element getCreditsElement() {
         Element creditsElement = new Element();
-        String credits = "Book icon made by Freepik from www.flaticon.com";
+        String credits = "Icons made by Freepik from www.flaticon.com";
         creditsElement.setTitle(credits);
         return creditsElement;
     }
