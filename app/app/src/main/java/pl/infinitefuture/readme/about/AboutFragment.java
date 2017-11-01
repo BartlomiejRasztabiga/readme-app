@@ -35,7 +35,8 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return new AboutPage(getActivity())
                 .isRTL(false)
-                .setImage(R.drawable.ic_book_black_24dp)
+                .setDescription(getString(R.string.about_info))
+                .setImage(R.mipmap.ic_launcher)
                 .addItem(new Element().setTitle(getString(R.string.version) + " " + versionName()))
                 .addGroup(getString(R.string.connect_with_us))
                 .addEmail("kontakt@bartlomiej-rasztabiga.pl")
