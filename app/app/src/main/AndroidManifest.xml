@@ -1,11 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pl.infinitefuture.readme">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="pl.infinitefuture.readme.ReadMeApplication"
+        android:name=".ReadMeApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -13,28 +14,34 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="pl.infinitefuture.readme.splash.SplashActivity"
+            android:name=".splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="pl.infinitefuture.readme.books.BooksActivity"
+        <activity
+            android:name=".books.BooksActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="pl.infinitefuture.readme.addeditbook.AddEditBookActivity"
+            android:name=".addeditbook.AddEditBookActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="pl.infinitefuture.readme.bookdetail.BookDetailActivity"
+            android:name=".bookdetail.BookDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="pl.infinitefuture.readme.sessions.SessionsActivity"
+            android:name=".sessions.SessionsActivity"
             android:screenOrientation="portrait" />
+
+        <receiver android:name=".notifications.AlarmReceiver"
+            android:exported="false" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a4adb38dbde64a16bfc91d2182c87b663e920709" />
     </application>
+
 </manifest>

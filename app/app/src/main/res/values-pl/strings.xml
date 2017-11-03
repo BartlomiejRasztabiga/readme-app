@@ -68,4 +68,6 @@
     <string name="field_empty">Pole nie może być puste</string>
 
     <string name="about_info">ReadMe to aplikacja stworzona przez Infinite Future - zespół młodych programistów aplikacji na platformę Android</string>
+    <string name="notification_title">Nie czytałeś ostatnio żadnych książek?</string>
+    <string name="notification_content">Dodaj nową sesję czytania</string>
 </resources>
