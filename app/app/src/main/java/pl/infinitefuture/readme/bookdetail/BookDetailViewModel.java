@@ -213,7 +213,7 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         Long nowDateInMillis = new Date().getTime();
         Long deadlineDateInMillis = book.getDeadlineDate().getTime();
         Double daysBetween = daysBetween(nowDateInMillis, deadlineDateInMillis);
-        this.daysLeft.set(Math.round(daysBetween));
+        this.daysLeft.set((long) Math.ceil(daysBetween));
 
         // calculate readingTempo
         Long startDateInMilis = book.getStartDate().getTime();
