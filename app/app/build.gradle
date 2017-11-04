@@ -169,6 +169,7 @@ dependencies {
     implementation 'com.github.pavlospt:roundedletterview:1.2'
     implementation 'com.github.medyo:android-about-page:1.2.1'
     implementation 'com.hudomju:swipe-to-dismiss-undo:1.0'
+    implementation 'com.github.apl-devs:appintro:v4.2.2'
 
     // Fabric
     compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {

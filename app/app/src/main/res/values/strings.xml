@@ -80,4 +80,14 @@
     <string name="about_info">ReadMe is an app made by Infinite Future - the team of young Android Developers</string>
     <string name="archives_search_title">Search book</string>
     <string name="archives_search_hint">Search book</string>
+
+    <string name="intro_1_title">Welcome to ReadMe app</string>
+    <string name="intro_1_desc">This app will help you manage all your reading books</string>
+    <string name="intro_2_title">You can add your reading books to list</string>
+    <string name="intro_2_desc">It will help you remember what you have to read</string>
+    <string name="intro_3_title">Tempo and estimates</string>
+    <string name="intro_3_desc">App will track your reading sessions and count tempo with other statistics</string>
+    <string name="intro_4_title">You can now use our app!</string>
+    <string name="intro_4_desc">We hope you will like it. If yes, please rate us on Google Play</string>
+
 </resources>
