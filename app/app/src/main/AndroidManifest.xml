@@ -36,7 +36,8 @@
             android:name=".sessions.SessionsActivity"
             android:screenOrientation="portrait" />
 
-        <receiver android:name=".notifications.AlarmReceiver"
+        <receiver
+            android:name=".notifications.AlarmReceiver"
             android:exported="false" />
 
         <meta-data

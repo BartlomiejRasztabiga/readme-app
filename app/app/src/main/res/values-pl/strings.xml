@@ -70,4 +70,6 @@
     <string name="about_info">ReadMe to aplikacja stworzona przez Infinite Future - zespół młodych programistów aplikacji na platformę Android</string>
     <string name="notification_title">Nie czytałeś ostatnio żadnych książek?</string>
     <string name="notification_content">Dodaj nową sesję czytania</string>
+    <string name="archives_search_title">Wyszukaj książkę</string>
+    <string name="archives_search_hint">Wyszukaj książkę</string>
 </resources>
