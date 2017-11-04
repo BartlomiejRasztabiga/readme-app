@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
@@ -27,6 +26,7 @@ import pl.infinitefuture.readme.about.AboutFragment;
 import pl.infinitefuture.readme.addeditbook.AddEditBookActivity;
 import pl.infinitefuture.readme.bookdetail.BookDetailActivity;
 import pl.infinitefuture.readme.archives.ArchivesFragment;
+import pl.infinitefuture.readme.completedbook.CompletedBookDetailsActivity;
 import pl.infinitefuture.readme.util.ActivityUtils;
 
 public class BooksActivity extends AppCompatActivity implements BooksNavigator, BookItemNavigator {
@@ -56,8 +56,7 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
         mViewModel.getOpenBookEvent().observe(this, book -> {
             if (book != null) {
                 if (book.isCompleted()) {
-                    Toast.makeText(this, "TODO: Completed book details", Toast.LENGTH_SHORT).show();
-                    openBookDetails(book.getId());
+                    openCompletedBookDetails(book.getId());
                 } else {
                     openBookDetails(book.getId());
                 }
@@ -174,6 +173,19 @@ public class BooksActivity extends AppCompatActivity implements BooksNavigator, 
 
         Intent intent = new Intent(this, BookDetailActivity.class);
         intent.putExtra(BookDetailActivity.EXTRA_BOOK_ID, bookId);
+        startActivityForResult(intent, AddEditBookActivity.REQUEST_CODE);
+    }
+
+    @Override
+    public void openCompletedBookDetails(Long bookId) {
+        // Send event to Analytics
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Open completed book details")
+                .build());
+
+        Intent intent = new Intent(this, CompletedBookDetailsActivity.class);
+        intent.putExtra(CompletedBookDetailsActivity.EXTRA_BOOK_ID, bookId);
         startActivityForResult(intent, AddEditBookActivity.REQUEST_CODE);
     }
 

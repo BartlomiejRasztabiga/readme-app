@@ -89,5 +89,8 @@
     <string name="intro_3_desc">App will track your reading sessions and count tempo with other statistics</string>
     <string name="intro_4_title">You can now use our app!</string>
     <string name="intro_4_desc">We hope you will like it. If yes, please rate us on Google Play</string>
+    <string name="start_date">Start date</string>
+    <string name="complete_date">Complete date</string>
+    <string name="average_tempo">Average tempo</string>
 
 </resources>

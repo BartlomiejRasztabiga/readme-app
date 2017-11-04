@@ -1,22 +1,15 @@
-package pl.infinitefuture.readme.bookdetail;
+package pl.infinitefuture.readme.completedbook;
 
-import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -24,13 +17,6 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
-import pl.infinitefuture.readme.EditTextBindingAdapters;
 import pl.infinitefuture.readme.R;
 import pl.infinitefuture.readme.ReadMeApplication;
 import pl.infinitefuture.readme.ViewModelFactory;
@@ -45,7 +31,7 @@ import static pl.infinitefuture.readme.bookdetail.BookDetailFragment.REQUEST_EDI
 /**
  * Displays book details screen.
  */
-public class BookDetailActivity extends AppCompatActivity implements BookDetailNavigator {
+public class CompletedBookDetailsActivity extends AppCompatActivity implements CompletedBookDetailsNavigator {
 
     private static final String TAG = "CompletedBookDetailsActivity";
 
@@ -55,7 +41,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
 
     public static final int EDIT_RESULT_OK = RESULT_FIRST_USER + 3;
 
-    private BookDetailViewModel mBookViewModel;
+    private CompletedBookDetailViewModel mBookViewModel;
 
     private InterstitialAd mInterstitial;
 
@@ -64,7 +50,7 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bookdetail_act);
+        setContentView(R.layout.completedbookdetail_act);
 
         setupToolbar();
 
@@ -103,10 +89,10 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
     }
 
     private void setupViewFragment() {
-        BookDetailFragment bookDetailFragment = findOrCreateViewFragment();
+        CompletedBookDetailFragment completedBookDetailFragment = findOrCreateViewFragment();
 
         ActivityUtils.replaceFragmentInActivity(getSupportFragmentManager(),
-                bookDetailFragment, R.id.contentFrame);
+                completedBookDetailFragment, R.id.contentFrame);
     }
 
     private void setupAd() {
@@ -141,33 +127,32 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
     }
 
     @NonNull
-    private BookDetailFragment findOrCreateViewFragment() {
+    private CompletedBookDetailFragment findOrCreateViewFragment() {
         // Get the requested book id
         Long bookId = getIntent().getLongExtra(EXTRA_BOOK_ID, 0L);
 
-        BookDetailFragment bookDetailFragment = (BookDetailFragment) getSupportFragmentManager()
+        CompletedBookDetailFragment completedBookDetailFragment = (CompletedBookDetailFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);
 
-        if (bookDetailFragment == null) {
-            bookDetailFragment = BookDetailFragment.newInstance(bookId);
+        if (completedBookDetailFragment == null) {
+            completedBookDetailFragment = CompletedBookDetailFragment.newInstance(bookId);
         }
-        return bookDetailFragment;
+        return completedBookDetailFragment;
     }
 
     @NonNull
-    public static BookDetailViewModel obtainViewModel(FragmentActivity activity) {
+    public static CompletedBookDetailViewModel obtainViewModel(FragmentActivity activity) {
         // Use a Factory to inject dependencies into the ViewModel
         ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
 
-        return ViewModelProviders.of(activity, factory).get(BookDetailViewModel.class);
+        return ViewModelProviders.of(activity, factory).get(CompletedBookDetailViewModel.class);
     }
 
-    private void subscribeToNavigationChanges(BookDetailViewModel viewModel) {
+    private void subscribeToNavigationChanges(CompletedBookDetailViewModel viewModel) {
         // The activity observes the navigation commands in the ViewModel
-        viewModel.getEditBookCommand().observe(this, e -> BookDetailActivity.this.onStartEditBook());
-        viewModel.getDeleteBookCommand().observe(this, e -> BookDetailActivity.this.onBookDeleted());
-        viewModel.getAddSessionCommand().observe(this, e -> BookDetailActivity.this.onStartAddSession());
-        viewModel.getOpenSessionsCommand().observe(this, e -> BookDetailActivity.this.onOpenSessionsList());
+        viewModel.getEditBookCommand().observe(this, e -> CompletedBookDetailsActivity.this.onStartEditBook());
+        viewModel.getDeleteBookCommand().observe(this, e -> CompletedBookDetailsActivity.this.onBookDeleted());
+        viewModel.getOpenSessionsCommand().observe(this, e -> CompletedBookDetailsActivity.this.onOpenSessionsList());
     }
 
     @Override
@@ -211,73 +196,6 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
         startActivity(intent);
     }
 
-    @Override
-    public void onStartAddSession() {
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        Calendar newDate = Calendar.getInstance();
-        View dialogView = inflater.inflate(R.layout.addsession_dialog, null);
-        TextInputEditText page = dialogView.findViewById(R.id.add_session_current_page);
-
-        TextInputLayout pagesInputLayout = dialogView.findViewById(R.id.add_session_dialog_pages_layout);
-        TextInputLayout dateInputLayout = dialogView.findViewById(R.id.add_session_dialog_date_layout);
-
-        // set default date to now
-        ((TextInputEditText)dialogView.findViewById(R.id.add_session_date))
-                .setText(EditTextBindingAdapters.dateToStr(newDate.getTime()));
-
-        dialogView.findViewById(R.id.add_session_date).setOnFocusChangeListener((view, hasFocus) -> {
-            if (hasFocus) {
-                showDatePickerDialog(dialogView, newDate);
-            }
-        });
-
-        dialogView.findViewById(R.id.add_session_date).setOnClickListener(view -> {
-           showDatePickerDialog(dialogView, newDate);
-        });
-
-        builder.setView(dialogView)
-                .setPositiveButton(R.string.add, (dialogInterface, i) -> {
-                    // ignore
-                })
-                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                    // ignore
-                });
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            Boolean wantToCloseDialog = true;
-            if (page.getText() == null || page.getText().toString().equals("")
-                    || newDate.getTime() == null) {
-                pagesInputLayout.setError(getString(R.string.field_empty));
-                dateInputLayout.setError(getString(R.string.field_empty));
-                wantToCloseDialog = false;
-            } else if (newDate.getTime().getTime() > new Date().getTime()) {
-                pagesInputLayout.setErrorEnabled(false);
-                dateInputLayout.setError(getString(R.string.session_date_after_now));
-                wantToCloseDialog = false;
-            } else if (newDate.getTime().getTime() < mBookViewModel.book.get().getStartDate().getTime()) {
-                pagesInputLayout.setErrorEnabled(false);
-                dateInputLayout.setError(getString(R.string.session_date_before_start_date));
-                wantToCloseDialog = false;
-            } else {
-                pagesInputLayout.setErrorEnabled(false);
-                dateInputLayout.setErrorEnabled(false);
-            }
-            if (wantToCloseDialog) {
-                //show ad
-                showInterstitial();
-
-                Long currentPage = Long.valueOf(page.getText().toString());
-                mBookViewModel.addReadingSession(currentPage, newDate.getTime());
-                dialog.dismiss();
-            }
-        });
-
-    }
-
     private void showInterstitial() {
         // show ad
         if (mInterstitial.isLoaded()) {
@@ -286,28 +204,4 @@ public class BookDetailActivity extends AppCompatActivity implements BookDetailN
             Log.d(TAG, "The interstitial wasn't loaded yet");
         }
     }
-
-    private void showDatePickerDialog(View dialogView, Calendar newDate) {
-        Calendar calendar = Calendar.getInstance();
-        int currentYear = calendar.get(Calendar.YEAR);
-        int currentMonth = calendar.get(Calendar.MONTH);
-        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this, (datePicker, year, month, day) -> {
-            DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            newDate.set(Calendar.YEAR, year);
-            newDate.set(Calendar.MONTH, month);
-            newDate.set(Calendar.DAY_OF_MONTH, day);
-
-            // set edittext value to chosen date
-            ((TextInputEditText) dialogView.findViewById(R.id.add_session_date))
-                    .setText(sdf.format(newDate.getTime()));
-        },
-                currentYear, currentMonth, currentDay);
-
-        datePickerDialog.show();
-    }
-
-
 }

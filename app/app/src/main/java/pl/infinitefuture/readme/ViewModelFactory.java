@@ -20,11 +20,13 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
+import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
 import pl.infinitefuture.readme.addeditbook.AddEditBookViewModel;
 import pl.infinitefuture.readme.bookdetail.BookDetailViewModel;
 import pl.infinitefuture.readme.books.BooksViewModel;
+import pl.infinitefuture.readme.completedbook.CompletedBookDetailViewModel;
 import pl.infinitefuture.readme.sessions.SessionsViewModel;
 
 /**
@@ -63,7 +65,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     }
 
     @Override
-    public <T extends ViewModel> T create(Class<T> modelClass) {
+    @NonNull
+    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(BooksViewModel.class)) {
             //noinspection unchecked
             return (T) new BooksViewModel(mApplication, Injection.provideBooksRepository(mApplication.getApplicationContext()));
@@ -75,6 +78,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         } else if (modelClass.isAssignableFrom(SessionsViewModel.class)) {
             return (T) new SessionsViewModel(mApplication, Injection.provideReadingSessionsRepository(mApplication.getApplicationContext()),
                     Injection.provideBooksRepository(mApplication.getApplicationContext()));
+        } else if (modelClass.isAssignableFrom(CompletedBookDetailViewModel.class)) {
+            return (T) new CompletedBookDetailViewModel(mApplication, Injection.provideBooksRepository(mApplication.getApplicationContext()),
+                    Injection.provideReadingSessionsRepository(mApplication.getApplicationContext()));
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

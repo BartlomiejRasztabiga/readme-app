@@ -35,6 +35,9 @@
             android:name=".bookdetail.BookDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".completedbook.CompletedBookDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".sessions.SessionsActivity"
             android:screenOrientation="portrait" />
 

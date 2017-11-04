@@ -80,4 +80,7 @@
     <string name="intro_3_desc">Aplikacja śledzi Twoje sesje czytania i liczy tempo oraz inne statystyki</string>
     <string name="intro_4_title">Możesz teraz korzystać z naszej aplikacji!</string>
     <string name="intro_4_desc">Mamy nadzieję, że Ci się ona spodoba. Jeśli tak, oceń nas na Google Play</string>
+    <string name="start_date">Data rozpoczęcia</string>
+    <string name="complete_date">Data zakończenia</string>
+    <string name="average_tempo">Średnie tempo</string>
 </resources>
