@@ -171,7 +171,7 @@ dependencies {
     implementation 'com.hudomju:swipe-to-dismiss-undo:1.0'
 
     // Fabric
-    compile('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
         transitive = true;
     }
     compile('com.crashlytics.sdk.android:answers:1.4.0@aar') {
