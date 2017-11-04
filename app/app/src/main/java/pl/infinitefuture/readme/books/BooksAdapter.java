@@ -31,6 +31,7 @@ public class BooksAdapter extends BaseAdapter {
 
     public BooksAdapter(List<Book> books, BooksViewModel booksViewModel) {
         mBooksViewModel = booksViewModel;
+        mBooksCopy = new ArrayList<>(books);
         setList(books);
     }
 
