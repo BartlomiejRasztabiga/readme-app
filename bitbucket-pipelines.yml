@@ -15,6 +15,7 @@ pipelines:
         script: # Modify the commands below to build your repository.
           # You must commit the Gradle wrapper to your repository
           # https://docs.gradle.org/current/userguide/gradle_wrapper.html 
+          - unset ANDROID_NDK_HOME
           - cd app/
           - mkdir -p "${ANDROID_HOME}/licenses"
           - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "${ANDROID_HOME}/licenses/android-sdk-license"
