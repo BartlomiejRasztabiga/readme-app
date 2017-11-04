@@ -1,0 +1,115 @@
+{
+  "project_info": {
+    "project_number": "528894655227",
+    "firebase_url": "https://readme-8735c.firebaseio.com",
+    "project_id": "readme-8735c",
+    "storage_bucket": "readme-8735c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528894655227:android:208f751ed72f7cc9",
+        "android_client_info": {
+          "package_name": "pl.infinitefuture.readme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "528894655227-6ompvua29d3pern4nrsph11lngtv3d91.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.infinitefuture.readme",
+            "certificate_hash": "642a4b7103aa6073c109e3f7d750b3604fe5f95c"
+          }
+        },
+        {
+          "client_id": "528894655227-t0s19v8omlpvfussnpmo339r9ajqfo3a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.infinitefuture.readme",
+            "certificate_hash": "b4643f12e639fc824365a3ad1dbe125a02b6ebac"
+          }
+        },
+        {
+          "client_id": "528894655227-0kc3f89q9lpkqkco8mrgqfitomtr82f0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhv1Lltf0G_fD3QB-54uqVQ_HKTcTcxmk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "528894655227-0kc3f89q9lpkqkco8mrgqfitomtr82f0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528894655227:android:cfa399c75809bc0c",
+        "android_client_info": {
+          "package_name": "pl.infinitefuture.readme.mock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "528894655227-7hjt92532s0e41emr0fsqdllep5b4kb3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.infinitefuture.readme.mock",
+            "certificate_hash": "642a4b7103aa6073c109e3f7d750b3604fe5f95c"
+          }
+        },
+        {
+          "client_id": "528894655227-30dnjd0aisglprhbebdp71dc7hsuc24c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.infinitefuture.readme.mock",
+            "certificate_hash": "b4643f12e639fc824365a3ad1dbe125a02b6ebac"
+          }
+        },
+        {
+          "client_id": "528894655227-0kc3f89q9lpkqkco8mrgqfitomtr82f0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhv1Lltf0G_fD3QB-54uqVQ_HKTcTcxmk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "528894655227-0kc3f89q9lpkqkco8mrgqfitomtr82f0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

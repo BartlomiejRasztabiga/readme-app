@@ -35,7 +35,8 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return new AboutPage(getActivity())
                 .isRTL(false)
-                .setImage(R.drawable.ic_book_black_24dp)
+                .setDescription(getString(R.string.about_info))
+                .setImage(R.mipmap.ic_launcher)
                 .addItem(new Element().setTitle(getString(R.string.version) + " " + versionName()))
                 .addGroup(getString(R.string.connect_with_us))
                 .addEmail("kontakt@bartlomiej-rasztabiga.pl")
@@ -60,7 +61,7 @@ public class AboutFragment extends Fragment {
 
     private Element getCreditsElement() {
         Element creditsElement = new Element();
-        String credits = "Book icon made by Freepik from www.flaticon.com";
+        String credits = "Icons made by Freepik from www.flaticon.com";
         creditsElement.setTitle(credits);
         return creditsElement;
     }

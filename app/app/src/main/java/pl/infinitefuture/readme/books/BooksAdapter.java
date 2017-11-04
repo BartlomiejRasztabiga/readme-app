@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.github.pavlospt.roundedletterview.RoundedLetterView;
+import com.google.common.base.Strings;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +25,9 @@ public class BooksAdapter extends BaseAdapter {
     private final BooksViewModel mBooksViewModel;
 
     private List<Book> mBooks;
+    private List<Book> mBooksCopy;
+
+    private boolean firstLoad = true;
 
     public BooksAdapter(List<Book> books, BooksViewModel booksViewModel) {
         mBooksViewModel = booksViewModel;
@@ -30,7 +35,28 @@ public class BooksAdapter extends BaseAdapter {
     }
 
     public void replaceData(List<Book> books) {
+        //keep original books list on first load (double check that only completed books are loaded)
+        if (firstLoad && (books != null && !books.isEmpty() && books.get(0).isCompleted())) {
+            mBooksCopy = new ArrayList<>(books);
+            firstLoad = false;
+        }
         setList(books);
+    }
+
+    public void filter(String text) {
+        mBooks.clear();
+        if (Strings.isNullOrEmpty(text)) {
+            mBooks.addAll(mBooksCopy);
+        } else {
+            String lowerCaseTitle = text.toLowerCase();
+            for (Book book : mBooksCopy) {
+                String bookTitleLowerCase = book.getTitle() != null ? book.getTitle().toLowerCase() : "";
+                if (bookTitleLowerCase.contains(lowerCaseTitle)) {
+                    mBooks.add(book);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -91,9 +117,9 @@ public class BooksAdapter extends BaseAdapter {
         Long startDateInMilis = book.getStartDate().getTime();
         Long deadlineDateInMillis = book.getDeadlineDate().getTime();
 
-        Long daysBetween = daysBetween(nowDateInMillis, deadlineDateInMillis);
-        Long daysSinceStart = daysBetween(startDateInMilis, nowDateInMillis);
-        Double tempo = ((double) readPages) / ((double) daysSinceStart);
+        Double daysBetween = daysBetween(nowDateInMillis, deadlineDateInMillis);
+        Double daysSinceStart = daysBetween(startDateInMilis, nowDateInMillis);
+        Double tempo = ((double) readPages / daysSinceStart);
 
         Boolean isReadingTempoGood = false;
         if ((tempo != 0) && ((totalPages - readPages) / tempo <= daysBetween))
@@ -131,8 +157,8 @@ public class BooksAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private Long daysBetween(Long date1, Long date2) {
-        Long daysBetween = Math.round((double) (date2 - date1) / (1000 * 60 * 60 * 24));
+    private Double daysBetween(Long date1, Long date2) {
+        Double daysBetween = (double) (date2 - date1) / (1000 * 60 * 60 * 24);
         return daysBetween > 0 ? daysBetween : 1L; //prevent situation when now == startDate
     }
 

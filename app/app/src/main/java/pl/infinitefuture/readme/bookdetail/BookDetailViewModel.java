@@ -212,13 +212,13 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         // calculate daysLeft
         Long nowDateInMillis = new Date().getTime();
         Long deadlineDateInMillis = book.getDeadlineDate().getTime();
-        Long daysBetween = daysBetween(nowDateInMillis, deadlineDateInMillis);
-        this.daysLeft.set(daysBetween);
+        Double daysBetween = daysBetween(nowDateInMillis, deadlineDateInMillis);
+        this.daysLeft.set((long) Math.ceil(daysBetween));
 
         // calculate readingTempo
         Long startDateInMilis = book.getStartDate().getTime();
-        Long daysSinceStart = daysBetween(startDateInMilis, nowDateInMillis);
-        Double tempo = ((double) readPages) / ((double) daysSinceStart);
+        Double daysSinceStart = daysBetween(startDateInMilis, nowDateInMillis);
+        Double tempo = ((double) readPages / daysSinceStart);
         this.readingTempo.set(Math.round(tempo));
 
         // calculate hasGoodReadingTempo
@@ -229,8 +229,8 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
 
         // calculate readingTempoToMakeItToDeadline
         if (!isReadingTempoGood) {
-            Long tempoToMakeIt = (totalPages - readPages) / daysBetween;
-            this.readingTempoToMakeIt.set(tempoToMakeIt);
+            Double tempoToMakeIt = (totalPages - readPages) / daysBetween;
+            this.readingTempoToMakeIt.set(Math.round(tempoToMakeIt));
         }
 
     }
@@ -251,8 +251,8 @@ public class BookDetailViewModel extends AndroidViewModel implements BooksDataSo
         mSnackbarText.setValue(message);
     }
 
-    private Long daysBetween(Long date1, Long date2) {
-        Long daysBetween = Math.round((double) (date2 - date1) / (1000 * 60 * 60 * 24));
+    private Double daysBetween(Long date1, Long date2) {
+        Double daysBetween = (double) (date2 - date1) / (1000 * 60 * 60 * 24);
         return daysBetween > 0 ? daysBetween : 1L; //prevent situation when now == startDate
     }
 }

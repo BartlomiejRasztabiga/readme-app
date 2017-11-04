@@ -73,4 +73,11 @@
     <string name="you_have_read">You have read</string>
     <string name="session_date_before_start_date">Session date cannot be set before book start date</string>
     <string name="field_empty">Field cannot be empty</string>
+
+    <string name="notification_title">You haven\'t read any books last time, have you?</string>
+    <string name="notification_content">Add new reading session now</string>
+
+    <string name="about_info">ReadMe is an app made by Infinite Future - the team of young Android Developers</string>
+    <string name="archives_search_title">Search book</string>
+    <string name="archives_search_hint">Search book</string>
 </resources>

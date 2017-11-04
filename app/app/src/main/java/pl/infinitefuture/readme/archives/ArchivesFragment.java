@@ -1,12 +1,15 @@
 package pl.infinitefuture.readme.archives;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -15,17 +18,18 @@ import java.util.ArrayList;
 
 import pl.infinitefuture.readme.R;
 import pl.infinitefuture.readme.ScrollChildSwipeRefreshLayout;
-import pl.infinitefuture.readme.ViewModelFactory;
 import pl.infinitefuture.readme.books.BooksActivity;
 import pl.infinitefuture.readme.books.BooksAdapter;
 import pl.infinitefuture.readme.books.BooksViewModel;
 import pl.infinitefuture.readme.databinding.BooksFragBinding;
 
-public class ArchivesFragment extends Fragment {
+public class ArchivesFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private BooksViewModel mArchivesViewModel;
 
     private BooksFragBinding mArchivesFragBinding;
+
+    private BooksAdapter mAdapter;
 
     public ArchivesFragment() {
         // Requires empty public constructor
@@ -67,11 +71,11 @@ public class ArchivesFragment extends Fragment {
     private void setupListAdapter() {
         ListView listView = mArchivesFragBinding.booksList;
 
-        BooksAdapter mListAdapter = new BooksAdapter(
+        mAdapter = new BooksAdapter(
                 new ArrayList<>(0),
                 mArchivesViewModel
         );
-        listView.setAdapter(mListAdapter);
+        listView.setAdapter(mAdapter);
     }
 
     private void setupRefreshLayout() {
@@ -86,4 +90,24 @@ public class ArchivesFragment extends Fragment {
         swipeRefreshLayout.setScrollUpChild(listView);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.archives_menu, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        mAdapter.filter(newText);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        mAdapter.filter(query);
+        return false;
+    }
 }
