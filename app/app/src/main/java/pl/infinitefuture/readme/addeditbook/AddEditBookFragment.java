@@ -128,7 +128,7 @@ public class AddEditBookFragment extends Fragment {
     private void setupFab() {
         FloatingActionButton fab = getActivity().findViewById(R.id.fab_edit_book_done);
         fab.setImageResource(R.drawable.ic_done);
-        fab.setOnClickListener(v -> mViewModel.saveBook());
+        fab.setOnClickListener(v -> mViewModel.saveBook(getView()));
     }
 
     private void setupActionBar() {

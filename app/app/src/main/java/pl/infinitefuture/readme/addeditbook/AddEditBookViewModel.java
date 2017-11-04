@@ -6,8 +6,11 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.View;
+
+import com.google.common.base.Strings;
 
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
@@ -108,28 +111,54 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
     }
 
     // Called when clicking on fab.
-    void saveBook() {
+    void saveBook(View v) {
+        TextInputLayout bookTitleLayout = v.findViewById(R.id.add_book_title_layout);
+        TextInputLayout bookFirstPageLayout = v.findViewById(R.id.add_book_firstpage_layout);
+        TextInputLayout bookLastPageLayout = v.findViewById(R.id.add_book_pages_layout);
+        TextInputLayout bookStartDateLayout = v.findViewById(R.id.add_book_start_date_layout);
+        TextInputLayout bookEndDateLayout = v.findViewById(R.id.add_book_deadline_date_layout);
+
+        bookTitleLayout.setErrorEnabled(false);
+        bookFirstPageLayout.setErrorEnabled(false);
+        bookLastPageLayout.setErrorEnabled(false);
+        bookStartDateLayout.setErrorEnabled(false);
+        bookEndDateLayout.setErrorEnabled(false);
+
+        boolean errorInForm = false;
+
         try {
             Date bookStartDate = EditTextBindingAdapters.strToDate(this.startDate.get());
             Date bookDeadlineDate = EditTextBindingAdapters.strToDate(this.deadlineDate.get());
 
             // check if deadlineDate is before startDate
             if (bookStartDate.getTime() >= bookDeadlineDate.getTime()) {
-                mSnackbarText.setValue(R.string.end_before_start_date_message);
+                bookEndDateLayout.setError(getApplication().getString(R.string.end_before_start_date_message));
+                errorInForm = true;
+            }
+
+            // check if title is empty
+            if (Strings.isNullOrEmpty(this.title.get())) {
+                bookTitleLayout.setError(getApplication().getString(R.string.field_empty));
+                errorInForm = true;
+            }
+
+            //check if startPage and lastPage are empty
+            if (this.firstPage.get() == null || this.lastPage.get() == null) {
+                bookFirstPageLayout.setError(getApplication().getString(R.string.field_empty));
+                bookLastPageLayout.setError(getApplication().getString(R.string.field_empty));
                 return;
             }
 
             // check if lastPage is before startPage
             if (this.lastPage.get() <= this.firstPage.get()) {
-                mSnackbarText.setValue(R.string.last_page_before_first_page);
-                return;
+                bookLastPageLayout.setError(getApplication().getString(R.string.last_page_before_first_page));
+                errorInForm = true;
             }
 
             Book book = new Book(title.get(), firstPage.get(), lastPage.get(), bookStartDate, bookDeadlineDate);
-            if (book.isEmpty()) {
-                mSnackbarText.setValue(R.string.empty_book_message);
-                return;
-            }
+
+            if (errorInForm) return;
+
             if (!mIsNewBook && mBookId != null) {
                 book = new Book(mBookId, title.get(), firstPage.get(), lastPage.get(),
                         readPages.get(), bookStartDate, bookDeadlineDate, mBookCompleted,
@@ -139,7 +168,8 @@ public class AddEditBookViewModel extends AndroidViewModel implements BooksDataS
                 saveBook(book);
             }
         } catch (ParseException | InvalidDateException e) {
-            mSnackbarText.setValue(R.string.invalid_date_message);
+            bookStartDateLayout.setError(getApplication().getString(R.string.invalid_date_message));
+            bookEndDateLayout.setError(getApplication().getString(R.string.invalid_date_message));
         }
 
     }
