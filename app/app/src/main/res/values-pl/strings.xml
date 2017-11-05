@@ -72,4 +72,15 @@
     <string name="notification_content">Dodaj nową sesję czytania</string>
     <string name="archives_search_title">Wyszukaj książkę</string>
     <string name="archives_search_hint">Wyszukaj książkę</string>
+    <string name="intro_1_title">Witaj w aplikacji ReadMe</string>
+    <string name="intro_1_desc">Ta aplikacja pomoże Ci lepiej zarządzać czytanymi książkami</string>
+    <string name="intro_2_title">Możesz dodawać czytane książki do listy</string>
+    <string name="intro_2_desc">Dzięki temu nie musisz pamiętać co aktualnie masz do przeczytania</string>
+    <string name="intro_3_title">Tempo i przewidywania</string>
+    <string name="intro_3_desc">Aplikacja śledzi Twoje sesje czytania i liczy tempo oraz inne statystyki</string>
+    <string name="intro_4_title">Możesz teraz korzystać z naszej aplikacji!</string>
+    <string name="intro_4_desc">Mamy nadzieję, że Ci się ona spodoba. Jeśli tak, oceń nas na Google Play</string>
+    <string name="start_date">Data rozpoczęcia</string>
+    <string name="complete_date">Data zakończenia</string>
+    <string name="average_tempo">Średnie tempo</string>
 </resources>

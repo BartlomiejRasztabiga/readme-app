@@ -1,6 +1,5 @@
 package pl.infinitefuture.readme.splash;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.Date;
 
 import pl.infinitefuture.readme.books.BooksActivity;
+import pl.infinitefuture.readme.intro.IntroActivity;
 import pl.infinitefuture.readme.notifications.AlarmReceiver;
 import pl.infinitefuture.readme.notifications.NotificationScheduler;
 
@@ -27,7 +27,13 @@ public class SplashActivity extends AppCompatActivity {
                 .putLong("last_visit", new Date().getTime())
                 .apply();
 
-        Intent intent = new Intent(SplashActivity.this, BooksActivity.class);
+        Intent intent;
+        if (preferences.getBoolean("first_run", true)) {
+            intent = new Intent(SplashActivity.this, IntroActivity.class);
+        } else {
+            intent = new Intent(SplashActivity.this, BooksActivity.class);
+        }
+
         startActivity(intent);
         finish();
     }

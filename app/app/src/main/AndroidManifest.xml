@@ -23,6 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".intro.IntroActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".books.BooksActivity"
             android:screenOrientation="portrait" />
@@ -31,6 +33,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".bookdetail.BookDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".completedbook.CompletedBookDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".sessions.SessionsActivity"

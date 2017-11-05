@@ -22,4 +22,6 @@ package pl.infinitefuture.readme.books;
 public interface BookItemNavigator {
 
     void openBookDetails(Long bookId);
+
+    void openCompletedBookDetails(Long bookId);
 }
