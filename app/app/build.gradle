@@ -34,8 +34,8 @@ android {
         applicationId "pl.infinitefuture.readme"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 14
-        versionName "1.0.0 RC 1"
+        versionCode 15
+        versionName "1.0.0 RC 2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         signingConfig signingConfigs.config
